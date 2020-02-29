@@ -1,0 +1,40 @@
+108 Cards
+Four Suites Red, Green, Yellow and Blue
+Each suit has 1*0, 2 of each card number 1-9
+Each suit also has two draw cards, two skip cards and two reverse cards
+Finally there are 4 wild card and four wild draw cards
+
+
+Thougts about classes
+
+Player
+------
+mStringName
+mIntNumber
+mIntScore
+mListCardsHeld
+
+Deck
+
+Card
+----
+mType // Enum - number, special(draw, skip, reverse), wild
+mImage // image
+mLocation// deck(unused), deck(used), playerNumber?????? Maybe not needed leaving here for now. 
+
+SuitCard: Inherits from Card
+------------------------------
+mColour// Enum - red, green, blue, yellow
+mSuitType// Enum - draw, skip, reverse, number
+
+NumberCard: Inherits from SuitCard
+----------------------------------
+mIntNumber
+
+WildCard: Inherits From Card
+-------------------------------
+mBoolDrawCards // 
+mBoolNextColour//
+
+
+
