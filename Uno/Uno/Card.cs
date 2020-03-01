@@ -8,13 +8,11 @@ namespace Uno
 {
     class Card
     {
-        enum Type
-        {
-            Suit,
-            Wild
-        }
-
-        private Type mType;
         private Image mImage;
+
+        public Card ()
+        {
+
+        }
     }
 }
