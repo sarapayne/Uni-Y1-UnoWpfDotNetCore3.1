@@ -42,6 +42,9 @@ namespace Uno
 #line hidden
         }
 
+        static UnoGame unoGame; //central point to be saved and restored to. Will allow easy imaging of any game state. 
+        static Dictionary<int, Card> deck; //dictionary with all 108 cards present. Everything else will references this for information by key (ints). //will allow for one off generation of the dictionary and binary save/restore there after. 
+
         /// <summary>
         /// Application Entry Point.
         /// </summary>

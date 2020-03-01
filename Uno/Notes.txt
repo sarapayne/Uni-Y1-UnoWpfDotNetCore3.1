@@ -5,7 +5,14 @@ Each suit also has two draw cards, two skip cards and two reverse cards
 Finally there are 4 wild card and four wild draw cards
 
 
-Thougts about classes
+
+Games are all run form a centralised games class - This will allow the saving an restoring of games in any state at any time. The whole game object will simply need saving as a binary.
+
+All Cards stored in a dictionary - dictionary need only be generated once then can be stored and retrieved as a binary. 
+
+GameClass
+----------
+
 
 Player
 ------
