@@ -21,6 +21,8 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Uno;
 
 namespace Uno
@@ -44,6 +46,7 @@ namespace Uno
 
         static UnoGame unoGame; //central point to be saved and restored to. Will allow easy imaging of any game state. 
         static Dictionary<int, Card> deck; //dictionary with all 108 cards present. Everything else will references this for information by key (ints). //will allow for one off generation of the dictionary and binary save/restore there after. 
+        static string dictionaryFileName = "Dictionary.Bin";
 
         /// <summary>
         /// Application Entry Point.
@@ -53,15 +56,33 @@ namespace Uno
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.8.1.0")]
         public static void Main()
         {
-            
+            deck = new Dictionary<int, Card>();
+            LoadDictionary();
             Uno.App app = new Uno.App();
             app.InitializeComponent();
             app.Run();
         }
 
+        static void LoadDictionary()
+        {
+            try
+            {
+                using (Stream stream = File.Open (dictionaryFileName, FileMode.Open  ))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    deck = (Dictionary<int, Card>)bin.Deserialize(stream);
+                }
+            }
+            catch(IOException)
+            {
+                MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
+                GenerateCardDictionary();
+            }
+        }
+
         static void GenerateCardDictionary()
         {
-            SpecialType
+            
         }
     }
 }
