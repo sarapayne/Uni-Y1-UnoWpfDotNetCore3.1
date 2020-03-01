@@ -53,9 +53,15 @@ namespace Uno
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.8.1.0")]
         public static void Main()
         {
+            
             Uno.App app = new Uno.App();
             app.InitializeComponent();
             app.Run();
+        }
+
+        static void GenerateCardDictionary()
+        {
+            SpecialType
         }
     }
 }

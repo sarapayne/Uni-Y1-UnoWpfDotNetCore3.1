@@ -10,9 +10,9 @@ namespace Uno
     {
         private Image mImage;
 
-        public Card ()
+        public Card (Image pImage)
         {
-
+            this.mImage = pImage;
         }
     }
 }
