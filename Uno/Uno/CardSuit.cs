@@ -16,7 +16,7 @@ namespace Uno
             Red, Gree, Blue, Yellow
         }
 
-        SuitType mSuitType;
-        Suit mSuit;
+        private SuitType mSuitType;
+        private Suit mSuit;
     }
 }
