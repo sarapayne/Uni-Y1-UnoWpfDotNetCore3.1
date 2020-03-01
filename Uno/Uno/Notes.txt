@@ -27,7 +27,7 @@ Card
 ----
 mType // Enum - number, special(draw, skip, reverse), wild
 mImage // image
-mLocation// deck(unused), deck(used), playerNumber?????? Maybe not needed leaving here for now. 
+
 
 SuitCard: Inherits from Card
 ------------------------------
