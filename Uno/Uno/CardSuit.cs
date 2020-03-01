@@ -11,11 +11,6 @@ namespace Uno
             Number, Draw, Skip, Reverse
         }
 
-        enum Suit
-        {
-            Red, Gree, Blue, Yellow
-        }
-
         private SuitType mSuitType;
         private Suit mSuit;
     }
