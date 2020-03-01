@@ -82,7 +82,24 @@ namespace Uno
 
         static void GenerateCardDictionary()
         {
-            
+            //add code here to generate the dictionary.
+            SaveDictionary();
+        }
+
+        static void SaveDictionary()
+        {
+            try
+            {
+                using (Stream stream = File.Open(dictionaryFileName, FileMode.Create))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    bin.Serialize(stream, deck);
+                }
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Sorry there was an error saving the setup files, is the drive writable?", "Save dictionary error");
+            }
         }
     }
 }
