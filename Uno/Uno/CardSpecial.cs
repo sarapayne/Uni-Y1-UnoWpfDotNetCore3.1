@@ -5,11 +5,13 @@ using System.Windows.Controls;
 
 namespace Uno
 {
+    [Serializable()]
     enum SpecialType
     {
         Reverse, Skip, Draw
     }
 
+    [Serializable()]
     class CardSpecial: CardSuit
     {
         private SpecialType mSpecialType;

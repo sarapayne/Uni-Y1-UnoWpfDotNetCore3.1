@@ -5,6 +5,7 @@ using System.Windows.Controls;
 
 namespace Uno
 {
+    [Serializable()]
     class CardNumber: CardSuit
     {
         private int mNumber;

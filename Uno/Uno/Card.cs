@@ -6,6 +6,7 @@ using System.Windows.Controls;
 
 namespace Uno
 {
+    [Serializable()]
     class Card
     {
         private string mImage;

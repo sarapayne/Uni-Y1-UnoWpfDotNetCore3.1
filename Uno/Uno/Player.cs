@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Uno
 {
+    [Serializable()]
     class Player
     {
         private int mNumber;

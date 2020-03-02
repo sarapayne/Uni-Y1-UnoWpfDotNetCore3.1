@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <StartupObject>Uno.UnoMain</StartupObject>
+    <StartupObject>Uno.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

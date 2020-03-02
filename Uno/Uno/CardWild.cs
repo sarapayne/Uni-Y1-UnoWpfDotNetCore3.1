@@ -5,6 +5,7 @@ using System.Windows.Controls;
 
 namespace Uno
 {
+    [Serializable()]
     class CardWild : Card
     {
         private int mCardsToDraw;

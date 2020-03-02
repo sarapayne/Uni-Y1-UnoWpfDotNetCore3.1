@@ -5,11 +5,13 @@ using System.Windows.Controls;
 
 namespace Uno
 {
+    [Serializable()]
     enum Suit
     {
         Red, Green, Blue, Yellow
     }
 
+    [Serializable()]
     class CardSuit : Card
     {
         private Suit mSuit;
