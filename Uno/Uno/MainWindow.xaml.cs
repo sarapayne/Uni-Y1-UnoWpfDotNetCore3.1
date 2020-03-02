@@ -24,6 +24,7 @@ namespace Uno
     public partial class MainWindow : Window
     {
         static UnoGame unoGame; //central point to be saved and restored to. Will allow easy imaging of any game state. 
+        [NonSerialized]
         private List<Card> cardDeck;
         static string dictionaryFileName = "CardDeck.Bin";
 
