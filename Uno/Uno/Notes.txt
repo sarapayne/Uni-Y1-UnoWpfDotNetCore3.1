@@ -21,3 +21,17 @@ Because of this construction, if the any list of integers representing the cards
 suit will be displayed in order followed by the specials, finally wilds. 
 
 This should allow for easy updating of the GUI to make playing the game significantly easier. 
+
+
+
+GUI
+---
+initial start up window just calls load deck in UnoMain, then closes and opens the Main Menu Window. Allows easier following of naming convention without worrying about stuff being over written.
+
+MainMenu
+--------
+3 buttons, new, load, save
+
+Load - will display a new page which shows availible game files as a list, passes the game file name over to LoadGame in UnoMain.
+Save - will display a new page asking for a file name, then pass the name over to the SaveGame method in UnoMain.
+NewGame - Will display a new page asking for player names, with 10 slots available, names will be added to a list, which will be passed to the NewGame method in UnoMain.

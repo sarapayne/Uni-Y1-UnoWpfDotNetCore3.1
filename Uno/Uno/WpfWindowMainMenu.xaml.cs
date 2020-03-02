@@ -24,17 +24,17 @@ namespace Uno
 
         private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
         {
-
+            //will load a new page with 10 spaces for player names
         }
 
         private void ButtonLoadGame_Click(object sender, RoutedEventArgs e)
         {
-
+            //will display a new page showing a list of availible games to choose from. 
         }
 
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
         {
-
+            //will dislay a new page asking for a file name
         }
     }
 }
