@@ -9,7 +9,7 @@ namespace Uno
     {
         private int mNumber;
 
-        CardNumber(Image pImage, Suit pSuit, int pNumber) : base(pImage, pSuit)
+        public CardNumber(Image pImage, Suit pSuit, int pNumber) : base(pImage, pSuit)
         {
             this.mNumber = pNumber;
         }
