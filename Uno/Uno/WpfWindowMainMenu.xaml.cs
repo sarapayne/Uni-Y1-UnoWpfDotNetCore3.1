@@ -21,5 +21,20 @@ namespace Uno
         {
             InitializeComponent();
         }
+
+        private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonLoadGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

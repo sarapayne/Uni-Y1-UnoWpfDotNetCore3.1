@@ -32,6 +32,28 @@ namespace Uno
             }
         }
 
+        public static void LoadGame(string pFileToLoad)
+        {
+            string fileToLoad = pFileToLoad + ".game";
+            try
+            {
+                using (Stream stream = File.Open(pFileToLoad, FileMode.Open))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    mUnoGame = (UnoGame)bin.Deserialize(stream);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Sorry there was an error this file can not be loaded, please choose another or start a new game", "game load error");
+            }
+        }
+
+        public static void NewGame(List<string> pPlayerNames, int pDealer)
+        {
+            mUnoGame = new UnoGame(pPlayerNames, pDealer);
+        }
+
         static void GenerateCardList()
         {
             mCardDeck = new List<Card>();
@@ -125,15 +147,22 @@ namespace Uno
             }
         }
 
-        /*  -- Removed ready to rework inside gui partial class. 
-        static Image GetResourceImage (string pName)
+        public static void SaveGame(string pFileToSave)
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetName().Name + ".Properties.Resources";
-            ResourceManager rm = new ResourceManager(resourceName, assembly);
-            return (Image)rm.GetObject(pName);
+            string fileToSave = pFileToSave + ".game";
+            try
+            {
+                using (Stream stream = File.Open(pFileToSave, FileMode.Create))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    bin.Serialize(stream, mUnoGame);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Sorry there was an error saving your game, unable to save for retrieval", "save game file error");
+            }
         }
-        */
 
         static void SaveCardDeck()
         {
@@ -145,9 +174,9 @@ namespace Uno
                     bin.Serialize(stream, mCardDeck);
                 }
             }
-            catch (IOException)
+            catch 
             {
-                MessageBox.Show("Sorry there was an error saving the setup files, is the drive writable?", "Save dictionary error");
+                MessageBox.Show("Sorry there was an error saving the setup files, is the drive writable?", "Save deck error");
             }
         }
 
