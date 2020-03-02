@@ -10,7 +10,7 @@ namespace Uno
         private int mCardsToDraw;
         private Suit mNextSuit;
 
-        public CardWild (Image pImage, int pCardsToDraw): base (pImage)
+        public CardWild (string pImage, int pCardsToDraw): base (pImage)
         {
             this.mCardsToDraw = pCardsToDraw;
         }

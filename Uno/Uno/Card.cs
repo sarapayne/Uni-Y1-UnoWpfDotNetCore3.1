@@ -8,9 +8,9 @@ namespace Uno
 {
     class Card
     {
-        private Image mImage;
+        private string mImage;
 
-        public Card (Image pImage)
+        public Card (string pImage)
         {
             this.mImage = pImage;
         }

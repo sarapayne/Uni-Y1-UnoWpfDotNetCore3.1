@@ -112,8 +112,8 @@ namespace Uno
 
         static void GenerateWildCards()
         {
-            Image imageStandard = GetResourceImage("card_front_wild_standard");
-            Image imagePickup = GetResourceImage("card_front_wild_pickup");
+            string imageStandard = "card_front_wild_standard";
+            string imagePickup = "card_front_wild_pickup";
             CardWild cardWildStandard = new CardWild(imageStandard, 0);
             CardWild cardWildPickup = new CardWild(imagePickup, 4);
             Add2OfEachCardToDeck(cardWildStandard);
@@ -153,8 +153,7 @@ namespace Uno
                         break;
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                Image image = GetResourceImage(imgFileName);
-                CardSpecial cardSpecial = new CardSpecial(image, pSuit, specialType);
+                CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
                 Add2OfEachCardToDeck(cardSpecial);
             }
         }
@@ -164,8 +163,7 @@ namespace Uno
             for (int number = 0; number <= 9; number++)
             {
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
-                Image image = GetResourceImage(imgFileName);
-                CardNumber cardNumber = new CardNumber(image, pSuit, number);
+                CardNumber cardNumber = new CardNumber(imgFileName, pSuit, number);
                 if (number == 0)
                 {
                     cardDeck.Add(cardNumber);
@@ -177,6 +175,7 @@ namespace Uno
             }
         }
 
+        /*  -- Removed ready to rework inside gui partial class. 
         static Image GetResourceImage (string pName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -184,6 +183,7 @@ namespace Uno
             ResourceManager rm = new ResourceManager(resourceName, assembly);
             return (Image)rm.GetObject(pName);
         }
+        */
         
         static void SaveCardDeck()
         {
