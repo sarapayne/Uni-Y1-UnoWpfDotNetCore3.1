@@ -117,6 +117,8 @@ namespace Uno
             CardWild cardWildStandard = new CardWild(imageStandard, 0);
             CardWild cardWildPickup = new CardWild(imagePickup, 4);
             Add2OfEachCardToDeck(cardWildStandard);
+            Add2OfEachCardToDeck(cardWildStandard);
+            Add2OfEachCardToDeck(cardWildPickup);
             Add2OfEachCardToDeck(cardWildPickup);
         }
 
