@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uno", "Uno\Uno.csproj", "{5F06B96D-4D63-4FD5-932B-E4A9B4FCB35F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB1FB8EE-5A65-43BF-9F67-B4B5F82E44F9}"
-	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

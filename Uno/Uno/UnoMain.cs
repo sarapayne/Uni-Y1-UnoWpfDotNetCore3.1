@@ -78,11 +78,11 @@ namespace Uno
             catch(IOException)
             {
                 MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
-                GenerateCardDictionary();
+                GenerateCardList();
             }
         }
 
-        static void GenerateCardDictionary()
+        static void GenerateCardList()
         {
             cardDeck = new List<Card>();
             List<Suit> suites = new List<Suit> {Suit.Red, Suit.Green, Suit.Blue, Suit.Yellow};
