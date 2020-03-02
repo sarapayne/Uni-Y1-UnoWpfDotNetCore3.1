@@ -9,7 +9,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WindowMainMenu.xaml.cs">
+    <Compile Update="WpfWindowMainMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -17,7 +17,7 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WindowMainMenu.xaml">
+    <Page Update="WpfWindowMainMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -17,23 +17,20 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Uno
 {
-    [Serializable()]
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UnoGame unoGame; //central point to be saved and restored to. Will allow easy imaging of any game state. 
-        [NonSerialized]
-        private List<Card> cardDeck;
-        static string dictionaryFileName = "CardDeck.Bin";
-
+        
         public MainWindow()
         {
             InitializeComponent();
             UnoMain.LoadCardDeck();
+            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
+            wpfWindowMainMenu.Show();
+            this.Hide();
+            this.Close();
         }
-
-        
     }
 }

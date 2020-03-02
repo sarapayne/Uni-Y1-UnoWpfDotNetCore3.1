@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 namespace Uno
 {
     /// <summary>
-    /// Interaction logic for WindowMainMenu.xaml
+    /// Interaction logic for WpfWindowMainMenu.xaml
     /// </summary>
-    public partial class WindowMainMenu : Window
+    public partial class WpfWindowMainMenu : Window
     {
-        public WindowMainMenu()
+        public WpfWindowMainMenu()
         {
             InitializeComponent();
         }
