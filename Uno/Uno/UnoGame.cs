@@ -46,6 +46,17 @@ namespace Uno
             this.mGameRules = SetGameRules(pGameRulesType);   
         }
 
+        public void RefreshCardPiles()
+        {
+            if (mDeck.Count == 0)
+            {
+                mDeck = mDiscard;
+                mDiscard = new List<int>();
+                mDiscard.Add(mDeck[0]);
+                mDeck.RemoveAt(0);
+            }
+        }
+
         private GameRules SetGameRules(GameRulesType pGameRulesType)
         {
             GameRules gameRules = new GameRules();

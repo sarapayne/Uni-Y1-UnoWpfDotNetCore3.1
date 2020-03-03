@@ -58,6 +58,7 @@ namespace Uno
         {
             mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
             int numberOfSkips = 0;
+            mUnoGame.RefreshCardPiles();
             mUnoGame.NextPlayer(numberOfSkips); //call next player with 0 skips in place
         }
 
