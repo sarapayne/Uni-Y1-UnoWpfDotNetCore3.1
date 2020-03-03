@@ -32,7 +32,10 @@ namespace Uno
             {
                 //add some exception code here to handle creating too many players
             }
-            GenerateNewDeck();
+
+            this.mDeck = new List<int>();
+            this.mDiscard = GenerateNewDeck(); //add to discard so when next player called it works correctly
+
             DealPlayerCards();
             RefreshDiscardPile();
             mforwards = true;
@@ -99,14 +102,15 @@ namespace Uno
         /// Makes a new deck and then shuffles it randomly.
         /// New deck is created in the discard list so the RefreshDiscardPile() mehtod can be re-used
         /// </summary>
-        private void GenerateNewDeck()
+        private List<int> GenerateNewDeck()
         {
-            mDiscard = new List<int>();
-            for (int cardIndex = 0; cardIndex < 108; cardIndex++)
+            List<int> deck = new List<int>();
+            for (int cardIndex = 0; cardIndex < UnoMain.CardDeck.Count; cardIndex++)
             {
-                mDiscard.Add(cardIndex);
+                deck.Add(cardIndex);
             }
-            ShuffleDeck(mDiscard);
+            ShuffleDeck(deck);
+            return deck;
         }
 
         /// <summary>

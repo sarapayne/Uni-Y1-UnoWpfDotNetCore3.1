@@ -14,7 +14,12 @@ namespace Uno
         static UnoGame mUnoGame;
         [NonSerialized]
         static List<Card> mCardDeck;
-        
+
+        public static List<Card> CardDeck
+        {
+            get { return mCardDeck; }
+        }
+
         public static void LoadCardDeck()
         {
             try
