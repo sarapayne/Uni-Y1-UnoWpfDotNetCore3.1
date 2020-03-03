@@ -40,17 +40,37 @@ namespace Uno
 
         private void ButtonLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            //will display a new page showing a list of availible games to choose from. 
+            //***Tempory Strings For Testing, eventually this will come from the GUI
+            string gameToLoad1 = "game1";
+            string gameToLoad2 = "game2";
+            string gameToLoad3 = "game3";
+            string gameToLoad4 = "game4";
+            string gameToLoad5 = "game5";
+            //***Tempory Strings For Testing, eventually this will come from the GUI
+            string gameToLoad = gameToLoad1;//this will come from the GUI eventually
+            UnoMain.LoadGame(gameToLoad);
         }
 
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
         {
-            //will dislay a new page asking for a file name
+            //***Tempory Strings For Testing, eventually this will come from the GUI
+            string gameToSave1 = "game1";
+            string gameToSave2 = "game2";
+            string gameToSave3 = "game3";
+            string gameToSave4 = "game4";
+            string gameToSave5 = "game5";
+            //***Tempory Strings For Testing, eventually this will come from the GUI
+            string gameToSave = gameToSave1;//this will come from the GUI eventually
+            UnoMain.SaveGame(gameToSave);
         }
 
         private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)
         {
-            //will return to the current game if one exists
+            //add code here to validate that there is actually an ongoing game to return to!
+            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
+            wpfWindowMainMenu.Show();
+            this.Hide();
+            this.Close();
         }
     }
 }
