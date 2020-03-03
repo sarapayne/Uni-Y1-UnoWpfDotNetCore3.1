@@ -15,9 +15,15 @@ namespace Uno
         /// <para name = "mForwards">bool controling the direction of play</para>
         /// <para name = "mCurrentPlayer">int which is the index of the current player in the mPlayers list</para>
         /// </summary>
+        [NonSerialized]
         private List<Player> mPlayers;
+
+        [NonSerialized]
         private List<int> mDiscard;
+
+        [NonSerialized]
         private List<int> mDeck;
+        
         private bool mforwards;
         private int mCurrentPlayer;
         private GameRules mGameRules;
