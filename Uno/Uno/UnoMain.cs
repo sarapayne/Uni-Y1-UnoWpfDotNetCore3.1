@@ -57,6 +57,8 @@ namespace Uno
         public static void NewGame(List<string> pPlayerNames, int pDealer, GameRulesType pGameRulesType)
         {
             mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
+            int numberOfSkips = 0;
+            mUnoGame.NextPlayer(numberOfSkips); //call next player with 0 skips in place
         }
 
         static void GenerateCardList()

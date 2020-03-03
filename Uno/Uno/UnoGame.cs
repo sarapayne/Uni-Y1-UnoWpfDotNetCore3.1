@@ -61,7 +61,7 @@ namespace Uno
             return gameRules;
         }
 
-        private void NextPlayer(int pSkipPlayers)
+        public void NextPlayer(int pSkipPlayers)
         {
             int change = pSkipPlayers + 1; //will always be at least 1
             if (!mforwards) change *= -1;
