@@ -24,6 +24,17 @@ namespace Uno
 
         private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
         {
+            //***Tempory Lists For Testing Purposes***
+            List<string> players2 = new List<string> { "Player1", "Player2"};
+            List<string> players5 = new List<string> {"Player1", "Player2", "Player3", "Player4", "Player5"};
+            List<string> players10 = new List<string> { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10" };
+            //***Tempory Lists For Testing End***
+            List<string> playerNames = players5; //this will eventually come from a GUI entry
+            GameRulesType gameRulesType = GameRulesType.Standard;
+            int dealer = 0; ///this will eventually be set in the GUI. 
+            UnoMain.NewGame(playerNames, dealer, gameRulesType);
+            this.Hide();
+            this.Close();
             //will load a new page with 10 spaces for player names
         }
 
@@ -35,6 +46,11 @@ namespace Uno
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
         {
             //will dislay a new page asking for a file name
+        }
+
+        private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)
+        {
+            //will return to the current game if one exists
         }
     }
 }

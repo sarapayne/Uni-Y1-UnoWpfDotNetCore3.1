@@ -49,9 +49,9 @@ namespace Uno
             }
         }
 
-        public static void NewGame(List<string> pPlayerNames, int pDealer)
+        public static void NewGame(List<string> pPlayerNames, int pDealer, GameRulesType pGameRulesType)
         {
-            mUnoGame = new UnoGame(pPlayerNames, pDealer);
+            mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
         }
 
         static void GenerateCardList()

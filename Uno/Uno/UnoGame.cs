@@ -20,8 +20,9 @@ namespace Uno
         private List<int> mDeck;
         private bool mforwards;
         private int mCurrentPlayer;
+        private GameRules mGameRules;
 
-        public UnoGame (List<string> pPlayerNames, int pdealer)
+        public UnoGame (List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
             if (pPlayerNames.Count <= 10)
             {
