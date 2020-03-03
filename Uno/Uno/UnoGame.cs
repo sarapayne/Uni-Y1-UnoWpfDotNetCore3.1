@@ -26,7 +26,7 @@ namespace Uno
         {
             if (pPlayerNames.Count <= 10)
             {
-                GenerateNewPlayers(pPlayerNames);
+                this.mPlayers = GenerateNewPlayers(pPlayerNames);
             }
             else
             {
@@ -132,14 +132,15 @@ namespace Uno
         /// uses the player name list to generate a list of new players. 
         /// </summary>
         /// <param name="pPlayerNames"></param>
-        private void GenerateNewPlayers(List <string> pPlayerNames)
+        private List<Player> GenerateNewPlayers(List <string> pPlayerNames)
         {
-            mPlayers = new List<Player>();
+            List<Player> players = new List<Player>();
             for (int playerIndex = 0; playerIndex < pPlayerNames.Count; playerIndex++)
             {
                 Player player = new Player(playerIndex, pPlayerNames[playerIndex]);
-                mPlayers.Add(player);
+                players.Add(player);
             }
+            return players;
         }
     }
 }
