@@ -38,7 +38,6 @@ namespace Uno
             mforwards = true;
             mCurrentPlayer = pdealer;
             int skipPlayers = 0;
-            NextPlayer(skipPlayers);
         }
 
         private void NextPlayer(int pSkipPlayers)

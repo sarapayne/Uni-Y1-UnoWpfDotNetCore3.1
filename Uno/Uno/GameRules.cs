@@ -13,6 +13,6 @@ namespace Uno
     [Serializable()]
     class GameRules
     {
-
+        //All methods in here need to be virutal, so they can be over ridden
     }
 }
