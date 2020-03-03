@@ -107,10 +107,10 @@ namespace Uno
         {
             foreach (Player player in mPlayers)
             {
-                List<int> playerCards = new List<int>();
+                player.Cards = new List<int>();
                 for (int playerCardsIndex = 0; playerCardsIndex < 7; playerCardsIndex++)
                 {
-                    player.Cards.Add(mDeck[0]);
+                    player.Cards.Add(mDiscard[0]);
                     mDiscard.RemoveAt(0);
                 }
             }
