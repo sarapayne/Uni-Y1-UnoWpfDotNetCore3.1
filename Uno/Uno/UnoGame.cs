@@ -84,8 +84,8 @@ namespace Uno
 
         private void DisplayCurrentPlayerGui()
         {
-            //add code here to display the GUI appropriate to the current player
-
+            WpfWindowGame wpfWindowGame = new WpfWindowGame();
+            wpfWindowGame.Show();
         }
 
         /// <summary>

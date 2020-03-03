@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
-2-1130434070
+3-1829724624
 
-18238019229
+19803300928
 1921654412462
-MainWindow.xaml;WpfWindowMainMenu.xaml;
+MainWindow.xaml;WpfWindowGame.xaml;WpfWindowMainMenu.xaml;
 
 False
 
