@@ -32,15 +32,33 @@ namespace Uno
             {
                 //add some exception code here to handle creating too many players
             }
-
             this.mDeck = new List<int>();
             this.mDiscard = GenerateNewDeck(); //add to discard so when next player called it works correctly
-
             DealPlayerCards();
-            RefreshDiscardPile();
-            mforwards = true;
-            mCurrentPlayer = pdealer;
-            int skipPlayers = 0;
+            this.mforwards = true; 
+            this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
+            this.mGameRules = SetGameRules(pGameRulesType);   
+        }
+
+        private GameRules SetGameRules(GameRulesType pGameRulesType)
+        {
+            GameRules gameRules = new GameRules();
+            switch (pGameRulesType)
+            {
+                case GameRulesType.Standard:
+                    gameRules = new GameRules();
+                    break;
+                case GameRulesType.House1:
+                    gameRules = new GameRulesHouse1();
+                    break;
+                case GameRulesType.House2:
+                    gameRules = new GameRulesHouse2();
+                    break;
+                case GameRulesType.House3:
+                    gameRules = new GameRulesHouse3();
+                    break;
+            }
+            return gameRules;
         }
 
         private void NextPlayer(int pSkipPlayers)
