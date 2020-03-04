@@ -11,7 +11,10 @@ namespace Uno
     [Serializable()]
     class Card
     {
+        [NonSerialized]
         private string  mImageName;
+
+        [NonSerialized]
         private ImageSource mImage;
 
         public Card (string pImageName, ImageSource pImage)

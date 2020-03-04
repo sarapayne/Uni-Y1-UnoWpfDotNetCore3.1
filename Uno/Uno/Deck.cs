@@ -188,7 +188,7 @@ namespace Uno
             CardList.Add(card);
         }
 
-        static void SaveFullCardDeck(List<Card> pCardList)
+        private void SaveFullCardDeck(List<Card> pCardList)
         {
             try
             {
