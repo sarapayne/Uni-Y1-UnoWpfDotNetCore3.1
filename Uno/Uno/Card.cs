@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using Image = System.Windows.Controls.Image;
 
 namespace Uno
 {
@@ -15,15 +16,15 @@ namespace Uno
         private string  mImageName;
 
         [NonSerialized]
-        private ImageSource mImage;
+        private Image mImage;
 
-        public Card (string pImageName, ImageSource pImage)
+        public Card (string pImageName, Image pImage)
         {
             this.mImageName = pImageName;
             this.mImage = pImage;
         }
 
-        public ImageSource ImageSource
+        public Image ImageSource
         {
             get { return this.mImage; }
         }

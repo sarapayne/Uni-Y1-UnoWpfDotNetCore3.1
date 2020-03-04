@@ -33,7 +33,7 @@ namespace Uno
             foreach(Card card in playersCards)
             {
                 ImgCardControl playerCard = new ImgCardControl(card);
-                playerCard.Source();
+
                 
             }
             

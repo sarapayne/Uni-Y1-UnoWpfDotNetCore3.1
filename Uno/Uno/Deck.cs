@@ -116,8 +116,8 @@ namespace Uno
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
-            ImageSource imageStandard = GetBitmap(imagePickupName);
-            ImageSource imagePickup = GetBitmap(imagePickupName);
+            Image imageStandard = GetBitmap(imagePickupName);
+            Image imagePickup = GetBitmap(imagePickupName);
             CardWild cardWildStandard = new CardWild(imageStandardName, imageStandard, 0);
             CardWild cardWildPickup = new CardWild(imagePickupName, imagePickup, 4);
             Add2OfEachCardToDeck(pCardList, cardWildStandard);
@@ -127,10 +127,19 @@ namespace Uno
         }
 
 
-        private ImageSource GetBitmap(string pName) 
+        private Image GetBitmap(string pName) 
         {
-            ImageSource imgeSource = new BitmapImage(new Uri("Resources/" + pName + ".png", UriKind.Relative));
-            return imgeSource;
+            Image image = new Image();
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(pName, UriKind.Relative);
+            bitmap.EndInit();
+            image.Stretch = Stretch.Fill;
+            image.Source = bitmap;
+
+            //Bitmap imgeSource = new Bitmap("Resources/" + pName + ".png");
+            //Image image = new Image();
+            return image;
         }
 
         private void GenerateSuitCards(List<Card> pCardList, Suit pSuit, string pColour)
@@ -158,7 +167,7 @@ namespace Uno
                         break;
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                ImageSource image = GetBitmap(imgFileName);
+                Image image = GetBitmap(imgFileName);
                 CardSpecial cardSpecial = new CardSpecial(imgFileName, image, pSuit, specialType);
                 Add2OfEachCardToDeck(pCardList, cardSpecial);
             }
@@ -169,7 +178,7 @@ namespace Uno
             for (int number = 0; number <= 9; number++)
             {
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
-                ImageSource image = GetBitmap(imgFileName);
+                Image image = GetBitmap(imgFileName);
                 CardNumber cardNumber = new CardNumber(imgFileName, image, pSuit, number);
                 if (number == 0)
                 {

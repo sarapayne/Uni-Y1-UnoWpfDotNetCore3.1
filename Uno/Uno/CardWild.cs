@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Image = System.Windows.Controls.Image;
 
 namespace Uno
 {
@@ -13,7 +14,7 @@ namespace Uno
         private int mCardsToDraw;
         private Suit mNextSuit;
 
-        public CardWild (string pImageName, ImageSource pImage,int pCardsToDraw): base (pImageName, pImage)
+        public CardWild (string pImageName, Image pImage,int pCardsToDraw): base (pImageName, pImage)
         {
             this.mCardsToDraw = pCardsToDraw;
         }
