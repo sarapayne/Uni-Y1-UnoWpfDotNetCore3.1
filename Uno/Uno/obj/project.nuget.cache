@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ycV8teQRwYTMkj4raqjf/+9K7SHoJ0KeKlNj7l7bZTQqdS6Sy0YOLUhcM+yIzU0HSrfQVeb19qyXJMfpNZKy9A==",
+  "dgSpecHash": "bMkRVXweQXrWQwVN7fRx49vJa7yY3NxdYk06IJrlzwuUCdijMuvHqgdz4relRSnSf7DSzRsRg/WJhiW9eiAqaQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\manwa\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\manwa\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\manwa\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

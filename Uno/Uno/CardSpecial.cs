@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Uno
 {
@@ -16,7 +18,7 @@ namespace Uno
     {
         private SpecialType mSpecialType;
 
-        public CardSpecial(string pImage, Suit pSuit, SpecialType pSecialType): base (pImage, pSuit)
+        public CardSpecial(string pImageName, ImageSource pImage, Suit pSuit, SpecialType pSecialType): base (pImageName, pImage, pSuit)
         {
             this.mSpecialType = pSecialType;
         }

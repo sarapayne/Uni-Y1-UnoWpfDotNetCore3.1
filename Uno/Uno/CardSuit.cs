@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Uno
 {
@@ -16,7 +18,7 @@ namespace Uno
     {
         private Suit mSuit;
 
-        public CardSuit(string image, Suit pSuit) : base(image)
+        public CardSuit(string pImageName, ImageSource pImage, Suit pSuit) : base(pImageName, pImage)
         {
             this.mSuit = pSuit;
         }

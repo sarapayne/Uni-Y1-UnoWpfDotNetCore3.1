@@ -9,10 +9,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WpfWindowGame.xaml.cs">
+    <Compile Update="View\WpfWindowGame.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WpfWindowMainMenu.xaml.cs">
+    <Compile Update="View\WpfWindowMainMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -20,10 +20,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpfWindowGame.xaml">
+    <Page Update="View\WpfWindowGame.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpfWindowMainMenu.xaml">
+    <Page Update="View\WpfWindowMainMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

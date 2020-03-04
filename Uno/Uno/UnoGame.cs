@@ -7,22 +7,11 @@ namespace Uno
     [Serializable()]
     class UnoGame
     {
-        /// <summary>
-        /// This is the main control point for an individual game.
-        /// <param name="mPlayers"> List of player objects</param>
-        /// <para name = "mDiscard">List of ints representing the stack of discard cards</para>
-        /// <para name = "mDeck">List of ints representing the current deck</para>
-        /// <para name = "mForwards">bool controling the direction of play</para>
-        /// <para name = "mCurrentPlayer">int which is the index of the current player in the mPlayers list</para>
-        /// </summary>
         [NonSerialized]
         private List<Player> mPlayers;
 
         [NonSerialized]
-        private List<int> mDiscard;
-
-        [NonSerialized]
-        private List<int> mDeck;
+        private Deck mDeck;     
         
         private bool mforwards;
         private int mCurrentPlayer;
@@ -38,9 +27,8 @@ namespace Uno
             {
                 //add some exception code here to handle creating too many players
             }
-            this.mDeck = new List<int>();
-            this.mDiscard = GenerateNewDeck(); //add to discard so when next player called it works correctly
-            DealPlayerCards();
+            this.mDeck = new Deck();
+            DealCards();
             this.mforwards = true; 
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
             this.mGameRules = SetGameRules(pGameRulesType);   
@@ -48,12 +36,19 @@ namespace Uno
 
         public void RefreshCardPiles()
         {
-            if (mDeck.Count == 0)
+            mDeck.RefreshCardPiles();
+        }
+
+        private void DealCards()
+        {
+            foreach (Player player in mPlayers)
             {
-                mDeck = mDiscard;
-                mDiscard = new List<int>();
-                mDiscard.Add(mDeck[0]);
-                mDeck.RemoveAt(0);
+                player.Cards = new List<Card>();
+                for (int playerCardsIndex = 0; playerCardsIndex < 7; playerCardsIndex++)
+                {
+                    player.Cards.Add(mDeck.DiscardPile[0]);
+                    mDeck.DiscardPile.RemoveAt(0);
+                }
             }
         }
 
@@ -105,68 +100,6 @@ namespace Uno
             wpfWindowGame.Show();
         }
 
-        /// <summary>
-        /// Takes the discard pile, turns it over and places the top card on the discard pile for the game to continue.
-        /// </summary>
-        private void RefreshDiscardPile()
-        {
-            mDeck = new List<int>();
-            mDeck = mDiscard;
-            mDiscard = new List<int>();
-            mDiscard.Add(mDeck[0]);
-            mDeck.RemoveAt(0);
-        }
-
-        /// <summary>
-        /// For each player, take 7 cards from the top of the deck and assign those cards to the player. 
-        /// </summary>
-        private void DealPlayerCards()
-        {
-            foreach (Player player in mPlayers)
-            {
-                player.Cards = new List<int>();
-                for (int playerCardsIndex = 0; playerCardsIndex < 7; playerCardsIndex++)
-                {
-                    player.Cards.Add(mDiscard[0]);
-                    mDiscard.RemoveAt(0);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Makes a new deck and then shuffles it randomly.
-        /// New deck is created in the discard list so the RefreshDiscardPile() mehtod can be re-used
-        /// </summary>
-        private List<int> GenerateNewDeck()
-        {
-            List<int> deck = new List<int>();
-            for (int cardIndex = 0; cardIndex < UnoMain.CardDeck.Count; cardIndex++)
-            {
-                deck.Add(cardIndex);
-            }
-            ShuffleDeck(deck);
-            return deck;
-        }
-
-        /// <summary>
-        /// takes the current deck and suffles it randomly. 
-        /// </summary>
-        private void ShuffleDeck(List<int> pDeck)
-        {
-            Random random = new Random();
-            for (int cardIndex = 0; cardIndex < pDeck.Count; cardIndex++)
-            {
-                int swapIndex = random.Next(0, pDeck.Count - 1);
-                int temp = pDeck[cardIndex];
-                pDeck[cardIndex] = pDeck[swapIndex];
-                pDeck[swapIndex] = temp;
-            }
-        }
-
-        /// <summary>
-        /// uses the player name list to generate a list of new players. 
-        /// </summary>
-        /// <param name="pPlayerNames"></param>
         private List<Player> GenerateNewPlayers(List <string> pPlayerNames)
         {
             List<Player> players = new List<Player>();

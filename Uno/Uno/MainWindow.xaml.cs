@@ -26,7 +26,6 @@ namespace Uno
         public MainWindow()
         {
             InitializeComponent();
-            UnoMain.LoadCardDeck();
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
             wpfWindowMainMenu.Show();
             this.Hide();

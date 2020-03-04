@@ -11,7 +11,7 @@ namespace Uno
         private string mName;
 
         [NonSerialized]
-        private List<int> mCards;
+        private List<Card> mCards;
 
         private int mNumber;
 
@@ -19,10 +19,10 @@ namespace Uno
         {
             mNumber = pPlayerNumber;
             mName = pPlayerName;
-            mCards = new List<int>();
+            mCards = new List<Card>();
         }
 
-        public List <int> Cards
+        public List <Card> Cards
         {
             get { return mCards; }
             set { mCards = value; }
