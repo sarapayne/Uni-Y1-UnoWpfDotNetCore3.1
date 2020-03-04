@@ -13,6 +13,11 @@ namespace Uno
         
         static UnoGame mUnoGame;
 
+        public static UnoGame UnoGame
+        {
+            get { return mUnoGame; }
+        }
+
         public static void NewGame(List<string> pPlayerNames, int pDealer, GameRulesType pGameRulesType)
         {
             mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);

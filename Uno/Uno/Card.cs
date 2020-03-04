@@ -22,5 +22,10 @@ namespace Uno
             this.mImageName = pImageName;
             this.mImage = pImage;
         }
+
+        public ImageSource ImageSource
+        {
+            get { return this.mImage; }
+        }
     }
 }

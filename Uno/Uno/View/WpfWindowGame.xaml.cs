@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Uno.GUI_Custom_Elements;
 
 namespace Uno
 {
@@ -17,9 +18,25 @@ namespace Uno
     /// </summary>
     public partial class WpfWindowGame : Window
     {
+        
+
         public WpfWindowGame()
         {
             InitializeComponent();
+            AddPlayerCards(); 
+        }
+
+        private void AddPlayerCards()
+        {
+            int currentPlayer = UnoMain.UnoGame.CurrentPlayer;
+            List<Card> playersCards = UnoMain.UnoGame.Players[currentPlayer].Cards;
+            foreach(Card card in playersCards)
+            {
+                ImgCardControl playerCard = new ImgCardControl(card);
+                playerCard.Source();
+                
+            }
+            
         }
     }
 }

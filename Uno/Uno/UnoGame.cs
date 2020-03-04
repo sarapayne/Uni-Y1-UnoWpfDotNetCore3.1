@@ -34,10 +34,29 @@ namespace Uno
             this.mGameRules = SetGameRules(pGameRulesType);   
         }
 
+        public List <Player> Players
+        {
+            get { return this.mPlayers; }
+            set { this.mPlayers = value; }
+        }
+
+        public Deck Deck
+        {
+            get { return this.mDeck; }
+            set { this.mDeck = value; }
+        }
+
+        public int CurrentPlayer
+        {
+            get { return this.mCurrentPlayer; }
+        }
+
         public void RefreshCardPiles()
         {
             mDeck.RefreshCardPiles();
         }
+
+
 
         private void DealCards()
         {
