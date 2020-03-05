@@ -48,7 +48,7 @@ namespace Uno
             mDrawPile.RemoveAt(0);
         }
 
-        private void ShuffleDeck(List<Card> pDeck)
+        public void ShuffleDeck(List<Card> pDeck)
         {
             Random random = new Random();
             for (int cardIndex = 0; cardIndex < pDeck.Count; cardIndex++)
