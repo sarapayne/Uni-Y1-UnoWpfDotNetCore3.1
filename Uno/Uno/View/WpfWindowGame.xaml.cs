@@ -21,16 +21,16 @@ namespace Uno
     /// </summary>
     public partial class WpfWindowGame : Window
     {
-        
-
         public WpfWindowGame()
         {
             InitializeComponent();
-            AddPlayerCards(); 
+            AddPlayerCards();
+            UpdateDrawCard();
+            labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
         }
 
         private void GameButtonClickHandler(object sender, EventArgs e)
-        {   
+        {   //This code is temporary, later it will be replaced by a broadcast saying card play attempted, sending the card in question. 
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
             string cardName = selectedCard.ImageName;
@@ -62,8 +62,8 @@ namespace Uno
                 Card card = playersCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
                 string imageName = card.ImageName;
-                Uri resoureUri = new Uri("pack://application:,,,/Resources/" + imageName + ".png", UriKind.RelativeOrAbsolute);
-                playerCard.Source = new BitmapImage(resoureUri);
+                Uri imageUri = GetResourceUri(imageName);
+                playerCard.Source = new BitmapImage(imageUri);
                 if (playerCardIndex < 18)
                 {
                     Grid.SetColumn(playerCard, playerCardIndex + 1);
@@ -87,6 +87,32 @@ namespace Uno
         private void ButtonRemoveCards_Click_1(object sender, RoutedEventArgs e)
         {
             ClearCards();
+        }
+
+        private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
+            wpfWindowMainMenu.Show();
+            this.Hide();
+            this.Close();
+        }
+
+        private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
+        {
+            //add code here to broadcast end of turn message to main program. 
+        }
+
+        private void UpdateDrawCard()
+        {
+            List<Card> discardPile = UnoMain.UnoGame.Deck.DiscardPile;
+            Uri imageUri = GetResourceUri(discardPile[discardPile.Count - 1].ImageName);
+            imageDiscardPile.Source = new BitmapImage(imageUri);
+        }
+
+        private Uri GetResourceUri(string resouceNane)
+        {
+            Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
+            return resoureUri;
         }
     } 
 }

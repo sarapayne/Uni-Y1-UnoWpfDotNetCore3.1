@@ -27,6 +27,11 @@ namespace Uno
             get { return mCards; }
             set { mCards = value; }
         }
+
+        public string Name
+        {
+            get { return this.mName; }
+        }
             
     }
 }
