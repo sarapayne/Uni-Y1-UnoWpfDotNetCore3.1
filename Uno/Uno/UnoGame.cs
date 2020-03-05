@@ -56,8 +56,6 @@ namespace Uno
             mDeck.RefreshCardPiles();
         }
 
-
-
         private void DealCards()
         {
             mDeck.ShuffleDeck(mDeck.DiscardPile);

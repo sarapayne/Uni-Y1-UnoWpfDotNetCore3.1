@@ -28,6 +28,14 @@ namespace Uno
             AddPlayerCards(); 
         }
 
+        private void GameButtonClickHandler(object sender, EventArgs e)
+        {
+            ImgCardControl playerCard = sender as ImgCardControl;
+            Card selectedCard = playerCard.Card;
+            string cardName = selectedCard.ImageName;
+            MessageBox.Show("Player selected " + cardName, "player selected a card");
+        }
+
         private void AddPlayerCards()
         {
             int currentPlayer = UnoMain.UnoGame.CurrentPlayer;
@@ -54,6 +62,7 @@ namespace Uno
                     Grid.SetColumn(playerCard, playerCardIndex - 35); //index - (2*18-1)
                     Grid.SetRow(playerCard, 5);
                 }
+                playerCard.MouseUp += new MouseButtonEventHandler(GameButtonClickHandler);
                 MainGrid.Children.Add(playerCard);
             }   
         }

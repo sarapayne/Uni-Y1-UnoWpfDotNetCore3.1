@@ -18,6 +18,11 @@ namespace Uno
         [NonSerialized]
         private Image mImage;
 
+        public Card()
+        {
+
+        }
+
         public Card (string pImageName, Image pImage)
         {
             this.mImageName = pImageName;
