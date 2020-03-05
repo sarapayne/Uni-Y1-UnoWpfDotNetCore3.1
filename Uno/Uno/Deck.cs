@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Windows.Controls;
-using System.Reflection;
-using System.Drawing;
 using Image = System.Windows.Controls.Image;
 using System.Windows.Media;
-using System.Resources;
-using Uno.Properties;
 using System.Windows.Media.Imaging;
 
 namespace Uno
@@ -69,6 +63,8 @@ namespace Uno
         private List<Card> LoadFullCardDeck()
         {
             List<Card> newDeck = new List<Card>();
+            /*
+            ****Loading of old deck is failing to save non serialised elments... will add this back later maybe****
             try
             {
                 using (Stream stream = File.Open(mCardDeckFileName, FileMode.Open))
@@ -82,6 +78,8 @@ namespace Uno
                 MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
                 GenerateCardList(newDeck);
             }
+            */
+            GenerateCardList(newDeck);
             return newDeck;
         }
 
@@ -126,9 +124,17 @@ namespace Uno
             Add2OfEachCardToDeck(pCardList, cardWildPickup);
         }
 
-
-        private Image GetBitmap(string pName) 
+        private ImageSource GetImageSource(string pName)
         {
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+            //Stream stream = assembly.GetManifestResourceStream(pName + ".png");
+            Uri uri = new Uri(pName + ".png", UriKind.Relative);
+            ImageSource imageSource = new BitmapImage(uri);
+            return imageSource;
+        }
+
+        private Image GetBitmap(string pName)
+        {   //Code Source Microsoft https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.image.source?redirectedfrom=MSDN&view=netframework-4.8#System_Windows_Controls_Image_Source
             Image image = new Image();
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -136,9 +142,6 @@ namespace Uno
             bitmap.EndInit();
             image.Stretch = Stretch.Fill;
             image.Source = bitmap;
-
-            //Bitmap imgeSource = new Bitmap("Resources/" + pName + ".png");
-            //Image image = new Image();
             return image;
         }
 

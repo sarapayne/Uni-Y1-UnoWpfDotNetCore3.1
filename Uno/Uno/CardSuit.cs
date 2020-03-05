@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Media;
 using Image = System.Windows.Controls.Image;
 
 namespace Uno
