@@ -45,5 +45,6 @@
         <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_back.png" Grid.Column="1" Grid.Row="6"/>
         <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_front_suit_Blue_0.png" Grid.Column="2" Grid.Row="6"/>
         <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_front_suit_green_1.png" Grid.Column="3" Grid.Row="6"/>
+        <Button Content="RemoveCardsTest" x:Name="ButtonRemoveCards" Grid.Column="2" Grid.Row="7" Click="ButtonRemoveCards_Click_1"/>
     </Grid>
 </Window>

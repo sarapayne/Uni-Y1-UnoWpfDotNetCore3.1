@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -29,11 +30,27 @@ namespace Uno
         }
 
         private void GameButtonClickHandler(object sender, EventArgs e)
-        {
+        {   
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
             string cardName = selectedCard.ImageName;
             MessageBox.Show("Player selected " + cardName, "player selected a card");
+        }
+
+        private void ClearCards()
+        {   //surely there must be a better way than this! however it works for now. 
+            List<UIElement> toRemove = new List<UIElement>();
+            foreach (UIElement uIElement in MainGrid.Children)
+            {
+                if (uIElement is ImgCardControl)
+                {
+                    toRemove.Add(uIElement);
+                }
+            }
+            foreach(UIElement uI in toRemove)
+            {
+                MainGrid.Children.Remove(uI);
+            }
         }
 
         private void AddPlayerCards()
@@ -65,6 +82,11 @@ namespace Uno
                 playerCard.MouseUp += new MouseButtonEventHandler(GameButtonClickHandler);
                 MainGrid.Children.Add(playerCard);
             }   
+        }
+
+        private void ButtonRemoveCards_Click_1(object sender, RoutedEventArgs e)
+        {
+            ClearCards();
         }
     } 
 }
