@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
+using Uno.GUI_Custom_Elements;
 
 namespace Uno
 {
@@ -13,6 +15,24 @@ namespace Uno
     [Serializable()]
     class GameRules
     {
-        //All methods in here need to be virutal, so they can be over ridden
+        public GameRules ()
+        {
+            EventPublisher.RaiseGameButtonClick += GameRules_RaiseGameButtonClick;
+            EventPublisher.RaiseNextPlayerButtonClick += GameRules_RaiseNextPlayerButtonClick;
+        }
+
+        private void GameRules_RaiseGameButtonClick(object sender, EventArgs eventArgs)
+        {
+            EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
+            Card card = ev.mPlayingCard;
+            MessageBox.Show("Degug:GameRules:CardName:" + card.ImageName, "GameButton click");
+        }
+
+        private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)
+        {
+            MessageBox.Show("Debug:GameRules:NextPlayerButtonClickDetected", "next player button");
+        }
+
+
     }
 }

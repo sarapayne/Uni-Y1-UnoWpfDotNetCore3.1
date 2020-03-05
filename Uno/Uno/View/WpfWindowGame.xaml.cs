@@ -21,9 +21,20 @@ namespace Uno
     /// </summary>
     public partial class WpfWindowGame : Window
     {
+
         public WpfWindowGame()
         {
             InitializeComponent();
+            UpdateDisplay();
+        }
+        private void WpfWindowGame_RaiseUpdateGUI(object sender, EventArgs eventArgs)
+        {
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            ClearCards();
             AddPlayerCards();
             UpdateDrawCard();
             labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
@@ -33,8 +44,9 @@ namespace Uno
         {   //This code is temporary, later it will be replaced by a broadcast saying card play attempted, sending the card in question. 
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
-            string cardName = selectedCard.ImageName;
-            MessageBox.Show("Player selected " + cardName, "player selected a card");
+            //string cardName = selectedCard.ImageName;
+            //MessageBox.Show( "Debug: Triggered in form: " + "Player selected " + cardName, "player selected a card");
+            EventPublisher.GameButtonClick(selectedCard);
         }
 
         private void ClearCards()
@@ -47,7 +59,7 @@ namespace Uno
                     toRemove.Add(uIElement);
                 }
             }
-            foreach(UIElement uI in toRemove)
+            foreach (UIElement uI in toRemove)
             {
                 MainGrid.Children.Remove(uI);
             }
@@ -81,7 +93,7 @@ namespace Uno
                 }
                 playerCard.MouseUp += new MouseButtonEventHandler(GameButtonClickHandler);
                 MainGrid.Children.Add(playerCard);
-            }   
+            }
         }
 
         private void ButtonRemoveCards_Click_1(object sender, RoutedEventArgs e)
@@ -99,7 +111,7 @@ namespace Uno
 
         private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
         {
-            //add code here to broadcast end of turn message to main program. 
+            EventPublisher.NextPlayerButtonClick();
         }
 
         private void UpdateDrawCard()
@@ -114,5 +126,5 @@ namespace Uno
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
         }
-    } 
+    }
 }
