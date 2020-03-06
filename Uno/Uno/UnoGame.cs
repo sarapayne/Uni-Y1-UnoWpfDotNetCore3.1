@@ -72,7 +72,7 @@ namespace Uno
 
         private GameRules SetGameRules(GameRulesType pGameRulesType)
         {
-            GameRules gameRules = new GameRules();
+            GameRules gameRules = null;
             switch (pGameRulesType)
             {
                 case GameRulesType.Standard:

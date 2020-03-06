@@ -11,10 +11,10 @@ namespace Uno
         //{
         //    add
         //    {
-        //        if (RaiseGameButtonClick == null || !RaiseGameButtonClick.Contains(value) )
+        //        if (RaiseGameButtonClick == null || !RaiseGameButtonClick.Contains(value))
         //        {
         //            RaiseGameButtonClick += value;
-        //        }  
+        //        }
         //    }
         //    remove
         //    {
