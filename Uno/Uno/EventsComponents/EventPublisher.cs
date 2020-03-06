@@ -7,23 +7,46 @@ namespace Uno
 {
     static class EventPublisher
     {
-        public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick;
+        public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; //comented code attempting to fix double event listening
+        //{
+        //    add
+        //    {
+        //        if (RaiseGameButtonClick == null || !RaiseGameButtonClick.Contains(value) )
+        //        {
+        //            RaiseGameButtonClick += value;
+        //        }  
+        //    }
+        //    remove
+        //    {
+        //        RaiseGameButtonClick -= value;
+        //    }
+        //}
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaiseUpdateGUI;
 
         public static void UpdateGUI()
         {
-            EventPublisher.RaiseUpdateGUI(null, null);
+            if (RaiseUpdateGUI != null)
+            {
+                EventPublisher.RaiseUpdateGUI(null, null);
+            }   
         }
 
         public static void GameButtonClick(Card pCard)
         {
-            EventPublisher.RaiseGameButtonClick(null, new EventArgsGameButtonClick(pCard));
+            if (RaiseGameButtonClick != null)
+            {
+                EventPublisher.RaiseGameButtonClick(null, new EventArgsGameButtonClick(pCard));
+            }
         }
 
         public static void NextPlayerButtonClick()
         {
-            EventPublisher.RaiseNextPlayerButtonClick(null,null);
+            if (RaiseNextPlayerButtonClick != null)
+            {
+                EventPublisher.RaiseNextPlayerButtonClick(null, null);
+            }
+                
         }
     }
 }

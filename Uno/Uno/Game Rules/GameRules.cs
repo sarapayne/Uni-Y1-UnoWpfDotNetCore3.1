@@ -17,7 +17,10 @@ namespace Uno
     {
         public GameRules ()
         {
+            //-= lines are attempts to fix the double listener events.
+            //EventPublisher.RaiseGameButtonClick -= GameRules_RaiseGameButtonClick;
             EventPublisher.RaiseGameButtonClick += GameRules_RaiseGameButtonClick;
+            //EventPublisher.RaiseNextPlayerButtonClick -= GameRules_RaiseNextPlayerButtonClick;
             EventPublisher.RaiseNextPlayerButtonClick += GameRules_RaiseNextPlayerButtonClick;
         }
 
