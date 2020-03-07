@@ -118,6 +118,8 @@ namespace Uno
         private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.NextPlayerButtonClick();
+            this.Hide();
+            this.Close();
         }
 
         private void UpdateDrawCard()

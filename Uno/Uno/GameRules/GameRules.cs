@@ -36,7 +36,10 @@ namespace Uno
 
         private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)
         {
-            MessageBox.Show("Debug:GameRules:NextPlayerButtonClickDetected", "next player button");
+            //add code to work out number of skips here
+            //also code to check if end turn is allowed. 
+            UnoMain.UnoGame.NextPlayer(0);
+            //MessageBox.Show("Debug:GameRules:NextPlayerButtonClickDetected", "next player button");
         }
 
         private bool CheckIfPlayerAllowedToUseCard()
