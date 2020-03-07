@@ -8,7 +8,7 @@ namespace Uno
     {
         private int mNumber;
 
-        public CardNumber(string pImageName, Image pImage, Suit pSuit, int pNumber) : base(pImageName, pImage, pSuit)
+        public CardNumber(string pImageName, Suit pSuit, int pNumber) : base(pImageName, pSuit)
         {
             this.mNumber = pNumber;
         }

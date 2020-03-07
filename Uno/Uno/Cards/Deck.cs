@@ -11,13 +11,8 @@ namespace Uno
 {
     class Deck
     {
-        [NonSerialized]
         static string mCardDeckFileName = "CardDeck.bin";
-
-        [NonSerialized]
         private List<Card> mDrawPile;
-
-        [NonSerialized]
         private List<Card> mDiscardPile;
 
         public Deck()
@@ -114,36 +109,26 @@ namespace Uno
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
-            Image imageStandard = GetBitmap(imagePickupName);
-            Image imagePickup = GetBitmap(imagePickupName);
-            CardWild cardWildStandard = new CardWild(imageStandardName, imageStandard, 0);
-            CardWild cardWildPickup = new CardWild(imagePickupName, imagePickup, 4);
+            CardWild cardWildStandard = new CardWild(imageStandardName, 0);
+            CardWild cardWildPickup = new CardWild(imagePickupName, 4);
             Add2OfEachCardToDeck(pCardList, cardWildStandard);
             Add2OfEachCardToDeck(pCardList, cardWildStandard);
             Add2OfEachCardToDeck(pCardList, cardWildPickup);
             Add2OfEachCardToDeck(pCardList, cardWildPickup);
         }
 
-        private ImageSource GetImageSource(string pName)
-        {
-            //Assembly assembly = Assembly.GetExecutingAssembly();
-            //Stream stream = assembly.GetManifestResourceStream(pName + ".png");
-            Uri uri = new Uri(pName + ".png", UriKind.Relative);
-            ImageSource imageSource = new BitmapImage(uri);
-            return imageSource;
-        }
-
-        private Image GetBitmap(string pName)
-        {   //Code Source Microsoft https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.image.source?redirectedfrom=MSDN&view=netframework-4.8#System_Windows_Controls_Image_Source
-            Image image = new Image();
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(pName, UriKind.Relative);
-            bitmap.EndInit();
-            image.Stretch = Stretch.Fill;
-            image.Source = bitmap;
-            return image;
-        }
+        //**left here incase another gui needs this as it works. 
+        //private Image GetBitmap(string pName)
+        //{   //Code Source Microsoft https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.image.source?redirectedfrom=MSDN&view=netframework-4.8#System_Windows_Controls_Image_Source
+        //    Image image = new Image();
+        //    BitmapImage bitmap = new BitmapImage();
+        //    bitmap.BeginInit();
+        //    bitmap.UriSource = new Uri(pName, UriKind.Relative);
+        //    bitmap.EndInit();
+        //    image.Stretch = Stretch.Fill;
+        //    image.Source = bitmap;
+        //    return image;
+        //}
 
         private void GenerateSuitCards(List<Card> pCardList, Suit pSuit, string pColour)
         {
@@ -170,8 +155,7 @@ namespace Uno
                         break;
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                Image image = GetBitmap(imgFileName);
-                CardSpecial cardSpecial = new CardSpecial(imgFileName, image, pSuit, specialType);
+                CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
                 Add2OfEachCardToDeck(pCardList, cardSpecial);
             }
         }
@@ -181,8 +165,7 @@ namespace Uno
             for (int number = 0; number <= 9; number++)
             {
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
-                Image image = GetBitmap(imgFileName);
-                CardNumber cardNumber = new CardNumber(imgFileName, image, pSuit, number);
+                CardNumber cardNumber = new CardNumber(imgFileName, pSuit, number);
                 if (number == 0)
                 {
                     pCardList.Add(cardNumber);

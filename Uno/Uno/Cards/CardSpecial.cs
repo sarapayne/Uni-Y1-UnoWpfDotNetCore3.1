@@ -14,7 +14,7 @@ namespace Uno
     {
         private SpecialType mSpecialType;
 
-        public CardSpecial(string pImageName, Image pImage, Suit pSuit, SpecialType pSecialType): base (pImageName, pImage, pSuit)
+        public CardSpecial(string pImageName, Suit pSuit, SpecialType pSecialType): base (pImageName, pSuit)
         {
             this.mSpecialType = pSecialType;
         }

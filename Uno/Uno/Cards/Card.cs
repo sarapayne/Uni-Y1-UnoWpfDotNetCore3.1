@@ -12,26 +12,16 @@ namespace Uno
     [Serializable()]
     class Card
     {
-        [NonSerialized]
         private string  mImageName;
-
-        [NonSerialized]
-        private Image mImage;
 
         public Card()
         {
 
         }
 
-        public Card (string pImageName, Image pImage)
+        public Card (string pImageName)
         {
             this.mImageName = pImageName;
-            this.mImage = pImage;
-        }
-
-        public Image Image
-        {
-            get { return mImage; }
         }
 
         public string ImageName
