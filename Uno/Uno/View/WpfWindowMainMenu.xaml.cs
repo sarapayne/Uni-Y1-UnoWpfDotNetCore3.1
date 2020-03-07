@@ -66,11 +66,14 @@ namespace Uno
 
         private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)
         {
-            //add code here to validate that there is actually an ongoing game to return to!
-            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
-            wpfWindowMainMenu.Show();
-            this.Hide();
-            this.Close();
+            if (UnoMain.UnoGame != null)
+            {
+                WpfWindowGame wpfWindowGame = new WpfWindowGame();
+                wpfWindowGame.Show();
+                this.Hide();
+                this.Close();
+            }
+            else MessageBox.Show("Sorry there is no active game to return to", "no active game");
         }
     }
 }
