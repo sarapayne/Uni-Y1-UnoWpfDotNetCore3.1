@@ -27,8 +27,11 @@ namespace Uno
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
             bool cardPlayable = CheckIfCardCanBePlayed(card);
-            if (cardPlayable) MessageBox.Show("Degug:Card Can Be Played", "GameButton click");
-            else MessageBox.Show("Degug:Card Can not Be Played", "GameButton click");
+            if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+            else
+            {
+                UnoMain.UnoGame.PlaceCard(card);
+            }
         }
 
         private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)

@@ -8,19 +8,6 @@ namespace Uno
     static class EventPublisher
     {
         public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; //comented code attempting to fix double event listening
-        //{
-        //    add
-        //    {
-        //        if (RaiseGameButtonClick == null || !RaiseGameButtonClick.Contains(value))
-        //        {
-        //            RaiseGameButtonClick += value;
-        //        }
-        //    }
-        //    remove
-        //    {
-        //        RaiseGameButtonClick -= value;
-        //    }
-        //}
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaiseUpdateGUI;
 

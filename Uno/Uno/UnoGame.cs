@@ -66,6 +66,7 @@ namespace Uno
                 {
                     player.Cards.Add(mDeck.DiscardPile[0]);
                     mDeck.DiscardPile.RemoveAt(0);
+                    EventPublisher.UpdateGUI();
                 }
             }
         }
@@ -89,6 +90,13 @@ namespace Uno
                     break;
             }
             return gameRules;
+        }
+
+        public void PlaceCard (Card card)
+        {
+            mDeck.DiscardPile.Add(card);
+            mPlayers[CurrentPlayer].Cards.Remove(card);
+            EventPublisher.UpdateGUI();
         }
 
         public void NextPlayer(int pSkipPlayers)

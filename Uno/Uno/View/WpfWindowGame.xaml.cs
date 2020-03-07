@@ -25,9 +25,15 @@ namespace Uno
         public WpfWindowGame()
         {
             InitializeComponent();
+            EventPublisher.RaiseUpdateGUI += WpfWindowGame_RaiseUpdateGUI;
             UpdateDisplay();
         }
         private void WpfWindowGame_RaiseUpdateGUI(object sender, EventArgs eventArgs)
+        {
+            UpdateDisplay();
+        }
+
+        private void RaiseUpdateGui()
         {
             UpdateDisplay();
         }
