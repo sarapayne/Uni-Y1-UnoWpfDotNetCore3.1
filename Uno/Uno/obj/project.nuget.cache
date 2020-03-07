@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Pv1z1RjzjZl+fPmAuNiEKQTFvesXov3HA/fAJceTK8u7/nVIOacLr1Y0PWaiz0DufS/niHLfXvYwFcOXuSEGTg==",
+  "dgSpecHash": "bMkRVXweQXrWQwVN7fRx49vJa7yY3NxdYk06IJrlzwuUCdijMuvHqgdz4relRSnSf7DSzRsRg/WJhiW9eiAqaQ==",
   "success": true,
-  "projectFilePath": "W:\\source\\ACW-Private\\Uno\\Uno\\Uno.csproj",
+  "projectFilePath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\manwa\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\manwa\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",

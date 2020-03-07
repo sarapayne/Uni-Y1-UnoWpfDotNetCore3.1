@@ -12,6 +12,11 @@ namespace Uno
         {
             this.mNumber = pNumber;
         }
+
+        public int Number
+        {
+            get { return this.mNumber; }
+        }
     }
 
     

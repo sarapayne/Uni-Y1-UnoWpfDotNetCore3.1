@@ -13,5 +13,15 @@ namespace Uno
         {
             this.mCardsToDraw = pCardsToDraw;
         }
+
+        public int CardsToDraw
+        {
+            get { return this.mCardsToDraw; }
+        }
+
+        public Suit NextSuit 
+        {
+            get { return this.mNextSuit; }
+        }
     }
 }

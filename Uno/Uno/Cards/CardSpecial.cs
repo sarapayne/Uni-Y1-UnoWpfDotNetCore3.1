@@ -18,5 +18,10 @@ namespace Uno
         {
             this.mSpecialType = pSecialType;
         }
+
+        public SpecialType Type
+        {
+            get { return this.mSpecialType; }
+        }
     }
 }

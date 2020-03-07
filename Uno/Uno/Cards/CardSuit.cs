@@ -18,5 +18,10 @@ namespace Uno
         {
             this.mSuit = pSuit;
         }
+
+        public Suit Csuit
+        {
+            get { return this.mSuit; }
+        }
     }
 }
