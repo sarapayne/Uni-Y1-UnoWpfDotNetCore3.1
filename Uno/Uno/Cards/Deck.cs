@@ -58,8 +58,6 @@ namespace Uno
         private List<Card> LoadFullCardDeck()
         {
             List<Card> newDeck = new List<Card>();
-            /*
-            ****Loading of old deck is failing to save non serialised elments... will add this back later maybe****
             try
             {
                 using (Stream stream = File.Open(mCardDeckFileName, FileMode.Open))
@@ -73,8 +71,7 @@ namespace Uno
                 MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
                 GenerateCardList(newDeck);
             }
-            */
-            GenerateCardList(newDeck);
+            //GenerateCardList(newDeck);
             return newDeck;
         }
 

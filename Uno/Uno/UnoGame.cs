@@ -7,12 +7,8 @@ namespace Uno
     [Serializable()]
     class UnoGame
     {
-        [NonSerialized]
         private List<Player> mPlayers;
-
-        [NonSerialized]
         private Deck mDeck;     
-        
         private bool mforwards;
         private int mCurrentPlayer;
         private GameRules mGameRules;

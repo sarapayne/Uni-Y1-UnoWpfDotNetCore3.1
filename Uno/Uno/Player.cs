@@ -7,12 +7,8 @@ namespace Uno
     [Serializable()]
     class Player
     {
-        [NonSerialized]
         private string mName;
-
-        [NonSerialized]
         private List<Card> mCards;
-
         private int mNumber;
 
         public Player (int pPlayerNumber, string pPlayerName)
