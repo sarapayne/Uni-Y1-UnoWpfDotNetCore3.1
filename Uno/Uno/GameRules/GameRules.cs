@@ -26,8 +26,9 @@ namespace Uno
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            //MessageBox.Show("Degug:GameRules:CardName:" + card.ImageName, "GameButton click");
             bool cardPlayable = CheckIfCardCanBePlayed(card);
+            if (cardPlayable) MessageBox.Show("Degug:Card Can Be Played", "GameButton click");
+            else MessageBox.Show("Degug:Card Can not Be Played", "GameButton click");
         }
 
         private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)
@@ -77,11 +78,13 @@ namespace Uno
                                 switch (discardedSuitCard)
                                 {
                                     case CardSpecial discardedSpecialCard:
-                                        CardSpecial currentSpecialCard = pCard as CardSpecial;
+                                        CardSpecial currentSpecialCard = null;
+                                        currentSpecialCard = pCard as CardSpecial;
                                         if (discardedSpecialCard.Type == currentSpecialCard.Type) canBePlayed = true;
                                         break;
                                     case CardNumber discardedNumberCard:
-                                        CardNumber currentNumberCard = pCard as CardNumber;
+                                        CardNumber currentNumberCard = null;
+                                        currentNumberCard = pCard as CardNumber;
                                         if (discardedNumberCard.Number == currentNumberCard.Number) canBePlayed = true;
                                         break;
                                 }
