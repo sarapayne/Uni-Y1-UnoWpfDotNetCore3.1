@@ -13,6 +13,9 @@ namespace Uno
         private bool mforwards;
         private int mCurrentPlayer;
         private GameRules mGameRules;
+        private int mNextPlayerPickupTotal = 0;
+        private int mNextPlayersToSkipTotal = 0;
+        private bool mPlayerHasPickedorDiscard = false;
 
         public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
@@ -29,6 +32,26 @@ namespace Uno
             this.mforwards = true;
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
             this.mGameRules = SetGameRules(pGameRulesType);
+            this.mNextPlayerPickupTotal = 0;
+            this.mNextPlayersToSkipTotal = 0;
+            this.mPlayerHasPickedorDiscard = true;// set to true initially so that the next player function call works. 
+        }
+
+        public bool PlayerHasPickedUpOrDiscarded
+        {
+            get { return this.mPlayerHasPickedorDiscard; }
+        }
+
+        public int NextPlayerPickup
+        {
+            get { return mNextPlayerPickupTotal; }
+            set { this.mNextPlayerPickupTotal = value; }
+        }
+
+        public int NextPlayersSkip
+        {
+            get { return this.mNextPlayersToSkipTotal; }
+            set { this.mNextPlayersToSkipTotal = value; }
         }
 
         public List<Player> Players
@@ -47,6 +70,12 @@ namespace Uno
         {
             get { return this.mCurrentPlayer; }
         }
+
+        public void ReverseDirection()
+        {
+            mforwards = !mforwards;
+        }
+        
 
         public void RefreshCardPiles()
         {
@@ -94,6 +123,7 @@ namespace Uno
             mDeck.DiscardPile.Add(card);
             mPlayers[CurrentPlayer].Cards.Remove(card);
             mPlayers[mCurrentPlayer].SortPlayerCards();
+            mPlayerHasPickedorDiscard = true;
             if (mPlayers[mCurrentPlayer].Cards.Count == 1)
             {
                 MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
@@ -101,9 +131,9 @@ namespace Uno
             EventPublisher.UpdateGUI();
         }
 
-        public void NextPlayer(int pSkipPlayers)
+        public void NextPlayer()
         {
-            int change = pSkipPlayers + 1; //will always be at least 1
+            int change = mNextPlayersToSkipTotal + 1; //will always be at least 1
             if (!mforwards) change *= -1;
             mCurrentPlayer += change;
             int adjustment = 0;
@@ -119,6 +149,13 @@ namespace Uno
                 adjustment = mCurrentPlayer - (mPlayers.Count);
                 mCurrentPlayer = 0 + adjustment;
             }
+            for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
+            {
+                DrawCard();
+            }
+            mNextPlayerPickupTotal = 0;
+            mNextPlayersToSkipTotal = 0;
+            mPlayerHasPickedorDiscard = false;
             mPlayers[CurrentPlayer].SortPlayerCards();
             DisplayCurrentPlayerGui();
         }
@@ -141,6 +178,7 @@ namespace Uno
                     else MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
                 }
             }
+            mPlayerHasPickedorDiscard = true;
             mPlayers[mCurrentPlayer].SortPlayerCards();
             EventPublisher.UpdateGUI();
         }

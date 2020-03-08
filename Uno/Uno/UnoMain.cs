@@ -21,9 +21,8 @@ namespace Uno
         public static void NewGame(List<string> pPlayerNames, int pDealer, GameRulesType pGameRulesType)
         {
             mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
-            int numberOfSkips = 0;
             mUnoGame.RefreshCardPiles();
-            mUnoGame.NextPlayer(numberOfSkips); //call next player with 0 skips in place
+            mUnoGame.NextPlayer(); //call next player with 0 skips in place
         }
 
         public static void LoadGame(string pFileToLoad)

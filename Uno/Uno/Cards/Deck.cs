@@ -43,7 +43,6 @@ namespace Uno
                 mDrawPile = new List<Card>();
                 mDrawPile = mDiscardPile;
                 mDiscardPile = new List<Card>();
-                if (mDrawPile[0] is CardWild)
                 mDiscardPile.Add(mDrawPile[0]);
                 mDrawPile.RemoveAt(0);
                 ShuffleDeck(mDrawPile);

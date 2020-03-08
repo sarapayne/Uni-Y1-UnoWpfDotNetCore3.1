@@ -30,16 +30,40 @@ namespace Uno
             if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
             else
             {
+                switch (card)
+                {
+                    case CardWild wildcard:
+                        if (wildcard.CardsToDraw > 0)
+                        {
+                            UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;
+                        }
+                        break;
+                    case CardSpecial specialCard:
+                        if (specialCard.Type == SpecialType.Draw)
+                        {
+                            UnoMain.UnoGame.NextPlayerPickup += 2;
+                        }
+                        else if (specialCard.Type == SpecialType.Skip)
+                        {
+                            UnoMain.UnoGame.NextPlayersSkip++;
+                        }
+                        else if (specialCard.Type == SpecialType.Reverse)
+                        {
+                            UnoMain.UnoGame.ReverseDirection();
+                        }
+                        break;
+                }
                 UnoMain.UnoGame.PlaceCard(card);
             }
         }
 
         private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)
         {
-            //add code to work out number of skips here
-            //also code to check if end turn is allowed. 
-            UnoMain.UnoGame.NextPlayer(0);
-            //MessageBox.Show("Debug:GameRules:NextPlayerButtonClickDetected", "next player button");
+            if (UnoMain.UnoGame.PlayerHasPickedUpOrDiscarded)
+            {
+                UnoMain.UnoGame.NextPlayer();
+            }
+            else MessageBox.Show("Sorry, you need to either draw a card or play a card to pass play to the next player", "next player error");
         }
 
         private bool CheckIfPlayerAllowedToUseCard()
