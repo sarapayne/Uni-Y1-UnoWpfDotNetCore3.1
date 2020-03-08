@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Uno"
         xmlns:GUI_Custom_Elements="clr-namespace:Uno.GUI_Custom_Elements" x:Class="Uno.WpfWindowGame"
         mc:Ignorable="d"
-        Title="WpfWindowGame" Height="1080" Width="1920">
+        Title="WpfWindowGame" Height="960" Width="1280">
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -45,13 +45,9 @@
         </Grid.RowDefinitions>
         <Label Content= "Uno" x:Name="labelMainTitle" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="18" FontSize="100" HorizontalAlignment="Center"/>
         <Label x:Name="labelSecondTitle" Content= "Uno" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="18" FontSize="50" HorizontalAlignment="Center"/>
-        <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_back.png" Grid.Column="1" Grid.Row="6"/>
-        <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_front_suit_Blue_0.png" Grid.Column="2" Grid.Row="6"/>
-        <GUI_Custom_Elements:ImgCardControl Source="/Resources/card_front_suit_green_1.png" Grid.Column="3" Grid.Row="6"/>
-        <Image Source="/Resources/card_back.png" x:Name="imageDrawPile" Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Image Source="/Resources/card_back.png" x:Name="imageDrawPile" Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" MouseUp="imageDrawPile_MouseUp"/>
         <Image x:Name="imageDiscardPile" Source="/Resources/card_back.png" Grid.Column="12" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button Content="RemoveCardsTest" x:Name="ButtonRemoveCards" Grid.Column="1" Grid.Row="9" Click="ButtonRemoveCards_Click_1"/>
-        <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="1" Grid.Row="8" Click="buttonMainMenu_Click"/>
+        <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="2" Grid.Row="8" Click="buttonMainMenu_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button Content="EndTurn" x:Name="buttonEndTurn" Grid.Column="16" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="buttonEndTurn_Click"/>
     </Grid>
 </Window>

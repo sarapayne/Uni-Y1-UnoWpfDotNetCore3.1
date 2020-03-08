@@ -102,11 +102,6 @@ namespace Uno
             }
         }
 
-        private void ButtonRemoveCards_Click_1(object sender, RoutedEventArgs e)
-        {
-            ClearCards();
-        }
-
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
@@ -133,6 +128,11 @@ namespace Uno
         {
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
+        }
+
+        private void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            UnoMain.UnoGame.DrawCard();
         }
     }
 }

@@ -117,6 +117,40 @@ namespace Uno
             DisplayCurrentPlayerGui();
         }
 
+        public void DrawCard()
+        {
+            if (mDeck.DrawPile.Count > 0)
+            {
+                MoveCardFromDrawToPlayer();
+            }
+            else
+            {
+                RefreshCardPiles();
+                if (mDeck.DrawPile.Count > 0)
+                {
+                    if (mDeck.DiscardPile.Count > 0)
+                    {
+                        MoveCardFromDiscardToPlayer();
+                    }
+                    else MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
+                }
+            }
+        }
+
+        private void MoveCardFromDiscardToPlayer()
+        {
+            mPlayers[CurrentPlayer].Cards.Add(mDeck.DiscardPile[0]);
+            mDeck.DiscardPile.RemoveAt(0);
+            EventPublisher.UpdateGUI();
+        }
+
+        private void MoveCardFromDrawToPlayer()
+        {
+            mPlayers[CurrentPlayer].Cards.Add(mDeck.DrawPile[0]);
+            mDeck.DrawPile.RemoveAt(0);
+            EventPublisher.UpdateGUI();
+        }
+
         private void DisplayCurrentPlayerGui()
         {
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
