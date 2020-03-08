@@ -9,12 +9,12 @@ namespace Uno
     class UnoGame
     {
         private List<Player> mPlayers;
-        private Deck mDeck;     
+        private Deck mDeck;
         private bool mforwards;
         private int mCurrentPlayer;
         private GameRules mGameRules;
 
-        public UnoGame (List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
+        public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
             if (pPlayerNames.Count <= 10)
             {
@@ -26,12 +26,12 @@ namespace Uno
             }
             this.mDeck = new Deck();
             DealCards();
-            this.mforwards = true; 
+            this.mforwards = true;
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
-            this.mGameRules = SetGameRules(pGameRulesType);   
+            this.mGameRules = SetGameRules(pGameRulesType);
         }
 
-        public List <Player> Players
+        public List<Player> Players
         {
             get { return this.mPlayers; }
             set { this.mPlayers = value; }
@@ -89,11 +89,15 @@ namespace Uno
             return gameRules;
         }
 
-        public void PlaceCard (Card card)
+        public void PlaceCard(Card card)
         {
             mDeck.DiscardPile.Add(card);
             mPlayers[CurrentPlayer].Cards.Remove(card);
             mPlayers[mCurrentPlayer].SortPlayerCards();
+            if (mPlayers[mCurrentPlayer].Cards.Count == 1)
+            {
+                MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
+            }
             EventPublisher.UpdateGUI();
         }
 
@@ -106,7 +110,7 @@ namespace Uno
             if (mCurrentPlayer < 0)
             {   //adjust for going beyond the list size accounting for skipped players
                 //if we are at -1 change to last list index, if lower decrease by the difference
-                adjustment = mCurrentPlayer +1;
+                adjustment = mCurrentPlayer + 1;
                 mCurrentPlayer = (mPlayers.Count - 1) + adjustment;
             }
             else if (mCurrentPlayer >= mPlayers.Count)
@@ -115,7 +119,7 @@ namespace Uno
                 adjustment = mCurrentPlayer - (mPlayers.Count);
                 mCurrentPlayer = 0 + adjustment;
             }
-            mPlayers[CurrentPlayer].SortPlayerCards();            
+            mPlayers[CurrentPlayer].SortPlayerCards();
             DisplayCurrentPlayerGui();
         }
 
@@ -163,7 +167,7 @@ namespace Uno
             wpfWindowGame.Show();
         }
 
-        private List<Player> GenerateNewPlayers(List <string> pPlayerNames)
+        private List<Player> GenerateNewPlayers(List<string> pPlayerNames)
         {
             List<Player> players = new List<Player>();
             for (int playerIndex = 0; playerIndex < pPlayerNames.Count; playerIndex++)
