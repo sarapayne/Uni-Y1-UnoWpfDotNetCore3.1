@@ -13,13 +13,14 @@ namespace Uno
     class Card
     {
         private string  mImageName;
+        private int mUniqueItentifier;
 
         public Card()
         {
 
         }
 
-        public Card (string pImageName)
+        public Card (string pImageName, int pUniqueIdentifier)
         {
             this.mImageName = pImageName;
         }
@@ -28,5 +29,11 @@ namespace Uno
         {
             get { return mImageName; }
         }
+
+        public int UniqueIdentifier
+        {
+            get { return this.mUniqueItentifier; }
+        }
+
     }
 }

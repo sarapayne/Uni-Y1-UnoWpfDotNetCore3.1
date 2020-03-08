@@ -14,7 +14,7 @@ namespace Uno
     {
         private Suit mSuit;
 
-        public CardSuit(string pImageName, Suit pSuit) : base(pImageName)
+        public CardSuit(string pImageName, int pUniqueIdentifier, Suit pSuit ) : base(pImageName, pUniqueIdentifier)
         {
             this.mSuit = pSuit;
         }

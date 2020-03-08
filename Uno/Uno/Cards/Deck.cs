@@ -14,11 +14,13 @@ namespace Uno
         static string mCardDeckFileName = "CardDeck.bin";
         private List<Card> mDrawPile;
         private List<Card> mDiscardPile;
+        private int mUniqueIdentifier;
 
         public Deck()
         {
             this.mDiscardPile = LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
+            mUniqueIdentifier = 0;
         }
 
         public List<Card> DrawPile
@@ -102,12 +104,18 @@ namespace Uno
             SaveFullCardDeck(pCardList);
         }
 
+        private int UniqueIdentifier()
+        {   //ever time this is called increment then return the number before it was incremented. 
+            mUniqueIdentifier++;
+            return (mUniqueIdentifier - 1);
+        }
+
         private void GenerateWildCards(List<Card> pCardList)
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
-            CardWild cardWildStandard = new CardWild(imageStandardName, 0);
-            CardWild cardWildPickup = new CardWild(imagePickupName, 4);
+            CardWild cardWildStandard = new CardWild(imageStandardName, UniqueIdentifier(), 0);
+            CardWild cardWildPickup = new CardWild(imagePickupName, UniqueIdentifier(), 4);
             Add2OfEachCardToDeck(pCardList, cardWildStandard);
             Add2OfEachCardToDeck(pCardList, cardWildStandard);
             Add2OfEachCardToDeck(pCardList, cardWildPickup);
@@ -152,7 +160,7 @@ namespace Uno
                         break;
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
+                CardSpecial cardSpecial = new CardSpecial(imgFileName, UniqueIdentifier(), pSuit, specialType);
                 Add2OfEachCardToDeck(pCardList, cardSpecial);
             }
         }
@@ -162,7 +170,7 @@ namespace Uno
             for (int number = 0; number <= 9; number++)
             {
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
-                CardNumber cardNumber = new CardNumber(imgFileName, pSuit, number);
+                CardNumber cardNumber = new CardNumber(imgFileName, UniqueIdentifier(), pSuit, number);
                 if (number == 0)
                 {
                     pCardList.Add(cardNumber);
