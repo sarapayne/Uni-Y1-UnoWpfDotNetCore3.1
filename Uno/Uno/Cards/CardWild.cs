@@ -9,9 +9,10 @@ namespace Uno
         private int mCardsToDraw;
         private Suit mNextSuit;
 
-        public CardWild (string pImageName, int pUniqueIdentifier, int pCardsToDraw): base (pImageName, pUniqueIdentifier)
+        public CardWild (string pImageName, int pCardsToDraw): base (pImageName)
         {
             this.mCardsToDraw = pCardsToDraw;
+            this.mNextSuit = Suit.Unused;
         }
 
         public int CardsToDraw
@@ -22,6 +23,7 @@ namespace Uno
         public Suit NextSuit 
         {
             get { return this.mNextSuit; }
+            set { this.mNextSuit = value; }
         }
     }
 }

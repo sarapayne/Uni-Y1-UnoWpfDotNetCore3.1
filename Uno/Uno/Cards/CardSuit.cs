@@ -6,7 +6,7 @@ namespace Uno
     [Serializable()]
     enum Suit
     {
-        Red, Green, Blue, Yellow
+        Red, Green, Blue, Yellow, Unused
     }
 
     [Serializable()]
@@ -14,7 +14,7 @@ namespace Uno
     {
         private Suit mSuit;
 
-        public CardSuit(string pImageName, int pUniqueIdentifier, Suit pSuit ) : base(pImageName, pUniqueIdentifier)
+        public CardSuit(string pImageName, Suit pSuit ) : base(pImageName)
         {
             this.mSuit = pSuit;
         }

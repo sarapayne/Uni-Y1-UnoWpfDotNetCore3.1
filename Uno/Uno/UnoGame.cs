@@ -55,7 +55,7 @@ namespace Uno
 
         private void DealCards()
         {
-            mDeck.ShuffleDeck(mDeck.DiscardPile);
+            mDeck.ShuffleDeck();
             foreach (Player player in mPlayers)
             {
                 player.Cards = new List<Card>();
@@ -93,6 +93,7 @@ namespace Uno
         {
             mDeck.DiscardPile.Add(card);
             mPlayers[CurrentPlayer].Cards.Remove(card);
+            mPlayers[mCurrentPlayer].SortPlayerCards();
             EventPublisher.UpdateGUI();
         }
 
@@ -114,6 +115,7 @@ namespace Uno
                 adjustment = mCurrentPlayer - (mPlayers.Count);
                 mCurrentPlayer = 0 + adjustment;
             }
+            mPlayers[CurrentPlayer].SortPlayerCards();            
             DisplayCurrentPlayerGui();
         }
 
@@ -135,12 +137,15 @@ namespace Uno
                     else MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
                 }
             }
+            mPlayers[mCurrentPlayer].SortPlayerCards();
+            EventPublisher.UpdateGUI();
         }
 
         private void MoveCardFromDiscardToPlayer()
         {
             mPlayers[CurrentPlayer].Cards.Add(mDeck.DiscardPile[0]);
             mDeck.DiscardPile.RemoveAt(0);
+            mPlayers[mCurrentPlayer].SortPlayerCards();
             EventPublisher.UpdateGUI();
         }
 
@@ -148,6 +153,7 @@ namespace Uno
         {
             mPlayers[CurrentPlayer].Cards.Add(mDeck.DrawPile[0]);
             mDeck.DrawPile.RemoveAt(0);
+            mPlayers[mCurrentPlayer].SortPlayerCards();
             EventPublisher.UpdateGUI();
         }
 

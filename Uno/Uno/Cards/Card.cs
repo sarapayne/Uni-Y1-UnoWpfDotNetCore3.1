@@ -20,10 +20,12 @@ namespace Uno
 
         }
 
-        public Card (string pImageName, int pUniqueIdentifier)
+        public Card (string pImageName)
         {
             this.mImageName = pImageName;
         }
+
+
 
         public string ImageName
         {
@@ -33,6 +35,7 @@ namespace Uno
         public int UniqueIdentifier
         {
             get { return this.mUniqueItentifier; }
+            set { this.mUniqueItentifier = value; }
         }
 
     }

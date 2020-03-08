@@ -18,7 +18,7 @@ namespace Uno
 
         public Deck()
         {
-            this.mDiscardPile = LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
+            LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
         }
@@ -37,7 +37,7 @@ namespace Uno
 
         public void RefreshCardPiles()
         {
-            ShuffleDeck(mDiscardPile);
+            ShuffleDeck();
             mDrawPile = new List<Card>();
             mDrawPile = mDiscardPile;
             mDiscardPile = new List<Card>();
@@ -45,40 +45,40 @@ namespace Uno
             mDrawPile.RemoveAt(0);
         }
 
-        public void ShuffleDeck(List<Card> pDeck)
+        public void ShuffleDeck()
         {
             Random random = new Random();
-            for (int cardIndex = 0; cardIndex < pDeck.Count; cardIndex++)
+            for (int cardIndex = 0; cardIndex < mDiscardPile.Count; cardIndex++)
             {
-                int swapIndex = random.Next(0, pDeck.Count - 1);
-                Card temp = pDeck[cardIndex];
-                pDeck[cardIndex] = pDeck[swapIndex];
-                pDeck[swapIndex] = temp;
+                int swapIndex = random.Next(0, mDiscardPile.Count - 1);
+                Card temp = mDiscardPile[cardIndex];
+                mDiscardPile[cardIndex] = mDiscardPile[swapIndex];
+                mDiscardPile[swapIndex] = temp;
             }
         }
 
-        private List<Card> LoadFullCardDeck()
+        private void LoadFullCardDeck()
         {
-            List<Card> newDeck = new List<Card>();
             try
             {
                 using (Stream stream = File.Open(mCardDeckFileName, FileMode.Open))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
-                    newDeck = (List<Card>)bin.Deserialize(stream);
+                    mDiscardPile = (List<Card>)bin.Deserialize(stream);
                 }
             }
             catch (IOException)
             {
                 MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
-                GenerateCardList(newDeck);
+                mDiscardPile = new List<Card>();
+                GenerateCardList();
             }
-            //GenerateCardList(newDeck);
-            return newDeck;
+            //GenerateCardList();
         }
 
-        private void GenerateCardList(List<Card> pCardList)
+        private void GenerateCardList()
         {
+            mDiscardPile = new List<Card>();
             List<Suit> suites = new List<Suit> { Suit.Red, Suit.Green, Suit.Blue, Suit.Yellow };
             foreach (Suit suit in suites)
             {
@@ -98,50 +98,31 @@ namespace Uno
                         colour = "yellow";
                         break;
                 }
-                GenerateSuitCards(pCardList, suit, colour);
+                GenerateSuitCards(suit, colour);
             }
-            GenerateWildCards(pCardList);
-            SaveFullCardDeck(pCardList);
+            GenerateWildCards();
+            SaveFullCardDeck(mDiscardPile);
         }
 
-        private int UniqueIdentifier()
-        {   //ever time this is called increment then return the number before it was incremented. 
-            mUniqueIdentifier++;
-            return (mUniqueIdentifier - 1);
-        }
-
-        private void GenerateWildCards(List<Card> pCardList)
+        private void GenerateWildCards()
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
-            CardWild cardWildStandard = new CardWild(imageStandardName, UniqueIdentifier(), 0);
-            CardWild cardWildPickup = new CardWild(imagePickupName, UniqueIdentifier(), 4);
-            Add2OfEachCardToDeck(pCardList, cardWildStandard);
-            Add2OfEachCardToDeck(pCardList, cardWildStandard);
-            Add2OfEachCardToDeck(pCardList, cardWildPickup);
-            Add2OfEachCardToDeck(pCardList, cardWildPickup);
+            CardWild cardWildStandard = new CardWild(imageStandardName, 0);
+            CardWild cardWildPickup = new CardWild(imagePickupName, 4);
+            AddCardToDeck(cardWildStandard, 4);
+            AddCardToDeck(cardWildPickup, 4);
         }
 
-        //**left here incase another gui needs this as it works. 
-        //private Image GetBitmap(string pName)
-        //{   //Code Source Microsoft https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.image.source?redirectedfrom=MSDN&view=netframework-4.8#System_Windows_Controls_Image_Source
-        //    Image image = new Image();
-        //    BitmapImage bitmap = new BitmapImage();
-        //    bitmap.BeginInit();
-        //    bitmap.UriSource = new Uri(pName, UriKind.Relative);
-        //    bitmap.EndInit();
-        //    image.Stretch = Stretch.Fill;
-        //    image.Source = bitmap;
-        //    return image;
-        //}
 
-        private void GenerateSuitCards(List<Card> pCardList, Suit pSuit, string pColour)
+
+        private void GenerateSuitCards(Suit pSuit, string pColour)
         {
-            GenerateNumberCards(pCardList, pSuit, pColour);
-            GenerateSpecialCards(pCardList, pSuit, pColour);
+            GenerateNumberCards(pSuit, pColour);
+            GenerateSpecialCards(pSuit, pColour);
         }
 
-        private void GenerateSpecialCards(List<Card> pCardList, Suit pSuit, string pColour)
+        private void GenerateSpecialCards(Suit pSuit, string pColour)
         {
             List<SpecialType> specialTypes = new List<SpecialType> { SpecialType.Draw, SpecialType.Reverse, SpecialType.Skip };
             foreach (SpecialType specialType in specialTypes)
@@ -160,32 +141,43 @@ namespace Uno
                         break;
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                CardSpecial cardSpecial = new CardSpecial(imgFileName, UniqueIdentifier(), pSuit, specialType);
-                Add2OfEachCardToDeck(pCardList, cardSpecial);
+                CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
+                AddCardToDeck(cardSpecial, 2);
             }
         }
 
-        private void GenerateNumberCards(List<Card> pCardList, Suit pSuit, string pColour)
+        private void GenerateNumberCards(Suit pSuit, string pColour)
         {
             for (int number = 0; number <= 9; number++)
             {
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
-                CardNumber cardNumber = new CardNumber(imgFileName, UniqueIdentifier(), pSuit, number);
+                CardNumber cardNumber = new CardNumber(imgFileName, pSuit, number);
                 if (number == 0)
                 {
-                    pCardList.Add(cardNumber);
+                    AddCardToDeck(cardNumber,1);
                 }
                 else
                 {
-                    Add2OfEachCardToDeck(pCardList, cardNumber);
+                    AddCardToDeck(cardNumber,2);
                 }
             }
         }
 
-        private void Add2OfEachCardToDeck(List<Card> CardList, Card card)
+        private void AddCardToDeck(Card pCard, int pNumToAdd)
         {
-            CardList.Add(card);
-            CardList.Add(card);
+            for (int count = 0; count < pNumToAdd; count++)
+            {
+                pCard.UniqueIdentifier = mUniqueIdentifier;
+                mDiscardPile.Add(pCard);
+                mUniqueIdentifier++;
+            }
+        }
+
+        private void AddNewCardToDeck(Card pcard)
+        {   //ever time this is called increment then return the number before it was incremented. 
+            pcard.UniqueIdentifier = mUniqueIdentifier;
+            mDiscardPile.Add(pcard);
+            mUniqueIdentifier++;
         }
 
         private void SaveFullCardDeck(List<Card> pCardList)
