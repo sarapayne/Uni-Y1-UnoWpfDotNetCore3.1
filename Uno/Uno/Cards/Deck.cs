@@ -37,12 +37,15 @@ namespace Uno
 
         public void RefreshCardPiles()
         {
-            mDrawPile = new List<Card>();
-            mDrawPile = mDiscardPile;
-            mDiscardPile = new List<Card>();
-            mDiscardPile.Add(mDrawPile[0]);
-            mDrawPile.RemoveAt(0);
-            ShuffleDeck(mDrawPile);
+            if (mDiscardPile != null)
+            {
+                mDrawPile = new List<Card>();
+                mDrawPile = mDiscardPile;
+                mDiscardPile = new List<Card>();
+                mDiscardPile.Add(mDrawPile[0]);
+                mDrawPile.RemoveAt(0);
+                ShuffleDeck(mDrawPile);
+            }
         }
 
         public void ShuffleDeck(List<Card> pCardList)
