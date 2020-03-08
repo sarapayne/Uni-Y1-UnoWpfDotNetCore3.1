@@ -55,7 +55,7 @@ namespace Uno
 
         private void DealCards()
         {
-            mDeck.ShuffleDeck();
+            mDeck.ShuffleDeck(mDeck.DiscardPile);
             foreach (Player player in mPlayers)
             {
                 player.Cards = new List<Card>();
