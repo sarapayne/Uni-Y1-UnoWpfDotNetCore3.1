@@ -40,12 +40,6 @@ namespace Uno
             if (mDiscardPile != null)
             {
                 MakeSureTopCardNotWild(mDiscardPile);
-                if (mDiscardPile[0] is CardWild)
-                {
-                    Card temp = mDiscardPile[0];
-                    mDiscardPile.RemoveAt(0);
-                    mDiscardPile.Add(temp);
-                }
                 mDrawPile = new List<Card>();
                 mDrawPile = mDiscardPile;
                 mDiscardPile = new List<Card>();
