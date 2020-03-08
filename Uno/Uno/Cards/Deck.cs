@@ -39,12 +39,30 @@ namespace Uno
         {
             if (mDiscardPile != null)
             {
+                MakeSureTopCardNotWild(mDiscardPile);
+                if (mDiscardPile[0] is CardWild)
+                {
+                    Card temp = mDiscardPile[0];
+                    mDiscardPile.RemoveAt(0);
+                    mDiscardPile.Add(temp);
+                }
                 mDrawPile = new List<Card>();
                 mDrawPile = mDiscardPile;
                 mDiscardPile = new List<Card>();
+                if (mDrawPile[0] is CardWild)
                 mDiscardPile.Add(mDrawPile[0]);
                 mDrawPile.RemoveAt(0);
                 ShuffleDeck(mDrawPile);
+            }
+        }
+
+        private void MakeSureTopCardNotWild(List<Card> pCardList)
+        {
+            while (pCardList[0] is CardWild)
+            {
+                Card temp = pCardList[0];
+                pCardList.RemoveAt(0);
+                pCardList.Add(temp);
             }
         }
 
