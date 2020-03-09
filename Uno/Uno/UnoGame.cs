@@ -17,7 +17,8 @@ namespace Uno
         private GameRules mGameRules;
         private int mNextPlayerPickupTotal = 0;
         private int mNextPlayersToSkipTotal = 0;
-        private bool mPlayerHasPickedorDiscard = false;
+        private bool mPlayerHasDiscarded = false;
+        private bool mPlayerHasPicked = false;
 
         public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
@@ -36,13 +37,19 @@ namespace Uno
             this.mGameRules = SetGameRules(pGameRulesType);
             this.mNextPlayerPickupTotal = 0;
             this.mNextPlayersToSkipTotal = 0;
-            this.mPlayerHasPickedorDiscard = true;// set to true initially so that the next player function call works.
+            this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
+            this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
         }
 
-        public bool PlayerHasPickedUpOrDiscarded
+        public bool PlayerHasPicked
         {
-            get { return this.mPlayerHasPickedorDiscard; }
+            get { return this.mPlayerHasPicked; }
+        }
+
+        public bool PlayerHasDiscared
+        {
+            get { return this.mPlayerHasDiscarded; }
         }
 
         public int NextPlayerPickup
@@ -78,7 +85,7 @@ namespace Uno
         {
             mforwards = !mforwards;
         }
-        
+
 
         public void RefreshCardPiles()
         {
@@ -87,7 +94,7 @@ namespace Uno
 
         private void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
         {
-            if (mDeck.DiscardPile[mDeck.DiscardPile.Count-1] is CardWild)
+            if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
             {
                 CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
                 cardWild.NextSuit = argsColourPick.NextSuit;
@@ -135,7 +142,7 @@ namespace Uno
             mDeck.DiscardPile.Add(card);
             mPlayers[CurrentPlayer].Cards.Remove(card);
             mPlayers[mCurrentPlayer].SortPlayerCards();
-            mPlayerHasPickedorDiscard = true;
+            mPlayerHasDiscarded = true;
             if (card is CardWild)
             {
                 WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
@@ -150,31 +157,39 @@ namespace Uno
 
         public void NextPlayer()
         {
-            int change = mNextPlayersToSkipTotal + 1; //will always be at least 1
-            if (!mforwards) change *= -1;
-            mCurrentPlayer += change;
-            int adjustment = 0;
-            if (mCurrentPlayer < 0)
-            {   //adjust for going beyond the list size accounting for skipped players
-                //if we are at -1 change to last list index, if lower decrease by the difference
-                adjustment = mCurrentPlayer + 1;
-                mCurrentPlayer = (mPlayers.Count - 1) + adjustment;
-            }
-            else if (mCurrentPlayer >= mPlayers.Count)
-            {   //adjust for going beyond the list size accounting for skipped players
-                //if we are at mPlayers.Length change to player0, if higher adjust by the difference
-                adjustment = mCurrentPlayer - (mPlayers.Count);
-                mCurrentPlayer = 0 + adjustment;
-            }
-            for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
+            if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
-                DrawCard();
+                int change = mNextPlayersToSkipTotal + 1; //will always be at least 1
+                if (!mforwards) change *= -1;
+                mCurrentPlayer += change;
+                int adjustment = 0;
+                if (mCurrentPlayer < 0)
+                {   //adjust for going beyond the list size accounting for skipped players
+                    //if we are at -1 change to last list index, if lower decrease by the difference
+                    adjustment = mCurrentPlayer + 1;
+                    mCurrentPlayer = (mPlayers.Count - 1) + adjustment;
+                }
+                else if (mCurrentPlayer >= mPlayers.Count)
+                {   //adjust for going beyond the list size accounting for skipped players
+                    //if we are at mPlayers.Length change to player0, if higher adjust by the difference
+                    adjustment = mCurrentPlayer - (mPlayers.Count);
+                    mCurrentPlayer = 0 + adjustment;
+                }
+                for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
+                {
+                    DrawCard();
+                }
+                mNextPlayerPickupTotal = 0;
+                mNextPlayersToSkipTotal = 0;
+                mPlayerHasPicked = false;
+                mPlayerHasDiscarded = false;
+                mPlayers[CurrentPlayer].SortPlayerCards();
+                DisplayCurrentPlayerGui();
             }
-            mNextPlayerPickupTotal = 0;
-            mNextPlayersToSkipTotal = 0;
-            mPlayerHasPickedorDiscard = false;
-            mPlayers[CurrentPlayer].SortPlayerCards();
-            DisplayCurrentPlayerGui();
+            else
+            {
+                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
+            }
         }
 
         public void DrawCard()
@@ -195,7 +210,7 @@ namespace Uno
                     else MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
                 }
             }
-            mPlayerHasPickedorDiscard = true;
+            mPlayerHasPicked = true;
             mPlayers[mCurrentPlayer].SortPlayerCards();
             EventPublisher.UpdateGUI();
         }

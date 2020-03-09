@@ -60,11 +60,7 @@ namespace Uno
 
         private void GameRules_RaiseNextPlayerButtonClick (object sender, EventArgs eventArgs)
         {
-            if (UnoMain.UnoGame.PlayerHasPickedUpOrDiscarded)
-            {
-                UnoMain.UnoGame.NextPlayer();
-            }
-            else MessageBox.Show("Sorry, you need to either draw a card or play a card to pass play to the next player", "next player error");
+            UnoMain.UnoGame.NextPlayer();
         }
 
         private bool CheckIfPlayerAllowedToUseCard()
