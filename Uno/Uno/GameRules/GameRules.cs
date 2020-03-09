@@ -54,7 +54,14 @@ namespace Uno
                             }
                             else if (specialCard.Type == SpecialType.Reverse)
                             {
-                                UnoMain.UnoGame.ReverseDirection();
+                                if (UnoMain.UnoGame.Players.Count == 2)
+                                {
+                                    UnoMain.UnoGame.NextPlayersSkip++;
+                                }
+                                else
+                                {
+                                    UnoMain.UnoGame.ReverseDirection();
+                                }
                             }
                             break;
                     }
