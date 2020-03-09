@@ -91,8 +91,7 @@ namespace Uno
                             if (cardSuit.Csuit == nextSuit) canBePlayed = true;
                             break;
                         case CardWild cardWild:
-                            if (cardWild.CardsToDraw == 0) canBePlayed = true;
-                            else if (!CheckForOtherPlayableCards()) canBePlayed = true; //only happens if no other playable cards
+                            canBePlayed = true;
                             break;
                     }
                     break;
@@ -101,8 +100,6 @@ namespace Uno
                     switch (pCard)
                     {
                         case CardWild currentWildCard:
-                            if (currentWildCard.CardsToDraw == 0) canBePlayed = true;
-                            else if (!CheckForOtherPlayableCards()) canBePlayed = true; //only happens if no other playable cards
                             canBePlayed = true;
                             break;
                         case CardSuit currentSuitCard:
@@ -128,25 +125,6 @@ namespace Uno
                     break;
             }
             return canBePlayed;
-        }
-
-        private bool CheckForOtherPlayableCards()
-        {
-            bool hasOtherPlayableCards = false;
-            List<Card> currentPlayerCards = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Cards;
-            foreach (Card playerCard in currentPlayerCards)
-            {
-                switch (playerCard)
-                {
-                    case CardWild wildCard:
-                        if (wildCard.CardsToDraw == 0) hasOtherPlayableCards = true;
-                        break;
-                    case CardSuit suitcard:
-                        if (CheckIfCardCanBePlayed(suitcard)) hasOtherPlayableCards = true;
-                        break;
-                }
-            }
-            return hasOtherPlayableCards;
         }
     }
 }
