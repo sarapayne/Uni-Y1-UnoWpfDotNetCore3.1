@@ -39,12 +39,14 @@ namespace Uno
                             if (wildcard.CardsToDraw > 0)
                             {
                                 UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;
+                                UnoMain.UnoGame.NextPlayersSkip++;
                             }
                             break;
                         case CardSpecial specialCard:
                             if (specialCard.Type == SpecialType.Draw)
                             {
                                 UnoMain.UnoGame.NextPlayerPickup += 2;
+                                UnoMain.UnoGame.NextPlayersSkip++;
                             }
                             else if (specialCard.Type == SpecialType.Skip)
                             {
