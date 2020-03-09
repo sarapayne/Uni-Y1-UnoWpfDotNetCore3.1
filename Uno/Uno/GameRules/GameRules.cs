@@ -80,14 +80,14 @@ namespace Uno
             UnoMain.UnoGame.NextPlayer();
         }
 
-        private bool CheckIfPlayerAllowedToUseCard()
-        {
-            bool isAllowed = false;
-            //add code here
-            return isAllowed;
-        }
+        //private bool CheckIfPlayerAllowedToUseCard()
+        //{
+        //    bool isAllowed = false;
+        //    //add code here
+        //    return isAllowed;
+        //}
 
-        private bool CheckIfCardCanBePlayed(Card pCard)
+        public bool CheckIfCardCanBePlayed(Card pCard)
         {
             bool canBePlayed = false;
             Card lastDiscardCard = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];

@@ -12,6 +12,15 @@ namespace Uno
         public static event EventHandler<EventArgsColourPick> RaiseColourPick;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaiseUpdateGUI;
+        public static event EventHandler RaisePlus4Challenge;
+
+        public static void Plus4Challenge()
+        {
+            if (RaisePlus4Challenge != null)
+            {
+                EventPublisher.RaisePlus4Challenge(null, null);
+            }
+        }
 
         public static void ColourPick(Suit pSuit)
         {

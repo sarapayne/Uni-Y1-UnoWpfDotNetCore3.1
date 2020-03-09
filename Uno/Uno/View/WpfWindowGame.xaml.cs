@@ -26,23 +26,26 @@ namespace Uno
         {
             InitializeComponent();
             EventPublisher.RaiseUpdateGUI += WpfWindowGame_RaiseUpdateGUI;
-            UpdateDisplay();
+            bool checkPlus4Button = true;
+            UpdateDisplay(checkPlus4Button);
         }
         private void WpfWindowGame_RaiseUpdateGUI(object sender, EventArgs eventArgs)
         {
-            UpdateDisplay();
+            bool checkPlus4Button = false;
+            UpdateDisplay(checkPlus4Button);
         }
 
         private void RaiseUpdateGui()
         {
-            UpdateDisplay();
+            bool checkPlus4Button = false;
+            UpdateDisplay(checkPlus4Button);
         }
 
-        private void UpdateDisplay()
+        private void UpdateDisplay(bool pCheckPlus4Button)
         {
             ClearCards();
             AddPlayerCards();
-            UpdateDrawCard();
+            UpdateDrawCard(pCheckPlus4Button);
             labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
         }
 
@@ -117,7 +120,7 @@ namespace Uno
             this.Close();
         }
 
-        private void UpdateDrawCard()
+        private void UpdateDrawCard(bool pCheckPlus4Button)
         {
             buttonDraw4Challenge.IsEnabled = false;
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
@@ -127,10 +130,13 @@ namespace Uno
             if (card is CardWild)
             {
                 CardWild wildCard = card as CardWild;
-                if (wildCard.CardsToDraw > 0)
+                if (pCheckPlus4Button)
                 {
-                    buttonDraw4Challenge.IsEnabled = true;
-                    buttonDraw4Challenge.Visibility = Visibility.Visible;
+                    if (wildCard.CardsToDraw > 0)
+                    {
+                        buttonDraw4Challenge.IsEnabled = true;
+                        buttonDraw4Challenge.Visibility = Visibility.Visible;
+                    }
                 }
                 string imageName = "";
                 switch (wildCard.NextSuit)
@@ -166,6 +172,13 @@ namespace Uno
         private void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
         {
             UnoMain.UnoGame.DrawCard();
+        }
+
+        private void buttonDraw4Challenge_Click(object sender, RoutedEventArgs e)
+        {
+            EventPublisher.Plus4Challenge();
+            buttonDraw4Challenge.Visibility = Visibility.Hidden;
+            buttonDraw4Challenge.IsEnabled = false;
         }
     }
 }

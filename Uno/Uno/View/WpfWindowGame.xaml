@@ -49,6 +49,6 @@
         <Image x:Name="imageDiscardPile" Source="/Resources/card_back.png" Grid.Column="12" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="2" Grid.Row="8" Click="buttonMainMenu_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button Content="EndTurn" x:Name="buttonEndTurn" Grid.Column="16" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="buttonEndTurn_Click"/>
-        <Button Content="Draw4 Challenge" x:Name="buttonDraw4Challenge" Grid.Column="9" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" IsEnabled="False" Visibility="Hidden"/>
+        <Button Content="Draw4 Challenge" x:Name="buttonDraw4Challenge" Grid.Column="9" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" IsEnabled="False" Visibility="Hidden" Click="buttonDraw4Challenge_Click"/>
     </Grid>
 </Window>
