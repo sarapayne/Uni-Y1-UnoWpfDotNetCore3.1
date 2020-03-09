@@ -98,6 +98,7 @@ namespace Uno
             {
                 CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
                 cardWild.NextSuit = argsColourPick.NextSuit;
+                FinishPlaceCard();
             }
         }
 
@@ -141,13 +142,19 @@ namespace Uno
         {
             mDeck.DiscardPile.Add(card);
             mPlayers[CurrentPlayer].Cards.Remove(card);
-            mPlayers[mCurrentPlayer].SortPlayerCards();
-            mPlayerHasDiscarded = true;
             if (card is CardWild)
             {
                 WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
                 wpfWindowChooseColour.Show();
             }
+            else { FinishPlaceCard(); }
+        }
+
+        private void FinishPlaceCard()
+        {
+            mPlayers[mCurrentPlayer].SortPlayerCards();
+            mPlayerHasDiscarded = true;
+
             if (mPlayers[mCurrentPlayer].Cards.Count == 1)
             {
                 MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");

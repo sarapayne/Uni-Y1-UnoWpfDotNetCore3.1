@@ -26,14 +26,12 @@ namespace Uno.View
         {
             Suit suit = Suit.Red;
             TriggerEvent(suit);
-            
         }
 
         private void buttonGren_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Green;
             TriggerEvent(suit);
-
         }
 
         private void buttonBlue_Click(object sender, RoutedEventArgs e)

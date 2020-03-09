@@ -61,8 +61,12 @@
     <None Remove="Resources\card_front_suit_yellow_draw.png" />
     <None Remove="Resources\card_front_suit_yellow_reverse.png" />
     <None Remove="Resources\card_front_suit_yellow_skip.png" />
+    <None Remove="Resources\card_front_wild_blue.png" />
+    <None Remove="Resources\card_front_wild_green.png" />
     <None Remove="Resources\card_front_wild_pickup.png" />
+    <None Remove="Resources\card_front_wild_red.png" />
     <None Remove="Resources\card_front_wild_standard.png" />
+    <None Remove="Resources\card_front_wild_yellow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -225,10 +229,22 @@
     <Resource Include="Resources\card_front_suit_yellow_skip.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\card_front_wild_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\card_front_wild_green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\card_front_wild_pickup.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\card_front_wild_red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\card_front_wild_standard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\card_front_wild_yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

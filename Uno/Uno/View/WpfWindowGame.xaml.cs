@@ -119,33 +119,40 @@ namespace Uno
 
         private void UpdateDrawCard()
         {
+            buttonDraw4Challenge.IsEnabled = false;
+            buttonDraw4Challenge.Visibility = Visibility.Hidden;
             //List<Card> discardPile = UnoMain.UnoGame.Deck.DiscardPile;
             Card card = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];
             Uri imageUri = null;
             if (card is CardWild)
             {
                 CardWild wildCard = card as CardWild;
+                if (wildCard.CardsToDraw > 0)
+                {
+                    buttonDraw4Challenge.IsEnabled = true;
+                    buttonDraw4Challenge.Visibility = Visibility.Visible;
+                }
                 string imageName = "";
                 switch (wildCard.NextSuit)
                 {
                     case Suit.Red:
-                        imageName = "card_front_wild_red.png";
+                        imageName = "card_front_wild_red";
                         break;
                     case Suit.Green:
-                        imageName = "card_front_wild_green.png";
+                        imageName = "card_front_wild_green";
                         break;
                     case Suit.Blue:
-                        imageName = "card_front_wild_blue.png";
+                        imageName = "card_front_wild_blue";
                         break;
                     case Suit.Yellow:
-                        imageName = "card_front_wild_yellow.png";
+                        imageName = "card_front_wild_yellow";
                         break;
                 }
                 imageUri = GetResourceUri(imageName);
             }
             else
             {
-                imageUri = GetResourceUri(card.ImageName);
+                imageUri = GetResourceUri(card.ImageName);  
             }
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }
