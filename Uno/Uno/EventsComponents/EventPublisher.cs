@@ -2,14 +2,24 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using Uno.EventsComponents;
 
 namespace Uno
 {
     static class EventPublisher
     {
-        public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; //comented code attempting to fix double event listening
+        public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; 
+        public static event EventHandler<EventArgsColourPick> RaiseColourPick;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaiseUpdateGUI;
+
+        public static void ColourPick(Suit pSuit)
+        {
+            if (RaiseColourPick != null)
+            {
+                EventPublisher.RaiseColourPick(null, new EventArgsColourPick(pSuit));
+            }
+        }
 
         public static void UpdateGUI()
         {
