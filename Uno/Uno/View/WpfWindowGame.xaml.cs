@@ -119,8 +119,34 @@ namespace Uno
 
         private void UpdateDrawCard()
         {
-            List<Card> discardPile = UnoMain.UnoGame.Deck.DiscardPile;
-            Uri imageUri = GetResourceUri(discardPile[discardPile.Count - 1].ImageName);
+            //List<Card> discardPile = UnoMain.UnoGame.Deck.DiscardPile;
+            Card card = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];
+            Uri imageUri = null;
+            if (card is CardWild)
+            {
+                CardWild wildCard = card as CardWild;
+                string imageName = "";
+                switch (wildCard.NextSuit)
+                {
+                    case Suit.Red:
+                        imageName = "card_front_wild_red.png";
+                        break;
+                    case Suit.Green:
+                        imageName = "card_front_wild_green.png";
+                        break;
+                    case Suit.Blue:
+                        imageName = "card_front_wild_blue.png";
+                        break;
+                    case Suit.Yellow:
+                        imageName = "card_front_wild_yellow.png";
+                        break;
+                }
+                imageUri = GetResourceUri(imageName);
+            }
+            else
+            {
+                imageUri = GetResourceUri(card.ImageName);
+            }
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }
 
