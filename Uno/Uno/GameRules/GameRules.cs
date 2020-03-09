@@ -34,8 +34,6 @@ namespace Uno
                 switch (card)
                 {
                     case CardWild wildcard:
-                        WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
-                        wpfWindowChooseColour.Show();
                         if (wildcard.CardsToDraw > 0)
                         {
                             UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;

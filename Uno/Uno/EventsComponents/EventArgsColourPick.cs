@@ -6,7 +6,7 @@ namespace Uno.EventsComponents
 {
     class EventArgsColourPick: EventArgs
     {
-        private Suit mSuit;
+        public Suit mSuit;
 
         public EventArgsColourPick(Suit pSuit)
         {

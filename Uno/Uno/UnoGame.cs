@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using Uno.EventsComponents;
+using Uno.View;
 
 namespace Uno
 {
@@ -34,7 +36,8 @@ namespace Uno
             this.mGameRules = SetGameRules(pGameRulesType);
             this.mNextPlayerPickupTotal = 0;
             this.mNextPlayersToSkipTotal = 0;
-            this.mPlayerHasPickedorDiscard = true;// set to true initially so that the next player function call works. 
+            this.mPlayerHasPickedorDiscard = true;// set to true initially so that the next player function call works.
+            EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
         }
 
         public bool PlayerHasPickedUpOrDiscarded
@@ -82,6 +85,15 @@ namespace Uno
             mDeck.RefreshCardPiles();
         }
 
+        private void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
+        {
+            if (mDeck.DiscardPile[mDeck.DiscardPile.Count-1] is CardWild)
+            {
+                CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
+                cardWild.NextSuit = argsColourPick.NextSuit;
+            }
+        }
+
         private void DealCards()
         {
             mDeck.ShuffleDeck(mDeck.DiscardPile);
@@ -124,6 +136,11 @@ namespace Uno
             mPlayers[CurrentPlayer].Cards.Remove(card);
             mPlayers[mCurrentPlayer].SortPlayerCards();
             mPlayerHasPickedorDiscard = true;
+            if (card is CardWild)
+            {
+                WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
+                wpfWindowChooseColour.Show();
+            }
             if (mPlayers[mCurrentPlayer].Cards.Count == 1)
             {
                 MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
