@@ -21,5 +21,29 @@ namespace Uno.View
         {
             InitializeComponent();
         }
+
+        private void buttonRed_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Red;
+            EventPublisher.ColourPick(suit);
+        }
+
+        private void buttonGren_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Green;
+            EventPublisher.ColourPick(suit);
+        }
+
+        private void buttonBlue_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Blue;
+            EventPublisher.ColourPick(suit);
+        }
+
+        private void buttonYellow_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Yellow;
+            EventPublisher.ColourPick(suit);
+        }
     }
 }

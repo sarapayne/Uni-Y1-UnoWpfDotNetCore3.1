@@ -22,9 +22,9 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Label Content="Please pick the next suit colour" x:Name="labelPickName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="36" VerticalAlignment="Center"/>
-        <Button x:Name="buttonRed" Grid.Column="1" Grid.Row="2" Background="Red"/>
-        <Button x:Name="buttonGren" Grid.Column="2" Grid.Row="2" Background="Green"/>
-        <Button x:Name="buttonBlue" Grid.Column="3" Grid.Row="2" Background="Blue"/>
-        <Button x:Name="buttonYellow" Grid.Column="4" Grid.Row="2" Background="Yellow"/>
+        <Button x:Name="buttonRed" Grid.Column="1" Grid.Row="2" Background="Red" Click="buttonRed_Click"/>
+        <Button x:Name="buttonGren" Grid.Column="2" Grid.Row="2" Background="Green" Click="buttonGren_Click"/>
+        <Button x:Name="buttonBlue" Grid.Column="3" Grid.Row="2" Background="Blue" Click="buttonBlue_Click"/>
+        <Button x:Name="buttonYellow" Grid.Column="4" Grid.Row="2" Background="Yellow" Click="buttonYellow_Click"/>
     </Grid>
 </Window>
