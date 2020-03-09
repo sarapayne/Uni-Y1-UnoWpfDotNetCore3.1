@@ -39,6 +39,7 @@ namespace Uno
         {
             if (mDiscardPile != null)
             {
+                ResetWildCards(mDiscardPile);
                 MakeSureTopCardNotWild(mDiscardPile);
                 mDrawPile = new List<Card>();
                 mDrawPile = mDiscardPile;
@@ -46,6 +47,18 @@ namespace Uno
                 mDiscardPile.Add(mDrawPile[0]);
                 mDrawPile.RemoveAt(0);
                 ShuffleDeck(mDrawPile);
+            }
+        }
+
+        private void ResetWildCards(List<Card> pCardList)
+        {
+            foreach (Card card in pCardList)
+            {
+                if (card is CardWild)
+                {
+                    CardWild cardWild = card as CardWild;
+                    cardWild.NextSuit = Suit.Unused;
+                }
             }
         }
 
