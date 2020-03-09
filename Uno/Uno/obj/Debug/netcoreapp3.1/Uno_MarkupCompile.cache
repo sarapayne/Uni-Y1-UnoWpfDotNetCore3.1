@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
-3393670328
+4-681955181
 
-23244054010
+241918976783
 193-1523820446
-MainWindow.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;
+MainWindow.xaml;View\WpfWindowChooseColour.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;
 
 False
 

@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Linq;
 using Uno.GUI_Custom_Elements;
+using Uno.View;
 
 namespace Uno
 {
@@ -33,6 +34,8 @@ namespace Uno
                 switch (card)
                 {
                     case CardWild wildcard:
+                        WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
+                        wpfWindowChooseColour.Show();
                         if (wildcard.CardsToDraw > 0)
                         {
                             UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;
