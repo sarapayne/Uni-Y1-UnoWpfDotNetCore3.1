@@ -27,34 +27,41 @@ namespace Uno
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            bool cardPlayable = CheckIfCardCanBePlayed(card);
-            if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+            if (!UnoMain.UnoGame.PlayerHasDiscared)
+            {   //only come here if play is allowed for this player. 
+                bool cardPlayable = CheckIfCardCanBePlayed(card);
+                if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+                else
+                {
+                    switch (card)
+                    {
+                        case CardWild wildcard:
+                            if (wildcard.CardsToDraw > 0)
+                            {
+                                UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;
+                            }
+                            break;
+                        case CardSpecial specialCard:
+                            if (specialCard.Type == SpecialType.Draw)
+                            {
+                                UnoMain.UnoGame.NextPlayerPickup += 2;
+                            }
+                            else if (specialCard.Type == SpecialType.Skip)
+                            {
+                                UnoMain.UnoGame.NextPlayersSkip++;
+                            }
+                            else if (specialCard.Type == SpecialType.Reverse)
+                            {
+                                UnoMain.UnoGame.ReverseDirection();
+                            }
+                            break;
+                    }
+                    UnoMain.UnoGame.PlaceCard(card);
+                }
+            }
             else
             {
-                switch (card)
-                {
-                    case CardWild wildcard:
-                        if (wildcard.CardsToDraw > 0)
-                        {
-                            UnoMain.UnoGame.NextPlayerPickup += wildcard.CardsToDraw;
-                        }
-                        break;
-                    case CardSpecial specialCard:
-                        if (specialCard.Type == SpecialType.Draw)
-                        {
-                            UnoMain.UnoGame.NextPlayerPickup += 2;
-                        }
-                        else if (specialCard.Type == SpecialType.Skip)
-                        {
-                            UnoMain.UnoGame.NextPlayersSkip++;
-                        }
-                        else if (specialCard.Type == SpecialType.Reverse)
-                        {
-                            UnoMain.UnoGame.ReverseDirection();
-                        }
-                        break;
-                }
-                UnoMain.UnoGame.PlaceCard(card);
+                MessageBox.Show("You can not discard more cards this turn, please click next player or draw a card.", "discard error");
             }
         }
 
