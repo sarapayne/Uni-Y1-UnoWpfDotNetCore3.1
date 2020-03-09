@@ -591,6 +591,26 @@ namespace Uno.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap card_front_wild_blue {
+            get {
+                object obj = ResourceManager.GetObject("card_front_wild_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap card_front_wild_green {
+            get {
+                object obj = ResourceManager.GetObject("card_front_wild_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] card_front_wild_pickup {
@@ -601,12 +621,32 @@ namespace Uno.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap card_front_wild_red {
+            get {
+                object obj = ResourceManager.GetObject("card_front_wild_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] card_front_wild_standard {
             get {
                 object obj = ResourceManager.GetObject("card_front_wild_standard", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap card_front_wild_yellow {
+            get {
+                object obj = ResourceManager.GetObject("card_front_wild_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
