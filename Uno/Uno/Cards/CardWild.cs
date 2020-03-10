@@ -28,10 +28,7 @@ namespace Uno
 
         public override void RunCardSpecialFeatures()
         {
-            if (mCardsToDraw > 0)
-            {
-                EventPublisher.DrawFourCards();
-            }
+            base.RunCardSpecialFeatures();
         }
     }
 }

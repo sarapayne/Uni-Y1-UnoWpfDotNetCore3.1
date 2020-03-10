@@ -31,7 +31,7 @@ namespace Uno
             mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
             EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
         }
- 
+
         private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
         {
             if (eventArgsGuiUpdate.ExtraInstructions == "ChooseColour")
@@ -68,7 +68,7 @@ namespace Uno
 
         private void EnableColourPick()
         {
-            foreach(Button button in mColourPickButtons)
+            foreach (Button button in mColourPickButtons)
             {
                 button.IsEnabled = true;
                 button.Visibility = Visibility.Visible;
@@ -118,7 +118,7 @@ namespace Uno
         }
 
         private void GameButtonClickHandler(object sender, EventArgs e)
-        {   
+        {
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
             EventPublisher.GameButtonClick(selectedCard);
@@ -238,7 +238,7 @@ namespace Uno
             }
             else
             {
-                imageUri = GetResourceUri(card.ImageName);  
+                imageUri = GetResourceUri(card.ImageName);
             }
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }
@@ -251,7 +251,7 @@ namespace Uno
 
         private void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            UnoMain.UnoGame.DrawCard();
+            EventPublisher.DrawCard();
         }
 
         private void buttonDraw4Challenge_Click(object sender, RoutedEventArgs e)
@@ -263,7 +263,7 @@ namespace Uno
 
         private void buttonAcceptDraw4_Click(object sender, RoutedEventArgs e)
         {
-
+            EventPublisher.AcceptDraw4();
         }
     }
 }

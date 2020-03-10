@@ -15,10 +15,18 @@ namespace Uno
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
-        public static event EventHandler RaiseDrawFourCards;
         public static event EventHandler RaiseSkipGo;
         public static event EventHandler RaiseReverseDirection;
         public static event EventHandler RaiseAcceptDraw4;
+        public static event EventHandler RaiseDrawCard;
+
+        public static void DrawCard()
+        {
+            if (RaiseDrawCard != null)
+            {
+                EventPublisher.RaiseDrawCard(null, null);
+            }
+        }
 
         public static void AcceptDraw4()
         {
@@ -73,14 +81,6 @@ namespace Uno
             if (RaiseDrawTwoCards != null)
             {
                 EventPublisher.RaiseDrawTwoCards(null, null);
-            }
-        }
-
-        public static void DrawFourCards()
-        {
-            if (RaiseDrawFourCards != null)
-            {
-                EventPublisher.RaiseDrawFourCards(null, null);
             }
         }
 

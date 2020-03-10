@@ -18,8 +18,6 @@ namespace Uno
         private int mNextPlayersToSkipTotal = 0;
         private bool mPlayerHasDiscarded = false;
         private bool mPlayerHasPicked = false;
-        private int mLastPlayer;
-        private bool mPlus4Processed;
 
         public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
@@ -40,7 +38,7 @@ namespace Uno
             this.mNextPlayersToSkipTotal = 0;
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
-            this.mPlus4Processed = false;
+            //this.mPlus4Processed = false;
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
             EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
@@ -49,6 +47,7 @@ namespace Uno
             EventPublisher.RaiseNextPlayerButtonClick += UnoGame_RaiseNextPlayerButtonClick;
             EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
             EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
+            EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             StartNewGuiInteface();
         }
 
@@ -159,7 +158,6 @@ namespace Uno
                 DrawCard(mCurrentPlayer);
             }
             mPlayerHasPicked = true;//set this so the event doesn't refuse to work. 
-            mPlus4Processed = true;
             EventPublisher.SkipGo();
             EventPublisher.NextPlayerButtonClick();
         }
@@ -286,12 +284,19 @@ namespace Uno
         {
             mPlayers[mCurrentPlayer].SortPlayerCards();
             mPlayerHasDiscarded = true;
-
-            if (mPlayers[mCurrentPlayer].Cards.Count == 1)
+            if (mPlayers[mCurrentPlayer].Cards.Count == 0)
             {
-                MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
+                MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": Has won the game, please select the main menu when ready");
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "GameOver");
             }
-            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            else
+            {
+                if (mPlayers[mCurrentPlayer].Cards.Count == 1)
+                {
+                    MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
+                }
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            } 
         }
 
         private int NextPlayerWithoutSkips()
@@ -330,7 +335,7 @@ namespace Uno
             return toFix;
         }
 
-        public void DrawCard()
+        private void UnoGame_DrawCard(object sender, EventArgs eventArgs)
         {
             DrawCard(mCurrentPlayer);
         }
