@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Uno.EventsComponents;
 using Uno.GUI_Custom_Elements;
 
 namespace Uno
@@ -21,41 +22,117 @@ namespace Uno
     /// </summary>
     public partial class WpfWindowGame : Window
     {
+        private List<Button> mColourPickButtons;
 
         public WpfWindowGame()
         {
             InitializeComponent();
-            EventPublisher.RaiseUpdateGUI += WpfWindowGame_RaiseUpdateGUI;
-            bool checkPlus4Button = true;
-            UpdateDisplay(checkPlus4Button);
+            mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
+            EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
         }
-        private void WpfWindowGame_RaiseUpdateGUI(object sender, EventArgs eventArgs)
+ 
+        private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
         {
-            bool checkPlus4Button = false;
-            UpdateDisplay(checkPlus4Button);
+            if (eventArgsGuiUpdate.ExtraInstructions == "ChooseColour")
+            {
+                DisableGuiComponents();
+                DisableChallengePlus4();
+                EnableColourPick();
+            }
+            else if (eventArgsGuiUpdate.ExtraInstructions == "Challenge+4")
+            {
+                DisableColourPick();
+                DisableGuiComponents();
+                EnableChallengePlus4();
+            }
+            else
+            {
+                DisableColourPick();
+                DisableChallengePlus4();
+                UpdateDisplay(eventArgsGuiUpdate);
+            }
         }
 
-        private void RaiseUpdateGui()
+        private void EnableColourPick()
         {
-            bool checkPlus4Button = false;
-            UpdateDisplay(checkPlus4Button);
+            foreach(Button button in mColourPickButtons)
+            {
+                buttonRed.IsEnabled = true;
+                buttonRed.Visibility = Visibility.Visible;
+            }
         }
 
-        private void UpdateDisplay(bool pCheckPlus4Button)
+        private void DisableChallengePlus4()
+        {
+            buttonDraw4Challenge.Visibility = Visibility.Hidden;
+            buttonDraw4Challenge.IsEnabled = false;
+        }
+
+        private void EnableChallengePlus4()
+        {
+            buttonDraw4Challenge.Visibility = Visibility.Visible;
+            buttonDraw4Challenge.IsEnabled = true;
+        }
+
+        private void DisableColourPick()
+        {
+            foreach (Button button in mColourPickButtons)
+            {
+                buttonRed.IsEnabled = false;
+                buttonRed.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void DisableGuiComponents()
+        {
+            foreach (UIElement uIElement in MainGrid.Children)
+            {
+                uIElement.IsEnabled = false;
+            }
+        }
+
+        private void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
         {
             ClearCards();
-            AddPlayerCards();
-            UpdateDrawCard(pCheckPlus4Button);
+            AddPlayerCards(pUpdateData.ThisPlayer.Cards);
+            UpdateDrawCard(pUpdateData.ThisDeck.DiscardPile);
             labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
         }
 
         private void GameButtonClickHandler(object sender, EventArgs e)
-        {   //This code is temporary, later it will be replaced by a broadcast saying card play attempted, sending the card in question. 
+        {   
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
-            //string cardName = selectedCard.ImageName;
-            //MessageBox.Show( "Debug: Triggered in form: " + "Player selected " + cardName, "player selected a card");
             EventPublisher.GameButtonClick(selectedCard);
+        }
+
+        private void buttonRed_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Red;
+            TriggerEvent(suit);
+        }
+
+        private void buttonGren_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Green;
+            TriggerEvent(suit);
+        }
+
+        private void buttonBlue_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Blue;
+            TriggerEvent(suit);
+        }
+
+        private void buttonYellow_Click(object sender, RoutedEventArgs e)
+        {
+            Suit suit = Suit.Yellow;
+            TriggerEvent(suit);
+        }
+
+        private void TriggerEvent(Suit pSuit)
+        {
+            EventPublisher.ColourPick(pSuit);
         }
 
         private void ClearCards()
@@ -74,13 +151,11 @@ namespace Uno
             }
         }
 
-        private void AddPlayerCards()
+        private void AddPlayerCards(List<Card> pPlayerCards)
         {
-            int currentPlayer = UnoMain.UnoGame.CurrentPlayer;
-            List<Card> playersCards = UnoMain.UnoGame.Players[currentPlayer].Cards;
-            for (int playerCardIndex = 0; playerCardIndex < playersCards.Count; playerCardIndex++)
+            for (int playerCardIndex = 0; playerCardIndex < pPlayerCards.Count; playerCardIndex++)
             {
-                Card card = playersCards[playerCardIndex];
+                Card card = pPlayerCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
                 string imageName = card.ImageName;
                 Uri imageUri = GetResourceUri(imageName);
@@ -116,28 +191,15 @@ namespace Uno
         private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.NextPlayerButtonClick();
-            this.Hide();
-            this.Close();
         }
 
-        private void UpdateDrawCard(bool pCheckPlus4Button)
+        private void UpdateDrawCard(List<Card> pDiscardPile)
         {
-            buttonDraw4Challenge.IsEnabled = false;
-            buttonDraw4Challenge.Visibility = Visibility.Hidden;
-            //List<Card> discardPile = UnoMain.UnoGame.Deck.DiscardPile;
-            Card card = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];
+            Card card = pDiscardPile[pDiscardPile.Count - 1];
             Uri imageUri = null;
             if (card is CardWild)
             {
                 CardWild wildCard = card as CardWild;
-                if (pCheckPlus4Button)
-                {
-                    if (wildCard.CardsToDraw > 0)
-                    {
-                        buttonDraw4Challenge.IsEnabled = true;
-                        buttonDraw4Challenge.Visibility = Visibility.Visible;
-                    }
-                }
                 string imageName = "";
                 switch (wildCard.NextSuit)
                 {

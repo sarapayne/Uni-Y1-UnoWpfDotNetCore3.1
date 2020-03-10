@@ -48,6 +48,7 @@ namespace Uno
             EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
             EventPublisher.RaiseNextPlayerButtonClick += UnoGame_RaiseNextPlayerButtonClick;
             EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
+            StartNewGuiInteface();
         }
 
         public bool PlayerHasPicked
@@ -94,6 +95,12 @@ namespace Uno
             mDeck.RefreshCardPiles();
         }
 
+        private void StartNewGuiInteface()
+        {
+            WpfWindowGame wpfWindowGame = new WpfWindowGame();
+            wpfWindowGame.Show();
+        }
+
         private void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {
             eventArgs.UnoCard.RunCardSpecialFeatures();
@@ -101,8 +108,7 @@ namespace Uno
             mPlayers[CurrentPlayer].Cards.Remove(eventArgs.UnoCard);
             if (eventArgs.UnoCard is CardWild)
             {
-                WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
-                wpfWindowChooseColour.Show();
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "ChooseNextColour");
             }
             else 
             { 
@@ -235,7 +241,7 @@ namespace Uno
                 {
                     player.Cards.Add(mDeck.DiscardPile[0]);
                     mDeck.DiscardPile.RemoveAt(0);
-                    EventPublisher.UpdateGUI();
+                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
                 }
             }
         }
@@ -270,7 +276,7 @@ namespace Uno
             {
                 MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": UNO!");
             }
-            EventPublisher.UpdateGUI();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
         private int NextPlayerWithoutSkips()
@@ -336,7 +342,7 @@ namespace Uno
             {
                 mPlayerHasPicked = true;
                 mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.UpdateGUI();
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }   
         }
 
@@ -345,7 +351,7 @@ namespace Uno
             mPlayers[pPlayer].Cards.Add(mDeck.DiscardPile[0]);
             mDeck.DiscardPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
-            EventPublisher.UpdateGUI();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
         private void MoveCardFromDrawToPlayer(int pPlayer)
@@ -353,7 +359,7 @@ namespace Uno
             mPlayers[pPlayer].Cards.Add(mDeck.DrawPile[0]);
             mDeck.DrawPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
-            EventPublisher.UpdateGUI();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
         private void DisplayCurrentPlayerGui()

@@ -11,13 +11,21 @@ namespace Uno
         public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; 
         public static event EventHandler<EventArgsColourPick> RaiseColourPick;
         public static event EventHandler<EventArgsPlayCard> RaisePlayCard;
+        public static event EventHandler<EventArgsGuiUpdate> RaiseGuiUpdate;
         public static event EventHandler RaiseNextPlayerButtonClick;
-        public static event EventHandler RaiseUpdateGUI;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
         public static event EventHandler RaiseDrawFourCards;
         public static event EventHandler RaiseSkipGo;
         public static event EventHandler RaiseReverseDirection;      
+
+        public static void GuiUpdate(Player pPlayer, Deck pDeck, string pExtras)
+        {
+            if (RaiseGuiUpdate != null)
+            {
+                EventPublisher.RaiseGuiUpdate(null, new EventArgsGuiUpdate(pPlayer, pDeck, pExtras));
+            }
+        }
 
         public static void PlayCard(Card pcard)
         {
@@ -81,17 +89,7 @@ namespace Uno
             {
                 EventPublisher.RaiseColourPick(null, new EventArgsColourPick(pSuit));
             }
-        }
-
-        public static void UpdateGUI()
-        {
-            if (RaiseUpdateGUI != null)
-            {
-                EventPublisher.RaiseUpdateGUI(null, null);
-            }   
-        }
-
-        
+        }      
 
         public static void NextPlayerButtonClick()
         {

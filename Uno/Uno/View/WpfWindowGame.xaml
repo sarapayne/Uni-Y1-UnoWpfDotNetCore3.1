@@ -28,6 +28,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -41,14 +42,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Label Content= "Uno" x:Name="labelMainTitle" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="18" FontSize="100" HorizontalAlignment="Center"/>
         <Label x:Name="labelSecondTitle" Content= "Uno" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="18" FontSize="50" HorizontalAlignment="Center"/>
-        <Image Source="/Resources/card_back.png" x:Name="imageDrawPile" Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" MouseUp="imageDrawPile_MouseUp"/>
-        <Image x:Name="imageDiscardPile" Source="/Resources/card_back.png" Grid.Column="12" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="2" Grid.Row="8" Click="buttonMainMenu_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button Content="EndTurn" x:Name="buttonEndTurn" Grid.Column="16" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="buttonEndTurn_Click"/>
-        <Button Content="Draw4 Challenge" x:Name="buttonDraw4Challenge" Grid.Column="9" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" IsEnabled="False" Visibility="Hidden" Click="buttonDraw4Challenge_Click"/>
+        <Image Source="/Resources/card_back.png" x:Name="imageDrawPile" Grid.Column="6" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" MouseUp="imageDrawPile_MouseUp"/>
+        <Image x:Name="imageDiscardPile" Source="/Resources/card_back.png" Grid.Column="13" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="2" Grid.Row="9" Click="buttonMainMenu_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Button Content="EndTurn" x:Name="buttonEndTurn" Grid.Column="17" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="buttonEndTurn_Click"/>
+        <Button Content="Draw4 Challenge" x:Name="buttonDraw4Challenge" Grid.Column="9" Grid.Row="10" Grid.ColumnSpan="3" IsEnabled="False" Visibility="Hidden" Click="buttonDraw4Challenge_Click"/>
+        <Button x:Name="buttonRed" Grid.Column="9" Grid.Row="9" Background="Red" Click="buttonRed_Click" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="buttonGren" Grid.Column="10" Grid.Row="9" Background="Green" Click="buttonGren_Click" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="buttonBlue" Grid.Column="11" Grid.Row="9" Background="Blue" Click="buttonBlue_Click" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="buttonYellow" Grid.Column="12" Grid.Row="9" Background="Yellow" Click="buttonYellow_Click" IsEnabled="False" Visibility="Hidden"/>
     </Grid>
 </Window>
