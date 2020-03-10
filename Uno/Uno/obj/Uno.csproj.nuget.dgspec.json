@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "W:\\source\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj": {}
+    "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj": {}
   },
   "projects": {
-    "W:\\source\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj": {
+    "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "W:\\source\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
+        "projectUniqueName": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
         "projectName": "Uno",
-        "projectPath": "W:\\source\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
+        "projectPath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
         "packagesPath": "C:\\Users\\manwa\\.nuget\\packages\\",
-        "outputPath": "W:\\source\\UnoWpfDotNetCore3.1\\Uno\\Uno\\obj\\",
+        "outputPath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\manwa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

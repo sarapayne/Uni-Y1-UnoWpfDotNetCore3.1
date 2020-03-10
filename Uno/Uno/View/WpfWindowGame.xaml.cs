@@ -46,6 +46,7 @@ namespace Uno
                 DisableColourPick();
                 DisableGuiComponents();
                 EnableChallengePlus4();
+                labelSecondTitle.Content = eventArgsGuiUpdate.ThisPlayer.Name;
                 this.Show();
             }
             else
@@ -112,7 +113,7 @@ namespace Uno
             ClearCards();
             AddPlayerCards(pUpdateData.ThisPlayer.Cards);
             UpdateDrawCard(pUpdateData.ThisDeck.DiscardPile);
-            labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
+            labelSecondTitle.Content = pUpdateData.ThisPlayer.Name;
             this.Show();
         }
 

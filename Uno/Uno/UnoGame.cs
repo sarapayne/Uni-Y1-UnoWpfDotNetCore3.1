@@ -43,7 +43,6 @@ namespace Uno
             this.mPlus4Processed = false;
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
-            EventPublisher.RaiseDrawFourCards += UnoGame_RaiseDrawFourCards;
             EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
             EventPublisher.RaiseReverseDirection += UnoGame_RaiseReverseDirection;
             EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
@@ -102,6 +101,57 @@ namespace Uno
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
         }
 
+        private void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
+        {
+            
+            string message = mPlayers[NextPlayerWithoutSkips()].Name + "has challenged " + mPlayers[mCurrentPlayer].Name + "'s use of a +4 card";
+            MessageBox.Show(message, "+4 challenge");
+            bool hadPlayableCard = false;
+            foreach (Card card in mPlayers[mCurrentPlayer].Cards)
+            {
+                bool playableCardFound = mGameRules.CheckIfCardCanBePlayed(card);
+                if (playableCardFound)
+                {
+                    if (!(card is CardWild))
+                    {
+                        hadPlayableCard = true;
+                        break;
+                    }
+                    else
+                    {   //wild card found, test the type
+                        CardWild cardWild = card as CardWild;
+                        if (cardWild.CardsToDraw == 0)
+                        {
+                            hadPlayableCard = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (hadPlayableCard)
+            {
+                message = mPlayers[NextPlayerWithoutSkips()].Name + " won the challenge, " + mPlayers[mCurrentPlayer].Name + " draws 4 cards";
+                for (int num = 0; num < 4; num++)
+                {
+                    DrawCard(CurrentPlayer);
+                }
+            }
+            else
+            {
+                message = message = mPlayers[NextPlayerWithoutSkips()].Name + " lost the challenge and draws 6 cards";
+                for (int num = 0; num < 6; num++)
+                {
+                    DrawCard(NextPlayerWithoutSkips());
+                }
+                EventPublisher.SkipGo();
+            }
+            MessageBox.Show(message, "challenge result");
+            mNextPlayerPickupTotal = 0;
+            FinishPlaceCard();
+            mPlayerHasPicked = true; //set to allow the change of player. 
+            EventPublisher.NextPlayerButtonClick();
+        }
+
         private void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
         {
             for (int number = 0; number <4; number++)
@@ -110,6 +160,7 @@ namespace Uno
             }
             mPlayerHasPicked = true;//set this so the event doesn't refuse to work. 
             mPlus4Processed = true;
+            EventPublisher.SkipGo();
             EventPublisher.NextPlayerButtonClick();
         }
 
@@ -151,42 +202,13 @@ namespace Uno
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
                 mPlayers[CurrentPlayer].SortPlayerCards();
-                if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
-                {
-                    if (!mPlus4Processed)
-                    {
-                        CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
-                        if (cardWild.CardsToDraw > 0)
-                        {
-                            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "Challenge+4");
-                        }
-                    }
-                    else
-                    {
-                        mPlus4Processed = false;
-                        EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-                    }
-                }
-                else
-                {
-                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-                }
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
             else
             {
                 MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
-        }
-
-        private void UnoGame_RaiseDrawFourCards(object sender, EventArgs eventArgs)
-        {
-            int nextPlayerWithoutSkips = NextPlayerWithoutSkips();
-            for (int cardNum = 0; cardNum < 4; cardNum++)
-            {
-                DrawCard(nextPlayerWithoutSkips);
-            }
-            EventPublisher.SkipGo();
         }
 
         private void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
@@ -207,58 +229,20 @@ namespace Uno
             EventPublisher.SkipGo();
         }
 
-        private void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
-        {
-            int lastPlayer = 0;
-            string message = mPlayers[mCurrentPlayer].Name + "has challenged " + mPlayers[mLastPlayer].Name + "'s use of a +4 card";
-            MessageBox.Show(message, "+4 challenge");
-            bool hadPlayableCard = false;
-            foreach(Card card in mPlayers[mLastPlayer].Cards)
-            {
-                bool playableCardFound = mGameRules.CheckIfCardCanBePlayed(card);
-                if (playableCardFound)
-                {
-                    if (! (card is CardWild) )
-                    {
-                        hadPlayableCard = true;
-                        break;
-                    }
-                    else
-                    {   //wild card found, test the type
-                        CardWild cardWild = card as CardWild;
-                        if (cardWild.CardsToDraw == 0)
-                        {
-                            hadPlayableCard = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            int playerToDraw = 0;
-            if (hadPlayableCard) 
-            { 
-                playerToDraw = lastPlayer;
-                message = mPlayers[mCurrentPlayer].Name + " won the challenge, " + mPlayers[mLastPlayer].Name + " draws 4 cards";
-            }
-            else 
-            { 
-                playerToDraw = mCurrentPlayer;
-                message = message = mPlayers[mCurrentPlayer].Name + " lost the challenge and draws 4 cards";
-            }
-            MessageBox.Show(message, "challenge result");
-            for (int numCard = 0; numCard < 4; numCard++)
-            {
-                DrawCard(playerToDraw);
-            }
-        }
-
         private void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
         {
             if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
             {
                 CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
                 cardWild.NextSuit = argsColourPick.NextSuit;
-                FinishPlaceCard();
+                if (cardWild.CardsToDraw > 0)
+                {
+                    EventPublisher.GuiUpdate(mPlayers[NextPlayerWithoutSkips()], mDeck, "Challenge+4");
+                }
+                else
+                {
+                    FinishPlaceCard();
+                }
             }
         }
 
