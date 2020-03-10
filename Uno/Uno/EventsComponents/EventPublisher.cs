@@ -17,7 +17,16 @@ namespace Uno
         public static event EventHandler RaiseDrawTwoCards;
         public static event EventHandler RaiseDrawFourCards;
         public static event EventHandler RaiseSkipGo;
-        public static event EventHandler RaiseReverseDirection;      
+        public static event EventHandler RaiseReverseDirection;
+        public static event EventHandler RaiseAcceptDraw4;
+
+        public static void AcceptDraw4()
+        {
+            if (RaiseAcceptDraw4 != null )
+            {
+                EventPublisher.RaiseAcceptDraw4(null, null);
+            }
+        }
 
         public static void GuiUpdate(Player pPlayer, Deck pDeck, string pExtras)
         {

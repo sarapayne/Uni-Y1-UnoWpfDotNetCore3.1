@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using Uno.EventsComponents;
-using Uno.View;
 
 namespace Uno
 {
@@ -20,6 +19,7 @@ namespace Uno
         private bool mPlayerHasDiscarded = false;
         private bool mPlayerHasPicked = false;
         private int mLastPlayer;
+        private bool mPlus4Processed;
 
         public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
@@ -40,6 +40,7 @@ namespace Uno
             this.mNextPlayersToSkipTotal = 0;
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
+            this.mPlus4Processed = false;
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
             EventPublisher.RaiseDrawFourCards += UnoGame_RaiseDrawFourCards;
@@ -48,6 +49,7 @@ namespace Uno
             EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
             EventPublisher.RaiseNextPlayerButtonClick += UnoGame_RaiseNextPlayerButtonClick;
             EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
+            EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
             StartNewGuiInteface();
         }
 
@@ -100,6 +102,17 @@ namespace Uno
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
         }
 
+        private void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
+        {
+            for (int number = 0; number <4; number++)
+            {
+                DrawCard(mCurrentPlayer);
+            }
+            mPlayerHasPicked = true;//set this so the event doesn't refuse to work. 
+            mPlus4Processed = true;
+            EventPublisher.NextPlayerButtonClick();
+        }
+
         private void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {
             eventArgs.UnoCard.RunCardSpecialFeatures();
@@ -138,7 +151,26 @@ namespace Uno
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
                 mPlayers[CurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
+                {
+                    if (!mPlus4Processed)
+                    {
+                        CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
+                        if (cardWild.CardsToDraw > 0)
+                        {
+                            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "Challenge+4");
+                        }
+                    }
+                    else
+                    {
+                        mPlus4Processed = false;
+                        EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                    }
+                }
+                else
+                {
+                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                }
             }
             else
             {

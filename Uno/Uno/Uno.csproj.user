@@ -9,9 +9,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\WpfWindowChooseColour.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\WpfWindowGame.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -21,9 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\WpfWindowChooseColour.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WpfWindowGame.xaml">

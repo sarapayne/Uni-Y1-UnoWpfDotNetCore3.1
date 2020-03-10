@@ -4,7 +4,6 @@ using System.Text;
 using System.Windows;
 using System.Linq;
 using Uno.GUI_Custom_Elements;
-using Uno.View;
 
 namespace Uno
 {

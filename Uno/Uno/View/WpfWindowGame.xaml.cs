@@ -63,8 +63,6 @@ namespace Uno
             buttonMainMenu.IsEnabled = true;
             imageDrawPile.IsEnabled = true;
             imageDiscardPile.IsEnabled = true;
-
-
         }
 
         private void EnableColourPick()
@@ -80,12 +78,16 @@ namespace Uno
         {
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
             buttonDraw4Challenge.IsEnabled = false;
+            buttonAcceptDraw4.Visibility = Visibility.Hidden;
+            buttonAcceptDraw4.IsEnabled = false;
         }
 
         private void EnableChallengePlus4()
         {
             buttonDraw4Challenge.Visibility = Visibility.Visible;
             buttonDraw4Challenge.IsEnabled = true;
+            buttonAcceptDraw4.Visibility = Visibility.Visible;
+            buttonAcceptDraw4.IsEnabled = true;
         }
 
         private void DisableColourPick()
@@ -256,6 +258,11 @@ namespace Uno
             EventPublisher.Plus4Challenge();
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
             buttonDraw4Challenge.IsEnabled = false;
+        }
+
+        private void buttonAcceptDraw4_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
