@@ -74,6 +74,12 @@ C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.pdb
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.genruntimeconfig.cache
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.exe
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.deps.json
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.json
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.dev.json
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.dll
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.pdb
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\MainWindow.g.cs
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowChooseColour.g.cs
@@ -82,14 +88,6 @@ W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowMain
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\App.g.cs
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno_MarkupCompile.cache
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno_MarkupCompile.lref
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.dll
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.pdb
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.exe
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.deps.json
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.json
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.dev.json
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.dll
-W:\source\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.pdb
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\MainWindow.baml
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowChooseColour.baml
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowGame.baml
@@ -100,4 +98,6 @@ W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.Generat
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.CoreCompileInputs.cache
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.AssemblyInfoInputs.cache
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.AssemblyInfo.cs
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.dll
+W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.pdb
 W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.genruntimeconfig.cache

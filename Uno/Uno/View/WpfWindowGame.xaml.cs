@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Printing;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -51,16 +52,27 @@ namespace Uno
             {
                 DisableColourPick();
                 DisableChallengePlus4();
+                EnableCoreGameButtons();
                 UpdateDisplay(eventArgsGuiUpdate);
             }
+        }
+
+        private void EnableCoreGameButtons()
+        {
+            buttonEndTurn.IsEnabled = true;
+            buttonMainMenu.IsEnabled = true;
+            imageDrawPile.IsEnabled = true;
+            imageDiscardPile.IsEnabled = true;
+
+
         }
 
         private void EnableColourPick()
         {
             foreach(Button button in mColourPickButtons)
             {
-                buttonRed.IsEnabled = true;
-                buttonRed.Visibility = Visibility.Visible;
+                button.IsEnabled = true;
+                button.Visibility = Visibility.Visible;
             }
         }
 
@@ -80,8 +92,8 @@ namespace Uno
         {
             foreach (Button button in mColourPickButtons)
             {
-                buttonRed.IsEnabled = false;
-                buttonRed.Visibility = Visibility.Hidden;
+                button.IsEnabled = false;
+                button.Visibility = Visibility.Hidden;
             }
         }
 

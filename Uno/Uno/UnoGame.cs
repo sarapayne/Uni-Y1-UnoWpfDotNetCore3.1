@@ -107,7 +107,7 @@ namespace Uno
             mPlayers[CurrentPlayer].Cards.Remove(eventArgs.UnoCard);
             if (eventArgs.UnoCard is CardWild)
             {
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "ChooseNextColour");
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "ChooseColour");
             }
             else 
             { 
