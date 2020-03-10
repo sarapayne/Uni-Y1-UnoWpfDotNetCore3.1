@@ -98,7 +98,6 @@ namespace Uno
         private void StartNewGuiInteface()
         {
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
-            wpfWindowGame.Show();
         }
 
         private void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
@@ -139,12 +138,12 @@ namespace Uno
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
                 mPlayers[CurrentPlayer].SortPlayerCards();
-                DisplayCurrentPlayerGui();
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
             else
             {
                 MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
-                DisplayCurrentPlayerGui();
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
         }
 
@@ -360,12 +359,6 @@ namespace Uno
             mDeck.DrawPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-        }
-
-        private void DisplayCurrentPlayerGui()
-        {
-            WpfWindowGame wpfWindowGame = new WpfWindowGame();
-            wpfWindowGame.Show();
         }
 
         private List<Player> GenerateNewPlayers(List<string> pPlayerNames)

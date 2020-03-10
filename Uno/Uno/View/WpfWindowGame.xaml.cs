@@ -38,12 +38,14 @@ namespace Uno
                 DisableGuiComponents();
                 DisableChallengePlus4();
                 EnableColourPick();
+                this.Show();
             }
             else if (eventArgsGuiUpdate.ExtraInstructions == "Challenge+4")
             {
                 DisableColourPick();
                 DisableGuiComponents();
                 EnableChallengePlus4();
+                this.Show();
             }
             else
             {
@@ -97,6 +99,7 @@ namespace Uno
             AddPlayerCards(pUpdateData.ThisPlayer.Cards);
             UpdateDrawCard(pUpdateData.ThisDeck.DiscardPile);
             labelSecondTitle.Content = UnoMain.UnoGame.Players[UnoMain.UnoGame.CurrentPlayer].Name;
+            this.Show();
         }
 
         private void GameButtonClickHandler(object sender, EventArgs e)
