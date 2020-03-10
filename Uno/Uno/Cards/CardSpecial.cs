@@ -23,5 +23,21 @@ namespace Uno
         {
             get { return this.mSpecialType; }
         }
+
+        public override void RunCardSpecialFeatures()
+        {
+            if (mSpecialType == SpecialType.Draw)
+            {
+                EventPublisher.DrawTwoCards();
+            }
+            else if (mSpecialType == SpecialType.Reverse)
+            {
+                EventPublisher.ReverseDirection();
+            }
+            else if (mSpecialType == SpecialType.Skip)
+            {
+                EventPublisher.SkipGo();
+            }
+        }
     }
 }

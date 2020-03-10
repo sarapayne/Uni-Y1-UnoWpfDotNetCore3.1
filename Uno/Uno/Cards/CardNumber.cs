@@ -17,5 +17,10 @@ namespace Uno
         {
             get { return this.mNumber; }
         }
+
+        public override void RunCardSpecialFeatures()
+        {
+            base.RunCardSpecialFeatures();
+        }
     }
 }

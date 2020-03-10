@@ -38,5 +38,10 @@ namespace Uno
             set { this.mUniqueItentifier = value; }
         }
 
+        public virtual void RunCardSpecialFeatures()
+        {
+            //nothing to do here. 
+        }
+
     }
 }

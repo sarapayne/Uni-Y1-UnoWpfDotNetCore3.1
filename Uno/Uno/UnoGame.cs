@@ -19,6 +19,7 @@ namespace Uno
         private int mNextPlayersToSkipTotal = 0;
         private bool mPlayerHasDiscarded = false;
         private bool mPlayerHasPicked = false;
+        private int mLastPlayer;
 
         public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
         {
@@ -41,6 +42,12 @@ namespace Uno
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
+            EventPublisher.RaiseDrawFourCards += UnoGame_RaiseDrawFourCards;
+            EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
+            EventPublisher.RaiseReverseDirection += UnoGame_RaiseReverseDirection;
+            EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
+            EventPublisher.RaiseNextPlayerButtonClick += UnoGame_RaiseNextPlayerButtonClick;
+            EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
         }
 
         public bool PlayerHasPicked
@@ -82,28 +89,94 @@ namespace Uno
             get { return this.mCurrentPlayer; }
         }
 
-        public void ReverseDirection()
-        {
-            mforwards = !mforwards;
-        }
-
-
         public void RefreshCardPiles()
         {
             mDeck.RefreshCardPiles();
         }
 
+        private void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
+        {
+            eventArgs.UnoCard.RunCardSpecialFeatures();
+            mDeck.DiscardPile.Add(eventArgs.UnoCard);
+            mPlayers[CurrentPlayer].Cards.Remove(eventArgs.UnoCard);
+            if (eventArgs.UnoCard is CardWild)
+            {
+                WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
+                wpfWindowChooseColour.Show();
+            }
+            else 
+            { 
+                FinishPlaceCard(); 
+            }
+        }
+
+        private void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
+        {
+            if (mPlayerHasDiscarded || mPlayerHasPicked)
+            {
+                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
+                if (mforwards) 
+                { 
+                    nextPlayerWithoutSips += mNextPlayersToSkipTotal; 
+                }
+                else 
+                { 
+                    nextPlayerWithoutSips-= mNextPlayersToSkipTotal; 
+                }
+                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
+                for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
+                {
+                    DrawCard(mCurrentPlayer);
+                }
+                mNextPlayerPickupTotal = 0;
+                mNextPlayersToSkipTotal = 0;
+                mPlayerHasPicked = false;
+                mPlayerHasDiscarded = false;
+                mPlayers[CurrentPlayer].SortPlayerCards();
+                DisplayCurrentPlayerGui();
+            }
+            else
+            {
+                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
+                DisplayCurrentPlayerGui();
+            }
+        }
+
+        private void UnoGame_RaiseDrawFourCards(object sender, EventArgs eventArgs)
+        {
+            int nextPlayerWithoutSkips = NextPlayerWithoutSkips();
+            for (int cardNum = 0; cardNum < 4; cardNum++)
+            {
+                DrawCard(nextPlayerWithoutSkips);
+            }
+            EventPublisher.SkipGo();
+        }
+
+        private void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
+        {
+            mNextPlayersToSkipTotal++;
+        }
+
+        private void UnoGame_RaiseReverseDirection(object sender, EventArgs eventArgs)
+        {
+            mforwards = !mforwards;
+        }
+
+        private void UnoGame_RaiseDrawTwoCards(object sender, EventArgs eventArgs)
+        {
+            int nextPlayer = NextPlayerWithoutSkips();
+            DrawCard(nextPlayer);
+            DrawCard(nextPlayer);
+            EventPublisher.SkipGo();
+        }
+
         private void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
         {
             int lastPlayer = 0;
-            if (mforwards) lastPlayer = mCurrentPlayer-1;
-            else lastPlayer = mCurrentPlayer+1;
-            if (lastPlayer < 0) lastPlayer = mPlayers.Count - 1;
-            else if (lastPlayer >= mPlayers.Count) lastPlayer = 0;
-            string message = "Player " + mCurrentPlayer.ToString() + "has challenged " + lastPlayer.ToString() + "'s use of a +4 card";
+            string message = mPlayers[mCurrentPlayer].Name + "has challenged " + mPlayers[mLastPlayer].Name + "'s use of a +4 card";
             MessageBox.Show(message, "+4 challenge");
             bool hadPlayableCard = false;
-            foreach(Card card in mPlayers[lastPlayer].Cards)
+            foreach(Card card in mPlayers[mLastPlayer].Cards)
             {
                 bool playableCardFound = mGameRules.CheckIfCardCanBePlayed(card);
                 if (playableCardFound)
@@ -128,7 +201,7 @@ namespace Uno
             if (hadPlayableCard) 
             { 
                 playerToDraw = lastPlayer;
-                message = mPlayers[mCurrentPlayer].Name + " won the challenge, " + mPlayers[lastPlayer].Name + " draws 4 cards";
+                message = mPlayers[mCurrentPlayer].Name + " won the challenge, " + mPlayers[mLastPlayer].Name + " draws 4 cards";
             }
             else 
             { 
@@ -188,18 +261,6 @@ namespace Uno
             return gameRules;
         }
 
-        public void PlaceCard(Card card)
-        {
-            mDeck.DiscardPile.Add(card);
-            mPlayers[CurrentPlayer].Cards.Remove(card);
-            if (card is CardWild)
-            {
-                WpfWindowChooseColour wpfWindowChooseColour = new WpfWindowChooseColour();
-                wpfWindowChooseColour.Show();
-            }
-            else { FinishPlaceCard(); }
-        }
-
         private void FinishPlaceCard()
         {
             mPlayers[mCurrentPlayer].SortPlayerCards();
@@ -212,42 +273,40 @@ namespace Uno
             EventPublisher.UpdateGUI();
         }
 
-        public void NextPlayer()
+        private int NextPlayerWithoutSkips()
         {
-            if (mPlayerHasDiscarded || mPlayerHasPicked)
+            int nextPlayer = 0;
+            if (mforwards)
             {
-                int change = mNextPlayersToSkipTotal + 1; //will always be at least 1
-                if (!mforwards) change *= -1;
-                mCurrentPlayer += change;
-                int adjustment = 0;
-                if (mCurrentPlayer < 0)
-                {   //adjust for going beyond the list size accounting for skipped players
-                    //if we are at -1 change to last list index, if lower decrease by the difference
-                    adjustment = mCurrentPlayer + 1;
-                    mCurrentPlayer = (mPlayers.Count - 1) + adjustment;
-                }
-                else if (mCurrentPlayer >= mPlayers.Count)
-                {   //adjust for going beyond the list size accounting for skipped players
-                    //if we are at mPlayers.Length change to player0, if higher adjust by the difference
-                    adjustment = mCurrentPlayer - (mPlayers.Count);
-                    mCurrentPlayer = 0 + adjustment;
-                }
-                for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
-                {
-                    DrawCard(mCurrentPlayer);
-                }
-                mNextPlayerPickupTotal = 0;
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mPlayers[CurrentPlayer].SortPlayerCards();
-                DisplayCurrentPlayerGui();
+                nextPlayer = mCurrentPlayer+1;
             }
             else
             {
-                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
-                DisplayCurrentPlayerGui();
+                nextPlayer = mCurrentPlayer-1;
             }
+            if (nextPlayer < 0)
+            {
+                nextPlayer = mPlayers.Count - 1;
+            }
+            else if (nextPlayer >= mPlayers.Count)
+            {
+                nextPlayer = 0;
+            }
+            return nextPlayer;
+        }
+
+        public int FixOutOfBounds(int pIndex)
+        {
+            int toFix = pIndex;
+            if (pIndex < 0)
+            {
+                toFix = mPlayers.Count - 1;
+            }
+            else if (pIndex >= mPlayers.Count)
+            {
+                toFix = 0;
+            }
+            return toFix;
         }
 
         public void DrawCard()

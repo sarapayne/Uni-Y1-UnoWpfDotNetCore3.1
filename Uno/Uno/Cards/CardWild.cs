@@ -25,5 +25,13 @@ namespace Uno
             get { return this.mNextSuit; }
             set { this.mNextSuit = value; }
         }
+
+        public override void RunCardSpecialFeatures()
+        {
+            if (mCardsToDraw > 0)
+            {
+                EventPublisher.DrawFourCards();
+            }
+        }
     }
 }

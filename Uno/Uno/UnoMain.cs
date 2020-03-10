@@ -22,7 +22,7 @@ namespace Uno
         {
             mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
             mUnoGame.RefreshCardPiles();
-            mUnoGame.NextPlayer(); //call next player with 0 skips in place
+            EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
         }
 
         public static void LoadGame(string pFileToLoad)

@@ -23,5 +23,10 @@ namespace Uno
         {
             get { return this.mSuit; }
         }
+
+        public override void RunCardSpecialFeatures()
+        {
+            base.RunCardSpecialFeatures();
+        }
     }
 }
