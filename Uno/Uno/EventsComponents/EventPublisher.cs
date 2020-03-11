@@ -19,6 +19,15 @@ namespace Uno
         public static event EventHandler RaiseReverseDirection;
         public static event EventHandler RaiseAcceptDraw4;
         public static event EventHandler RaiseDrawCard;
+        public static event EventHandler RaiseRefreshCardPiles;
+
+        public static void RefreshCardPiles()
+        {
+            if (RaiseRefreshCardPiles != null)
+            {
+                EventPublisher.RaiseRefreshCardPiles(null, null);
+            }
+        }
 
         public static void DrawCard()
         {

@@ -49,55 +49,55 @@ namespace Uno
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
         }
 
-        public bool PlayerHasPicked
-        {
-            get { return this.mPlayerHasPicked; }
-        }
+        //public bool PlayerHasPicked
+        //{
+        //    get { return this.mPlayerHasPicked; }
+        //}
 
-        public bool PlayerHasDiscared
-        {
-            get { return this.mPlayerHasDiscarded; }
-        }
+        //public bool PlayerHasDiscared
+        //{
+        //    get { return this.mPlayerHasDiscarded; }
+        //}
 
-        public int NextPlayerPickup
-        {
-            get { return mNextPlayerPickupTotal; }
-            set { this.mNextPlayerPickupTotal = value; }
-        }
+        //public int NextPlayerPickup
+        //{
+        //    get { return mNextPlayerPickupTotal; }
+        //    set { this.mNextPlayerPickupTotal = value; }
+        //}
 
-        public int NextPlayersSkip
-        {
-            get { return this.mNextPlayersToSkipTotal; }
-            set { this.mNextPlayersToSkipTotal = value; }
-        }
+        //public int NextPlayersSkip
+        //{
+        //    get { return this.mNextPlayersToSkipTotal; }
+        //    set { this.mNextPlayersToSkipTotal = value; }
+        //}
 
-        public List<Player> Players
-        {
-            get { return this.mPlayers; }
-            set { this.mPlayers = value; }
-        }
+        //public List<Player> Players
+        //{
+        //    get { return this.mPlayers; }
+        //    set { this.mPlayers = value; }
+        //}
 
-        public Deck Deck
-        {
-            get { return this.mDeck; }
-            set { this.mDeck = value; }
-        }
+        //public Deck Deck
+        //{
+        //    get { return this.mDeck; }
+        //    set { this.mDeck = value; }
+        //}
 
-        public int CurrentPlayer
-        {
-            get { return this.mCurrentPlayer; }
-        }
+        //public int CurrentPlayer
+        //{
+        //    get { return this.mCurrentPlayer; }
+        //}
 
-        public void RefreshCardPiles()
-        {
-            mDeck.RefreshCardPiles();
-        }
+        //private void RefreshCardPiles()
+        //{
+        //    mDeck.RefreshCardPiles();
+        //}
 
         private void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            if (!UnoMain.UnoGame.PlayerHasDiscared)
+            if (mPlayerHasDiscarded)
             {   //only come here if play is allowed for this player. 
                 bool cardPlayable = CheckIfCardCanBePlayed(card);
                 if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
@@ -144,7 +144,7 @@ namespace Uno
                 message = mPlayers[NextPlayerWithoutSkips()].Name + " won the challenge, " + mPlayers[mCurrentPlayer].Name + " draws 4 cards";
                 for (int num = 0; num < 4; num++)
                 {
-                    DrawCard(CurrentPlayer);
+                    DrawCard(mCurrentPlayer);
                 }
             }
             else
@@ -178,7 +178,7 @@ namespace Uno
         {
             eventArgs.UnoCard.RunCardSpecialFeatures();
             mDeck.DiscardPile.Add(eventArgs.UnoCard);
-            mPlayers[CurrentPlayer].Cards.Remove(eventArgs.UnoCard);
+            mPlayers[mCurrentPlayer].Cards.Remove(eventArgs.UnoCard);
             if (eventArgs.UnoCard is CardWild)
             {
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "ChooseColour");
@@ -211,7 +211,7 @@ namespace Uno
                 mNextPlayersToSkipTotal = 0;
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
-                mPlayers[CurrentPlayer].SortPlayerCards();
+                mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
             else
@@ -339,7 +339,7 @@ namespace Uno
             }
             else
             {
-                RefreshCardPiles();
+                EventPublisher.RefreshCardPiles();
                 if (mDeck.DrawPile.Count > 0)
                 {
                     if (mDeck.DiscardPile.Count > 0)
@@ -387,7 +387,7 @@ namespace Uno
         private bool CheckIfCardCanBePlayed(Card pCard)
         {
             bool canBePlayed = false;
-            Card discardPile = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];
+            Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
             switch (discardPile)
             {
                 case CardWild discardPileWild:

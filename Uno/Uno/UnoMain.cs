@@ -22,7 +22,7 @@ namespace Uno
         {
             StartNewGuiInteface();
             mUnoGame = new UnoGame(pPlayerNames, pDealer);
-            mUnoGame.RefreshCardPiles();
+            EventPublisher.RefreshCardPiles();
             EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
         }
 
