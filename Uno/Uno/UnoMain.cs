@@ -18,9 +18,9 @@ namespace Uno
             get { return mUnoGame; }
         }
 
-        public static void NewGame(List<string> pPlayerNames, int pDealer, GameRulesType pGameRulesType)
+        public static void NewGame(List<string> pPlayerNames, int pDealer)
         {
-            mUnoGame = new UnoGame(pPlayerNames, pDealer, pGameRulesType);
+            mUnoGame = new UnoGame(pPlayerNames, pDealer);
             mUnoGame.RefreshCardPiles();
             EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
         }

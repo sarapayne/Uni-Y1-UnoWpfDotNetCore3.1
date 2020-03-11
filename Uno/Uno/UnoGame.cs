@@ -13,13 +13,12 @@ namespace Uno
         private Deck mDeck;
         private bool mforwards;
         private int mCurrentPlayer;
-        private GameRules mGameRules;
         private int mNextPlayerPickupTotal = 0;
         private int mNextPlayersToSkipTotal = 0;
         private bool mPlayerHasDiscarded = false;
         private bool mPlayerHasPicked = false;
 
-        public UnoGame(List<string> pPlayerNames, int pdealer, GameRulesType pGameRulesType)
+        public UnoGame(List<string> pPlayerNames, int pdealer)
         {
             if (pPlayerNames.Count <= 10)
             {
@@ -33,7 +32,6 @@ namespace Uno
             DealCards();
             this.mforwards = true;
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
-            this.mGameRules = SetGameRules(pGameRulesType);
             this.mNextPlayerPickupTotal = 0;
             this.mNextPlayersToSkipTotal = 0;
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
@@ -48,6 +46,7 @@ namespace Uno
             EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
             EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
+            EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             StartNewGuiInteface();
         }
 
@@ -100,6 +99,25 @@ namespace Uno
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
         }
 
+        private void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
+        {
+            EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
+            Card card = ev.mPlayingCard;
+            if (!UnoMain.UnoGame.PlayerHasDiscared)
+            {   //only come here if play is allowed for this player. 
+                bool cardPlayable = CheckIfCardCanBePlayed(card);
+                if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+                else
+                {
+                    EventPublisher.PlayCard(card);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You can not discard more cards this turn, please click next player or draw a card.", "discard error");
+            }
+        }
+
         private void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
         {
             
@@ -108,7 +126,7 @@ namespace Uno
             bool hadPlayableCard = false;
             foreach (Card card in mPlayers[mCurrentPlayer].Cards)
             {
-                bool playableCardFound = mGameRules.CheckIfCardCanBePlayed(card);
+                bool playableCardFound = CheckIfCardCanBePlayed(card);
                 if (playableCardFound)
                 {
                     if (!(card is CardWild))
@@ -259,27 +277,6 @@ namespace Uno
             }
         }
 
-        private GameRules SetGameRules(GameRulesType pGameRulesType)
-        {
-            GameRules gameRules = null;
-            switch (pGameRulesType)
-            {
-                case GameRulesType.Standard:
-                    gameRules = new GameRules();
-                    break;
-                case GameRulesType.House1:
-                    gameRules = new GameRulesHouse1();
-                    break;
-                case GameRulesType.House2:
-                    gameRules = new GameRulesHouse2();
-                    break;
-                case GameRulesType.House3:
-                    gameRules = new GameRulesHouse3();
-                    break;
-            }
-            return gameRules;
-        }
-
         private void FinishPlaceCard()
         {
             mPlayers[mCurrentPlayer].SortPlayerCards();
@@ -391,6 +388,76 @@ namespace Uno
                 players.Add(player);
             }
             return players;
+        }
+
+        private bool CheckIfCardCanBePlayed(Card pCard)
+        {
+            bool canBePlayed = false;
+            Card discardPile = UnoMain.UnoGame.Deck.DiscardPile[UnoMain.UnoGame.Deck.DiscardPile.Count - 1];
+            switch (discardPile)
+            {
+                case CardWild discardPileWild:
+                    switch (pCard)
+                    {
+                        case CardSuit playedSuitCard:
+                            if (playedSuitCard.Csuit == discardPileWild.NextSuit) canBePlayed = true;
+                            break;
+                        case CardWild cardWild:
+                            canBePlayed = true;
+                            break;
+                    }
+                    break;
+                case CardSuit discardPileSuit:
+                    switch (pCard)
+                    {
+                        case CardWild playedWildCard:
+                            canBePlayed = true;
+                            break;
+                        case CardSuit playedSuitCard:
+                            if (discardPileSuit.Csuit == playedSuitCard.Csuit) canBePlayed = true;
+                            else
+                            {   //come here if both cards are suits do they do not match
+                                switch (discardPileSuit)
+                                {
+                                    case CardNumber discardPileNumberCard:
+                                        switch (playedSuitCard)
+                                        {
+                                            case CardNumber playedNumberCard:
+                                                if (discardPileNumberCard.Number == playedNumberCard.Number)
+                                                {
+                                                    canBePlayed = true;
+                                                }
+                                                break;
+                                            case CardSpecial playedSpecialCard:
+                                                canBePlayed = false;
+                                                break;
+                                        }
+                                        break;
+                                    case CardSpecial discardPileSpecialCard:
+                                        switch (playedSuitCard)
+                                        {
+                                            case CardNumber playedNumberCard:
+                                                canBePlayed = false;
+                                                break;
+                                            case CardSpecial playedSpecialCard:
+                                                if (discardPileSpecialCard.Type == playedSpecialCard.Type)
+                                                {
+                                                    canBePlayed = true;
+                                                }
+                                                else
+                                                {
+                                                    canBePlayed = false;
+                                                }
+                                                break;
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                    break;
+            }
+            return canBePlayed;
         }
     }
 }

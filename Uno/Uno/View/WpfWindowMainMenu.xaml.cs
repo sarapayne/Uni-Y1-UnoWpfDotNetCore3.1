@@ -30,9 +30,8 @@ namespace Uno
             List<string> players10 = new List<string> { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10" };
             //***Tempory Lists For Testing End***
             List<string> playerNames = players5; //this will eventually come from a GUI entry
-            GameRulesType gameRulesType = GameRulesType.Standard;
             int dealer = 0; ///this will eventually be set in the GUI. 
-            UnoMain.NewGame(playerNames, dealer, gameRulesType);
+            UnoMain.NewGame(playerNames, dealer);
             this.Hide();
             this.Close();
             //will load a new page with 10 spaces for player names
