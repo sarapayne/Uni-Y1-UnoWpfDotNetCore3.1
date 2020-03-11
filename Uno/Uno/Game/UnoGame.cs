@@ -53,7 +53,7 @@ namespace Uno
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            if (mPlayerHasDiscarded)
+            if (!mPlayerHasDiscarded)
             {   //only come here if play is allowed for this player. 
                 bool cardPlayable = CheckIfCardCanBePlayed(card);
                 if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");

@@ -26,6 +26,7 @@ namespace Uno
         {
             //***Tempory Lists For Testing Purposes***
             List<string> players2 = new List<string> { "Player1", "Player2"};
+            List<string> players3 = new List<string> { "Player1", "Player2", "Player3" };
             List<string> players5 = new List<string> {"Player1", "Player2", "Player3", "Player4", "Player5"};
             List<string> players10 = new List<string> { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10" };
             //***Tempory Lists For Testing End***
