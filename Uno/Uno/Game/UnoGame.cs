@@ -9,14 +9,14 @@ namespace Uno
     [Serializable()]
     class UnoGame
     {
-        private List<Player> mPlayers;
-        private Deck mDeck;
-        private bool mforwards;
-        private int mCurrentPlayer;
-        private int mNextPlayerPickupTotal = 0;
-        private int mNextPlayersToSkipTotal = 0;
-        private bool mPlayerHasDiscarded = false;
-        private bool mPlayerHasPicked = false;
+        protected List<Player> mPlayers;
+        protected Deck mDeck;
+        protected bool mforwards;
+        protected int mCurrentPlayer;
+        protected int mNextPlayerPickupTotal = 0;
+        protected int mNextPlayersToSkipTotal = 0;
+        protected bool mPlayerHasDiscarded = false;
+        protected bool mPlayerHasPicked = false;
 
         public UnoGame(List<string> pPlayerNames, int pdealer)
         {
@@ -53,7 +53,7 @@ namespace Uno
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            if (!mPlayerHasDiscarded)
+            if (!mPlayerHasDiscarded) //block playing more cards if player has discard
             {   //only come here if play is allowed for this player. 
                 bool cardPlayable = CheckIfCardCanBePlayed(card);
                 if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");

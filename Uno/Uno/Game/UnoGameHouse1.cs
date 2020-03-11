@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using Uno.EventsComponents;
 
 namespace Uno.Game
@@ -13,7 +14,7 @@ namespace Uno.Game
         }
 
         protected override void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
-        {
+        {   //Alterate rule
             base.UnoGame_RaiseGameButtonClick(sender, eventArgs);
         }
 
@@ -34,7 +35,34 @@ namespace Uno.Game
 
         protected override void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
-            base.UnoGame_RaiseNextPlayerButtonClick(sender, eventArgs);
+            if (mPlayerHasDiscarded)
+            {
+                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
+                if (mforwards)
+                {
+                    nextPlayerWithoutSips += mNextPlayersToSkipTotal;
+                }
+                else
+                {
+                    nextPlayerWithoutSips -= mNextPlayersToSkipTotal;
+                }
+                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
+                for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
+                {
+                    DrawCard(mCurrentPlayer);
+                }
+                mNextPlayerPickupTotal = 0;
+                mNextPlayersToSkipTotal = 0;
+                mPlayerHasPicked = false;
+                mPlayerHasDiscarded = false;
+                mPlayers[mCurrentPlayer].SortPlayerCards();
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            }
+            else
+            {
+                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
+                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            }
         }
 
         protected override void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
