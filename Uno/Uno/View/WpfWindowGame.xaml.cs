@@ -227,32 +227,40 @@ namespace Uno
 
         private void UpdateDrawCard(List<Card> pDiscardPile)
         {
-            Card card = pDiscardPile[pDiscardPile.Count - 1];
             Uri imageUri = null;
-            if (card is CardWild)
+            if (pDiscardPile.Count == 0)
             {
-                CardWild wildCard = card as CardWild;
-                string imageName = "";
-                switch (wildCard.NextSuit)
-                {
-                    case Suit.Red:
-                        imageName = "card_front_wild_red";
-                        break;
-                    case Suit.Green:
-                        imageName = "card_front_wild_green";
-                        break;
-                    case Suit.Blue:
-                        imageName = "card_front_wild_blue";
-                        break;
-                    case Suit.Yellow:
-                        imageName = "card_front_wild_yellow";
-                        break;
-                }
-                imageUri = GetResourceUri(imageName);
+                string emptyCardName = "card_empty";
+                imageUri = GetResourceUri(emptyCardName);
             }
             else
             {
-                imageUri = GetResourceUri(card.ImageName);
+                Card card = pDiscardPile[pDiscardPile.Count - 1];
+                if (card is CardWild)
+                {
+                    CardWild wildCard = card as CardWild;
+                    string imageName = "";
+                    switch (wildCard.NextSuit)
+                    {
+                        case Suit.Red:
+                            imageName = "card_front_wild_red";
+                            break;
+                        case Suit.Green:
+                            imageName = "card_front_wild_green";
+                            break;
+                        case Suit.Blue:
+                            imageName = "card_front_wild_blue";
+                            break;
+                        case Suit.Yellow:
+                            imageName = "card_front_wild_yellow";
+                            break;
+                    }
+                    imageUri = GetResourceUri(imageName);
+                }
+                else
+                {
+                    imageUri = GetResourceUri(card.ImageName);
+                }
             }
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Resources\card_back.png" />
+    <None Remove="Resources\card_empty.png" />
     <None Remove="Resources\card_front_suit_Blue_0.png" />
     <None Remove="Resources\card_front_suit_Blue_1.png" />
     <None Remove="Resources\card_front_suit_Blue_2.png" />
@@ -71,6 +72,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\card_back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\card_empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\card_front_suit_Blue_0.png">
