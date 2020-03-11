@@ -20,9 +20,15 @@ namespace Uno
 
         public static void NewGame(List<string> pPlayerNames, int pDealer)
         {
+            StartNewGuiInteface();
             mUnoGame = new UnoGame(pPlayerNames, pDealer);
             mUnoGame.RefreshCardPiles();
             EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
+        }
+
+        private static void StartNewGuiInteface()
+        {
+            WpfWindowGame wpfWindowGame = new WpfWindowGame();
         }
 
         public static void LoadGame(string pFileToLoad)

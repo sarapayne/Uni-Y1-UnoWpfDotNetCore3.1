@@ -47,7 +47,6 @@ namespace Uno
             EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
-            StartNewGuiInteface();
         }
 
         public bool PlayerHasPicked
@@ -92,11 +91,6 @@ namespace Uno
         public void RefreshCardPiles()
         {
             mDeck.RefreshCardPiles();
-        }
-
-        private void StartNewGuiInteface()
-        {
-            WpfWindowGame wpfWindowGame = new WpfWindowGame();
         }
 
         private void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
