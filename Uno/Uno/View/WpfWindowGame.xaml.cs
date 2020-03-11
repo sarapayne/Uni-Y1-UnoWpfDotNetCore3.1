@@ -171,7 +171,13 @@ namespace Uno
 
         private void AddPlayerCards(List<Card> pPlayerCards)
         {
-            for (int playerCardIndex = 0; playerCardIndex < pPlayerCards.Count; playerCardIndex++)
+            int lastGuiElement = pPlayerCards.Count;
+            if (lastGuiElement > 54)
+            {
+                lastGuiElement = 54;
+                MessageBox.Show("You have more than 54 cards, you can continue to play but only the first 54 cards will be show", "too many cards");
+            }
+            for (int playerCardIndex = 0; playerCardIndex < lastGuiElement; playerCardIndex++)
             {
                 Card card = pPlayerCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
