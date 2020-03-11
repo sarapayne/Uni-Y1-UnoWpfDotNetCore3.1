@@ -49,51 +49,7 @@ namespace Uno
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
         }
 
-        //public bool PlayerHasPicked
-        //{
-        //    get { return this.mPlayerHasPicked; }
-        //}
-
-        //public bool PlayerHasDiscared
-        //{
-        //    get { return this.mPlayerHasDiscarded; }
-        //}
-
-        //public int NextPlayerPickup
-        //{
-        //    get { return mNextPlayerPickupTotal; }
-        //    set { this.mNextPlayerPickupTotal = value; }
-        //}
-
-        //public int NextPlayersSkip
-        //{
-        //    get { return this.mNextPlayersToSkipTotal; }
-        //    set { this.mNextPlayersToSkipTotal = value; }
-        //}
-
-        //public List<Player> Players
-        //{
-        //    get { return this.mPlayers; }
-        //    set { this.mPlayers = value; }
-        //}
-
-        //public Deck Deck
-        //{
-        //    get { return this.mDeck; }
-        //    set { this.mDeck = value; }
-        //}
-
-        //public int CurrentPlayer
-        //{
-        //    get { return this.mCurrentPlayer; }
-        //}
-
-        //private void RefreshCardPiles()
-        //{
-        //    mDeck.RefreshCardPiles();
-        //}
-
-        private void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
@@ -112,7 +68,7 @@ namespace Uno
             }
         }
 
-        private void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
         {
             
             string message = mPlayers[NextPlayerWithoutSkips()].Name + "has challenged " + mPlayers[mCurrentPlayer].Name + "'s use of a +4 card";
@@ -163,7 +119,7 @@ namespace Uno
             EventPublisher.NextPlayerButtonClick();
         }
 
-        private void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
         {
             for (int number = 0; number <4; number++)
             {
@@ -174,7 +130,7 @@ namespace Uno
             EventPublisher.NextPlayerButtonClick();
         }
 
-        private void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
+        protected virtual void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {
             eventArgs.UnoCard.RunCardSpecialFeatures();
             mDeck.DiscardPile.Add(eventArgs.UnoCard);
@@ -189,7 +145,7 @@ namespace Uno
             }
         }
 
-        private void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
@@ -221,17 +177,17 @@ namespace Uno
             }
         }
 
-        private void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
         {
             mNextPlayersToSkipTotal++;
         }
 
-        private void UnoGame_RaiseReverseDirection(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaiseReverseDirection(object sender, EventArgs eventArgs)
         {
             mforwards = !mforwards;
         }
 
-        private void UnoGame_RaiseDrawTwoCards(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_RaiseDrawTwoCards(object sender, EventArgs eventArgs)
         {
             int nextPlayer = NextPlayerWithoutSkips();
             DrawCard(nextPlayer);
@@ -239,7 +195,7 @@ namespace Uno
             EventPublisher.SkipGo();
         }
 
-        private void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
+        protected virtual void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
         {
             if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
             {
@@ -255,8 +211,7 @@ namespace Uno
                 }
             }
         }
-
-        private void DealCards()
+        protected virtual void DealCards()
         {
             mDeck.ShuffleDeck(mDeck.DiscardPile);
             foreach (Player player in mPlayers)
@@ -271,7 +226,7 @@ namespace Uno
             }
         }
 
-        private void FinishPlaceCard()
+        protected virtual void FinishPlaceCard()
         {
             mPlayers[mCurrentPlayer].SortPlayerCards();
             mPlayerHasDiscarded = true;
@@ -290,7 +245,7 @@ namespace Uno
             } 
         }
 
-        private int NextPlayerWithoutSkips()
+        protected virtual int NextPlayerWithoutSkips()
         {
             int nextPlayer = 0;
             if (mforwards)
@@ -312,7 +267,7 @@ namespace Uno
             return nextPlayer;
         }
 
-        public int FixOutOfBounds(int pIndex)
+        protected virtual int FixOutOfBounds(int pIndex)
         {
             int toFix = pIndex;
             if (pIndex < 0)
@@ -326,12 +281,12 @@ namespace Uno
             return toFix;
         }
 
-        private void UnoGame_DrawCard(object sender, EventArgs eventArgs)
+        protected virtual void UnoGame_DrawCard(object sender, EventArgs eventArgs)
         {
             DrawCard(mCurrentPlayer);
         }
 
-        private void DrawCard(int pPlayer)
+        protected virtual void DrawCard(int pPlayer)
         {
             if (mDeck.DrawPile.Count > 0)
             {
@@ -357,7 +312,7 @@ namespace Uno
             }   
         }
 
-        private void MoveCardFromDiscardToPlayer(int pPlayer)
+        protected virtual void MoveCardFromDiscardToPlayer(int pPlayer)
         {
             mPlayers[pPlayer].Cards.Add(mDeck.DiscardPile[0]);
             mDeck.DiscardPile.RemoveAt(0);
@@ -365,7 +320,7 @@ namespace Uno
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
-        private void MoveCardFromDrawToPlayer(int pPlayer)
+        protected virtual void MoveCardFromDrawToPlayer(int pPlayer)
         {
             mPlayers[pPlayer].Cards.Add(mDeck.DrawPile[0]);
             mDeck.DrawPile.RemoveAt(0);
@@ -373,7 +328,7 @@ namespace Uno
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
-        private List<Player> GenerateNewPlayers(List<string> pPlayerNames)
+        protected virtual List<Player> GenerateNewPlayers(List<string> pPlayerNames)
         {
             List<Player> players = new List<Player>();
             for (int playerIndex = 0; playerIndex < pPlayerNames.Count; playerIndex++)
@@ -384,7 +339,7 @@ namespace Uno
             return players;
         }
 
-        private bool CheckIfCardCanBePlayed(Card pCard)
+        protected virtual bool CheckIfCardCanBePlayed(Card pCard)
         {
             bool canBePlayed = false;
             Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
