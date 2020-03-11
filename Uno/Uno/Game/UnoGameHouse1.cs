@@ -60,7 +60,7 @@ namespace Uno.Game
             }
             else
             {
-                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
+                MessageBox.Show("Sorry you need to play a card before you pass the turn to the next player", "player change error");
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
         }
