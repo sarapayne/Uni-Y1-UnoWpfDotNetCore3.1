@@ -20,6 +20,18 @@ namespace Uno
         public WpfWindowMainMenu()
         {
             InitializeComponent();
+            EventPublisher.RaiseMainMenu += WpfWindowMainMenu_RaiseMainMenu;
+            EventPublisher.RaiseReturnToGame += WpfWindowMainMenu_RaiseReturnToGame;
+        }
+
+        private void WpfWindowMainMenu_RaiseReturnToGame(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
+        }
+
+        private void WpfWindowMainMenu_RaiseMainMenu(object sender, EventArgs eventArgs)
+        {
+            this.Show();
         }
 
         private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
@@ -66,12 +78,10 @@ namespace Uno
 
         private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)
         {
-            if (UnoMain.UnoGame != null)
+            
+            if (UnoMain.ActiveGameExists())
             {
-                WpfWindowGame wpfWindowGame = new WpfWindowGame();
-                wpfWindowGame.Show();
-                this.Hide();
-                this.Close();
+                EventPublisher.ReturnToGame();
             }
             else MessageBox.Show("Sorry there is no active game to return to", "no active game");
         }

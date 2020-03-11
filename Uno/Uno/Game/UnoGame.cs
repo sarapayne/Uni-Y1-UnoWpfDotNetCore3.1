@@ -17,6 +17,7 @@ namespace Uno
         protected int mNextPlayersToSkipTotal = 0;
         protected bool mPlayerHasDiscarded = false;
         protected bool mPlayerHasPicked = false;
+        protected Player mWinner = null;
 
         public UnoGame(List<string> pPlayerNames, int pdealer)
         {
@@ -47,6 +48,36 @@ namespace Uno
             EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
+            EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
+        }
+
+        protected virtual void CalculateFinalScores()
+        {
+            int runningTotal = 0;
+            foreach (Player player in mPlayers)
+            {
+                if (player != mWinner)
+                {
+                    foreach(Card card in player.Cards)
+                    {
+                        switch(card)
+                        {
+                            case CardWild cardWild:
+                                runningTotal += 50;
+                                break;
+                            case CardSpecial cardSpecial:
+                                runningTotal += 20;
+                                break;
+                            case CardNumber cardNumber:
+                                runningTotal += cardNumber.Number;
+                                break;
+                        }
+                    }
+                }
+            }
+            mWinner.FinalScore = runningTotal;
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "GameOver");
+            EventPublisher.FinalScore(mWinner);
         }
 
         protected virtual void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
@@ -233,7 +264,8 @@ namespace Uno
             if (mPlayers[mCurrentPlayer].Cards.Count == 0)
             {
                 MessageBox.Show(mPlayers[mCurrentPlayer].Name + ": Has won the game, please select the main menu when ready");
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "GameOver");
+                mWinner = mPlayers[mCurrentPlayer];
+                CalculateFinalScores();
             }
             else
             {
@@ -325,6 +357,11 @@ namespace Uno
             mPlayers[pPlayer].Cards.Add(mDeck.DrawPile[0]);
             mDeck.DrawPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+        }
+
+        protected virtual void UnoMain_RaiseReturnToGame(object sender, EventArgs eventArgs)
+        {
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 

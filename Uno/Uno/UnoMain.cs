@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Uno.View;
 
 namespace Uno
 {
@@ -26,9 +27,23 @@ namespace Uno
             EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
         }
 
+        public static bool ActiveGameExists()
+        {
+            if (mUnoGame != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private static void StartNewGuiInteface()
         {
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
+            WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
+            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
         }
 
         public static void LoadGame(string pFileToLoad)

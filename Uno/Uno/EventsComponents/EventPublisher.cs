@@ -12,6 +12,7 @@ namespace Uno
         public static event EventHandler<EventArgsColourPick> RaiseColourPick;
         public static event EventHandler<EventArgsPlayCard> RaisePlayCard;
         public static event EventHandler<EventArgsGuiUpdate> RaiseGuiUpdate;
+        public static event EventHandler<EventArgsFinalScore> RaiseFinalScore;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -20,6 +21,32 @@ namespace Uno
         public static event EventHandler RaiseAcceptDraw4;
         public static event EventHandler RaiseDrawCard;
         public static event EventHandler RaiseRefreshCardPiles;
+        public static event EventHandler RaiseMainMenu;
+        public static event EventHandler RaiseReturnToGame;
+
+        public static void ReturnToGame()
+        {
+            if (RaiseReturnToGame != null)
+            {
+                EventPublisher.RaiseReturnToGame(null, null);
+            }
+        }
+
+        public static void MainMenu()
+        {
+            if (RaiseMainMenu != null)
+            {
+                EventPublisher.RaiseMainMenu(null, null);
+            }
+        }
+
+        public static void FinalScore(Player pPlayer)
+        {
+            if (RaiseFinalScore != null)
+            {
+                EventPublisher.RaiseFinalScore(null, new EventArgsFinalScore(pPlayer));
+            }
+        }
 
         public static void RefreshCardPiles()
         {

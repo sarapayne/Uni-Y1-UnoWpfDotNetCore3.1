@@ -11,12 +11,20 @@ namespace Uno
         private string mName;
         private List<Card> mCards;
         private int mNumber;
+        private int mFinalScore;
 
         public Player (int pPlayerNumber, string pPlayerName)
         {
             mNumber = pPlayerNumber;
             mName = pPlayerName;
             mCards = new List<Card>();
+            mFinalScore = 0;
+        }
+
+        public int FinalScore
+        {
+            get { return this.mFinalScore; }
+            set { this.mFinalScore = value; }
         }
 
         public List <Card> Cards

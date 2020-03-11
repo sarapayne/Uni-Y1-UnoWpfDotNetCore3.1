@@ -30,6 +30,12 @@ namespace Uno
             InitializeComponent();
             mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
             EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
+            EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseMainMenu;
+        }
+
+        private void WpfWindowGame_RaiseMainMenu(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
         }
 
         private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
@@ -48,6 +54,11 @@ namespace Uno
                 EnableChallengePlus4();
                 labelSecondTitle.Content = eventArgsGuiUpdate.ThisPlayer.Name;
                 this.Show();
+            }
+            else if (eventArgsGuiUpdate.ExtraInstructions == "GameOver")
+            {
+                DisableGuiComponents();
+                this.Hide();
             }
             else
             {
@@ -206,10 +217,7 @@ namespace Uno
 
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
-            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
-            wpfWindowMainMenu.Show();
-            this.Hide();
-            this.Close();
+            EventPublisher.MainMenu();
         }
 
         private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
