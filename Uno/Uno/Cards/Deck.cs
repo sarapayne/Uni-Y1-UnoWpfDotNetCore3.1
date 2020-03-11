@@ -21,7 +21,7 @@ namespace Uno
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
-            EventPublisher.RaiseRefreshCardPiles += Deck_RaiseRefreshCardPiles;
+            //DeckRefresh();
         }
 
         public List<Card> DrawPile
@@ -37,6 +37,11 @@ namespace Uno
         }
 
         private void Deck_RaiseRefreshCardPiles(object sender, EventArgs eventArgs)
+        {
+            //code may return here later
+        }
+
+        public void DeckRefresh()
         {
             ResetWildCards(mDiscardPile);
             MakeSureTopCardNotWild(mDiscardPile);

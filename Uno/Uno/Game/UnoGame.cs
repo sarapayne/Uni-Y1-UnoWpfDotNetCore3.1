@@ -320,21 +320,26 @@ namespace Uno
 
         protected virtual void DrawCard(int pPlayer)
         {
-            if (mDeck.DrawPile.Count > 0)
+            if (mDeck.DiscardPile.Count == 0 && mDeck.DrawPile.Count == 0)
             {
+                MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
+                mPlayerHasPicked = true;//set this to allow play to continue.
+            }
+            else if (mDeck.DrawPile.Count == 0 && mDeck.DiscardPile.Count == 1)
+            {
+                MoveCardFromDiscardToPlayer(pPlayer);
+                mPlayerHasPicked = true;
+            }
+            else if (mDeck.DrawPile.Count == 0)
+            {
+                mDeck.DeckRefresh();
                 MoveCardFromDrawToPlayer(pPlayer);
+                mPlayerHasPicked = true;
             }
             else
             {
-                EventPublisher.RefreshCardPiles();
-                if (mDeck.DrawPile.Count > 0)
-                {
-                    if (mDeck.DiscardPile.Count > 0)
-                    {
-                        MoveCardFromDiscardToPlayer(pPlayer);
-                    }
-                    else MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
-                }
+                MoveCardFromDrawToPlayer(pPlayer);
+                mPlayerHasPicked = true;
             }
             if (pPlayer == mCurrentPlayer)
             {
