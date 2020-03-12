@@ -11,8 +11,8 @@ namespace Uno
     [Serializable()]
     class UnoMain
     {
-        
         static UnoGame mUnoGame;
+        static UnoTournament mUnoTournament;
 
         public static UnoGame UnoGame
         {

@@ -98,3 +98,4 @@ F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.Assem
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.dll
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.pdb
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.genruntimeconfig.cache
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache
