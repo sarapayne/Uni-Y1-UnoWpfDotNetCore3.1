@@ -13,7 +13,12 @@ namespace Uno.Game
 
         }
 
-        protected override void SubscribeToEvents()
+        protected override void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
+        {
+            base.UnsubscribeFromEvents();
+        }
+
+        public override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
         }

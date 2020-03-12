@@ -9,9 +9,10 @@ using System.Windows.Media.Imaging;
 
 namespace Uno
 {
+    [Serializable]
     class Deck
     {
-        static string mCardDeckFileName = "CardDeck.bin";
+        private string mCardDeckFileName = "CardDeck.bin";
         private List<Card> mDrawPile;
         private List<Card> mDiscardPile;
         private int mUniqueIdentifier;
@@ -21,7 +22,6 @@ namespace Uno
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
-            //DeckRefresh();
         }
 
         public List<Card> DrawPile

@@ -24,7 +24,51 @@ namespace Uno
         public static event EventHandler RaiseRefreshCardPiles;
         public static event EventHandler RaiseMainMenu;
         public static event EventHandler RaiseReturnToGame;
-        
+        public static event EventHandler RaiseUnsubscribeEvents;
+        public static event EventHandler <EventArgsGame> RaiseNewGame;
+        public static event EventHandler <EventArgsLoadSave> RaiseLoadGame;
+        public static event EventHandler<EventArgsLoadSave> RaiseSaveGame;
+        public static event EventHandler RaiseCheckForActiveGame;
+
+        public static void CheckForActiveGame()
+        {
+            if (RaiseCheckForActiveGame != null)
+            {
+                EventPublisher.RaiseCheckForActiveGame(null, null);
+            }
+        }
+
+        public static void SaveGame(string pName, string pExtraInfo)
+        {
+            if(RaiseSaveGame != null)
+            {
+                EventPublisher.RaiseSaveGame(null, new EventArgsLoadSave(pName, pExtraInfo));
+            }
+        }
+
+        public static void LoadGame(string pName, string pExtraInfo)
+        {
+            if (RaiseLoadGame != null)
+            {
+                EventPublisher.RaiseLoadGame(null, new EventArgsLoadSave(pName, pExtraInfo));
+            }
+        }
+
+        public static void NewGame(List<string> pPlayers, int pDealer)
+        {
+            if (RaiseNewGame != null)
+            {
+                EventPublisher.RaiseNewGame(null, new EventArgsGame(pPlayers, pDealer));
+            }
+        }
+
+        public static void UnsubscribeEvents()
+        {
+            if (RaiseUnsubscribeEvents != null)
+            {
+                EventPublisher.RaiseUnsubscribeEvents(null, null);
+            }
+        }
 
         public static void AddToTournament(Player pPlayer)
         {

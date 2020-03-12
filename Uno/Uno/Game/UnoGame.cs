@@ -20,6 +20,11 @@ namespace Uno
         protected Player mWinner = null;
         protected List<int> mCardsDrawnThisTurn;
 
+        public UnoGame ()
+        {
+            //empty constructor used for saving.
+        }
+
         public UnoGame(List<string> pPlayerNames, int pdealer)
         {
             if (pPlayerNames.Count <= 10)
@@ -42,7 +47,7 @@ namespace Uno
             SubscribeToEvents();
         }
 
-        protected virtual void SubscribeToEvents()
+        public virtual void SubscribeToEvents()
         {
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
@@ -55,6 +60,12 @@ namespace Uno
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
+            EventPublisher.RaiseUnsubscribeEvents += UnoGame_RaiseUnsubscribeEvents;
+        }
+
+        protected virtual void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
+        {
+            UnsubscribeFromEvents();
         }
 
         protected virtual void UnsubscribeFromEvents()

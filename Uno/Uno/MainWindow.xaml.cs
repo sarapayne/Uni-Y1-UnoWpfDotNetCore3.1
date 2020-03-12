@@ -26,10 +26,9 @@ namespace Uno
         public MainWindow()
         {
             InitializeComponent();
-            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
-            wpfWindowMainMenu.Show();
+            UnoMain unoMain = new UnoMain();
             this.Hide();
-            this.Close();
+            
         }
     }
 }

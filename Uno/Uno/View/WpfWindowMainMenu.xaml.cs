@@ -44,7 +44,7 @@ namespace Uno
             //***Tempory Lists For Testing End***
             List<string> playerNames = players5; //this will eventually come from a GUI entry
             int dealer = 0; ///this will eventually be set in the GUI. 
-            UnoMain.NewGame(playerNames, dealer);
+            EventPublisher.NewGame(playerNames, dealer);
             this.Hide();
             //will load a new page with 10 spaces for player names
         }
@@ -59,7 +59,7 @@ namespace Uno
             string gameToLoad5 = "game5";
             //***Tempory Strings For Testing, eventually this will come from the GUI
             string gameToLoad = gameToLoad1;//this will come from the GUI eventually
-            UnoMain.LoadGame(gameToLoad);
+            EventPublisher.LoadGame(gameToLoad, "");
         }
 
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
@@ -72,17 +72,12 @@ namespace Uno
             string gameToSave5 = "game5";
             //***Tempory Strings For Testing, eventually this will come from the GUI
             string gameToSave = gameToSave1;//this will come from the GUI eventually
-            UnoMain.SaveGame(gameToSave);
+            EventPublisher.SaveGame(gameToSave, "");
         }
 
         private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (UnoMain.ActiveGameExists())
-            {
-                EventPublisher.ReturnToGame();
-            }
-            else MessageBox.Show("Sorry there is no active game to return to", "no active game");
+            EventPublisher.CheckForActiveGame();
         }
     }
 }
