@@ -46,7 +46,6 @@ namespace Uno
             int dealer = 0; ///this will eventually be set in the GUI. 
             UnoMain.NewGame(playerNames, dealer);
             this.Hide();
-            this.Close();
             //will load a new page with 10 spaces for player names
         }
 

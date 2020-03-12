@@ -37,7 +37,11 @@ namespace Uno
             this.mNextPlayersToSkipTotal = 0;
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
-            //this.mPlus4Processed = false;
+            SubscribeToEvents();
+        }
+
+        protected virtual void SubscribeToEvents()
+        {
             EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
             EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
@@ -49,6 +53,21 @@ namespace Uno
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
+        }
+
+        protected virtual void UnsubscribeFromEvents()
+        {
+            EventPublisher.RaiseColourPick -= UnoGame_RaiseColourPick;
+            EventPublisher.RaisePlus4Challenge -= UnoGame_RaisePlus4Challenge;
+            EventPublisher.RaiseDrawTwoCards -= UnoGame_RaiseDrawTwoCards;
+            EventPublisher.RaiseReverseDirection -= UnoGame_RaiseReverseDirection;
+            EventPublisher.RaiseSkipGo -= UnoGame_RaiseSkipGo;
+            EventPublisher.RaiseNextPlayerButtonClick -= UnoGame_RaiseNextPlayerButtonClick;
+            EventPublisher.RaisePlayCard -= UnoGame_RaisePlayCard;
+            EventPublisher.RaiseAcceptDraw4 -= UnoGame_AcceptDraw4;
+            EventPublisher.RaiseDrawCard -= UnoGame_DrawCard;
+            EventPublisher.RaiseGameButtonClick -= UnoGame_RaiseGameButtonClick;
+            EventPublisher.RaiseReturnToGame -= UnoMain_RaiseReturnToGame;
         }
 
         protected virtual void CalculateFinalScores()
@@ -77,6 +96,7 @@ namespace Uno
             }
             mWinner.FinalScore = runningTotal;
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "GameOver");
+            UnsubscribeFromEvents();
             EventPublisher.FinalScore(mWinner);
         }
 
