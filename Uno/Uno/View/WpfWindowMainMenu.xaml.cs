@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,28 +53,33 @@ namespace Uno
 
         private void ButtonLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            //***Tempory Strings For Testing, eventually this will come from the GUI
-            string gameToLoad1 = "game1";
-            string gameToLoad2 = "game2";
-            string gameToLoad3 = "game3";
-            string gameToLoad4 = "game4";
-            string gameToLoad5 = "game5";
-            //***Tempory Strings For Testing, eventually this will come from the GUI
-            string gameToLoad = gameToLoad1;//this will come from the GUI eventually
-            EventPublisher.LoadGame(gameToLoad, "");
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "UnoGameFiles(*.unogame)|*.unogame";
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFile.ShowDialog() == true)
+            {
+                EventPublisher.LoadGame(openFile.FileName, "");
+            }
+            ////***Tempory Strings For Testing, eventually this will come from the GUI
+            //string gameToLoad1 = "game1";
+            //string gameToLoad2 = "game2";
+            //string gameToLoad3 = "game3";
+            //string gameToLoad4 = "game4";
+            //string gameToLoad5 = "game5";
+            ////***Tempory Strings For Testing, eventually this will come from the GUI
+            //string gameToLoad = gameToLoad1;//this will come from the GUI eventually
+            //EventPublisher.LoadGame(gameToLoad, "");
         }
 
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
         {
-            //***Tempory Strings For Testing, eventually this will come from the GUI
-            string gameToSave1 = "game1";
-            string gameToSave2 = "game2";
-            string gameToSave3 = "game3";
-            string gameToSave4 = "game4";
-            string gameToSave5 = "game5";
-            //***Tempory Strings For Testing, eventually this will come from the GUI
-            string gameToSave = gameToSave1;//this will come from the GUI eventually
-            EventPublisher.SaveGame(gameToSave, "");
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "UnoGameFiles(*.unogame)|*.unogame";
+            saveFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (saveFile.ShowDialog() == true)
+            {
+                EventPublisher.SaveGame(saveFile.FileName, "");
+            }
         }
 
         private void ButtonCurrentGame_Click(object sender, RoutedEventArgs e)

@@ -86,10 +86,10 @@ namespace Uno
 
         public void LoadGame(string pFileToLoad)
         {
-            string fileToLoad = pFileToLoad + ".unogame";
+            //string fileToLoad = pFileToLoad + ".unogame";
             try
             {
-                using (Stream stream = File.Open(fileToLoad, FileMode.Open))
+                using (Stream stream = File.Open(pFileToLoad, FileMode.Open))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
                     if (mUnoGame == null)
@@ -123,10 +123,10 @@ namespace Uno
 
         public static void SaveGame(UnoGame pUnogame, String pName)
         {
-            string fileName=  pName + ".unogame";
+            //string fileName=  pName + ".unogame";
             try
             {
-                using (Stream stream = File.Open(fileName, FileMode.Create))
+                using (Stream stream = File.Open(pName, FileMode.Create))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
                     bin.Serialize(stream, pUnogame);

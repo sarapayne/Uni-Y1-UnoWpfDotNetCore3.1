@@ -22,7 +22,7 @@ namespace Uno
 
         public UnoGame ()
         {
-            //empty constructor used for saving.
+            
         }
 
         public UnoGame(List<string> pPlayerNames, int pdealer)
