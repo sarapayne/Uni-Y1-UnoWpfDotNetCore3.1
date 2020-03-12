@@ -40,13 +40,16 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" 
                    Grid.ColumnSpan="21" 
                    Grid.Row="1"
-                   Text="TextBlock - Main Title" 
+                   Text="Main Menu" 
                    FontSize="30" 
                    HorizontalAlignment="Center"/>
 
@@ -54,5 +57,8 @@
         <Button x:Name="ButtonLoadGame" Content="Load Game" Grid.Column="3" Grid.Row="4" Click="ButtonLoadGame_Click"/>
         <Button x:Name="ButtonSaveGame" Content="Save Game" Grid.Column="3" Grid.Row="5" Click="ButtonSaveGame_Click"/>
         <Button x:Name="ButtonCurrentGame" Content="Return To Game" Grid.Column="3" Grid.Row="6" Click="ButtonCurrentGame_Click"/>
+        <Button x:Name="ButtonNewTournament" Content="New Tournament" Grid.Column="3" Grid.Row="7" Click="ButtonNewTournament_Click"/>
+        <Button x:Name="ButtonLoadTournament" Content="Load Tournament" Grid.Column="3" Grid.Row="8" Click="ButtonLoadTournament_Click"/>
+        <Button x:Name="ButtonSaveTournament" Content="Save Tournament" Grid.Column="3" Grid.Row="9" Click="ButtonSaveTournament_Click"/>
     </Grid>
 </Window>

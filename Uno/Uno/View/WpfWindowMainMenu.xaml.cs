@@ -86,5 +86,20 @@ namespace Uno
         {
             EventPublisher.CheckForActiveGame();
         }
+
+        private void ButtonNewTournament_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonLoadTournament_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonSaveTournament_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
