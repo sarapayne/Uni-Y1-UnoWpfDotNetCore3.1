@@ -18,9 +18,11 @@ namespace Uno.View
     /// </summary>
     public partial class WpfWindowFinalScore : Window
     {
+        private Player mPlayer;
         public WpfWindowFinalScore()
         {
             InitializeComponent();
+            mPlayer = null;
             EventPublisher.RaiseFinalScore += WpfWindowFinalScore_RaiseFinalScore;
             EventPublisher.RaiseMainMenu += WpfWindowFinalScore_RaiseMainMenu;
         }
@@ -36,6 +38,7 @@ namespace Uno.View
             int finalScore = eventArgsFinalScore.Winner.FinalScore;
             labelPlayerName.Content = playerName + "won this game";
             labelScore.Content = "Final Score: " + finalScore.ToString();
+            mPlayer = eventArgsFinalScore.Winner;
             this.Show();
         }
 
@@ -46,7 +49,7 @@ namespace Uno.View
 
         private void buttonTournament_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Feature not yet implemented, sorry", "not implemented yet");
+            EventPublisher.AddToTournament(mPlayer);
         }
     }
 }

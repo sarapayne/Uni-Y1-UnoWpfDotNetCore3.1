@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using Uno.EventsComponents;
 
 namespace Uno
 {
@@ -13,11 +14,17 @@ namespace Uno
         public UnoTournament()
         {
             mPlayers = new List<Player>();
+            EventPublisher.RaiseAddToTournament += UnoTournament_RaiseAddToTournament;
         }
 
         public List<Player> UnoGames
         {
             get { return mPlayers; }
+        }
+
+        private void UnoTournament_RaiseAddToTournament(object sender, EventArgsAddToTournament eventArgsAddTo)
+        {
+            AddGame(eventArgsAddTo.WinningPlayer);
         }
 
         public void AddGame(Player pPlayer)
@@ -38,24 +45,26 @@ namespace Uno
                         break;
                     }
                 }
-                if (playerFound)
-                {
-                    CheckForWinner(pPlayer);
-                }
-                else
+                if (!playerFound)
                 {
                     mPlayers.Add(pPlayer);
                 }
             }
+            CheckForWinner(pPlayer);
         }
 
-        private void CheckForWinner(Player player)
+        private void CheckForWinner(Player pPlayer)
         {
-            if (player.FinalScore >= 500)
+            if (pPlayer.FinalScore >= 500)
             {
-                MessageBox.Show(player.Name + " has won the tournament", "tournament won");
-                EventPublisher.MainMenu();
+                MessageBox.Show(pPlayer.Name + " has won the tournament", "tournament won");
+                
             }
+            else
+            {
+                MessageBox.Show(pPlayer.Name + "'s points have been added to the tournament", "points added");
+            }
+            EventPublisher.MainMenu();
         }
             
     }

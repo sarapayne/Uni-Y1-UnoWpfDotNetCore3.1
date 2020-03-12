@@ -13,6 +13,7 @@ namespace Uno
         public static event EventHandler<EventArgsPlayCard> RaisePlayCard;
         public static event EventHandler<EventArgsGuiUpdate> RaiseGuiUpdate;
         public static event EventHandler<EventArgsFinalScore> RaiseFinalScore;
+        public static event EventHandler<EventArgsAddToTournament> RaiseAddToTournament;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -23,6 +24,16 @@ namespace Uno
         public static event EventHandler RaiseRefreshCardPiles;
         public static event EventHandler RaiseMainMenu;
         public static event EventHandler RaiseReturnToGame;
+        
+
+        public static void AddToTournament(Player pPlayer)
+        {
+            if (RaiseAddToTournament != null)
+            {
+                EventPublisher.RaiseAddToTournament(null, new EventArgsAddToTournament(pPlayer));
+            }
+        }
+
 
         public static void ReturnToGame()
         {
