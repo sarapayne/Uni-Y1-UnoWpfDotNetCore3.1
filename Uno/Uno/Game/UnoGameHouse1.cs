@@ -13,9 +13,29 @@ namespace Uno.Game
 
         }
 
+        protected override void SubscribeToEvents()
+        {
+            base.SubscribeToEvents();
+        }
+
+        protected override void UnsubscribeFromEvents()
+        {
+            base.UnsubscribeFromEvents();
+        }
+
+        protected override void CalculateFinalScores()
+        {
+            base.CalculateFinalScores();
+        }
+
         protected override void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
         {   //Alterate rule
             base.UnoGame_RaiseGameButtonClick(sender, eventArgs);
+        }
+
+        protected override bool CheckIfDrawnCard(Card pCard)
+        {
+            return base.CheckIfDrawnCard(pCard);
         }
 
         protected override void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
@@ -123,6 +143,11 @@ namespace Uno.Game
         protected override void MoveCardFromDrawToPlayer(int pPlayer)
         {
             base.MoveCardFromDrawToPlayer(pPlayer);
+        }
+
+        protected override void UnoMain_RaiseReturnToGame(object sender, EventArgs eventArgs)
+        {
+            base.UnoMain_RaiseReturnToGame(sender, eventArgs);
         }
 
         protected override List<Player> GenerateNewPlayers(List<string> pPlayerNames)

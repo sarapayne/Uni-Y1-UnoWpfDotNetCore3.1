@@ -125,7 +125,7 @@ namespace Uno
             }
         }
 
-        protected bool CheckIfDrawnCard(Card pCard)
+        protected virtual bool CheckIfDrawnCard(Card pCard)
         {
             bool drawnCard = false;
             foreach(int uniqueIdentifier in mCardsDrawnThisTurn)
@@ -141,7 +141,6 @@ namespace Uno
 
         protected virtual void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
         {
-            
             string message = mPlayers[NextPlayerWithoutSkips()].Name + "has challenged " + mPlayers[mCurrentPlayer].Name + "'s use of a +4 card";
             MessageBox.Show(message, "+4 challenge");
             bool hadPlayableCard = false;
@@ -283,6 +282,7 @@ namespace Uno
                 }
             }
         }
+
         protected virtual void DealCards()
         {
             mDeck.ShuffleDeck(mDeck.DiscardPile);
