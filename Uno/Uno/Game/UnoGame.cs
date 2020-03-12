@@ -45,6 +45,7 @@ namespace Uno
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             this.mCardsDrawnThisTurn = new List<int>();
             SubscribeToEvents();
+            EventPublisher.NextPlayerButtonClick();//not a button click but does the job
         }
 
         public virtual void SubscribeToEvents()

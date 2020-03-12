@@ -35,12 +35,12 @@ namespace Uno
 
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
+            EventPublisher.UnsubscribeEvents();
             NewGame(eventArgs.Players, eventArgs.Dealer);
         }
 
         private void NewGame(List<string> pPlayerNames, int pDealer)
         {
-            
             EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
             mUnoGame = new UnoGame(pPlayerNames, pDealer);
         }
@@ -79,6 +79,7 @@ namespace Uno
 
         private void UnoMain_LoadGame(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
+            EventPublisher.UnsubscribeEvents();
             LoadGame(eventArgsLoadSave.Name);
             EventPublisher.MainMenu();
         }
