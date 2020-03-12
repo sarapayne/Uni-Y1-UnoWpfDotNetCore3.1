@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Game\UnoGame.cs~RF634ed.TMP" />
     <None Remove="Resources\card_back.png" />
     <None Remove="Resources\card_empty.png" />
     <None Remove="Resources\card_front_suit_Blue_0.png" />

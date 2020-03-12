@@ -18,6 +18,7 @@ namespace Uno
         protected bool mPlayerHasDiscarded = false;
         protected bool mPlayerHasPicked = false;
         protected Player mWinner = null;
+        protected List<int> mCardsDrawnThisTurn;
 
         public UnoGame(List<string> pPlayerNames, int pdealer)
         {
@@ -37,6 +38,7 @@ namespace Uno
             this.mNextPlayersToSkipTotal = 0;
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
+            this.mCardsDrawnThisTurn = new List<int>();
             SubscribeToEvents();
         }
 
@@ -107,6 +109,10 @@ namespace Uno
             if (!mPlayerHasDiscarded) //block playing more cards if player has discard
             {   //only come here if play is allowed for this player. 
                 bool cardPlayable = CheckIfCardCanBePlayed(card);
+                if (mPlayerHasPicked)
+                {
+                    cardPlayable = CheckIfDrawnCard(card);
+                }
                 if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
                 else
                 {
@@ -117,6 +123,20 @@ namespace Uno
             {
                 MessageBox.Show("You can not discard more cards this turn, please click next player or draw a card.", "discard error");
             }
+        }
+
+        protected bool CheckIfDrawnCard(Card pCard)
+        {
+            bool drawnCard = false;
+            foreach(int uniqueIdentifier in mCardsDrawnThisTurn)
+            {
+                if (uniqueIdentifier == pCard.UniqueIdentifier)
+                {
+                    drawnCard = true;
+                    break;
+                }
+            }
+            return drawnCard;
         }
 
         protected virtual void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
@@ -218,6 +238,7 @@ namespace Uno
                 mNextPlayersToSkipTotal = 0;
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
+                mCardsDrawnThisTurn.Clear();
                 mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
@@ -372,6 +393,7 @@ namespace Uno
         protected virtual void MoveCardFromDiscardToPlayer(int pPlayer)
         {
             mPlayers[pPlayer].Cards.Add(mDeck.DiscardPile[0]);
+            mCardsDrawnThisTurn.Add(mDeck.DiscardPile[0].UniqueIdentifier);
             mDeck.DiscardPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
@@ -380,6 +402,7 @@ namespace Uno
         protected virtual void MoveCardFromDrawToPlayer(int pPlayer)
         {
             mPlayers[pPlayer].Cards.Add(mDeck.DrawPile[0]);
+            mCardsDrawnThisTurn.Add(mDeck.DrawPile[0].UniqueIdentifier);
             mDeck.DrawPile.RemoveAt(0);
             mPlayers[pPlayer].SortPlayerCards();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
