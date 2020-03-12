@@ -8,12 +8,12 @@ namespace Uno
 {
     static class EventPublisher
     {
-        public static event EventHandler<EventArgsGameButtonClick> RaiseGameButtonClick; 
-        public static event EventHandler<EventArgsColourPick> RaiseColourPick;
-        public static event EventHandler<EventArgsPlayCard> RaisePlayCard;
-        public static event EventHandler<EventArgsGuiUpdate> RaiseGuiUpdate;
-        public static event EventHandler<EventArgsFinalScore> RaiseFinalScore;
-        public static event EventHandler<EventArgsAddToTournament> RaiseAddToTournament;
+        public static event EventHandler <EventArgsGameButtonClick> RaiseGameButtonClick; 
+        public static event EventHandler <EventArgsColourPick> RaiseColourPick;
+        public static event EventHandler <EventArgsPlayCard> RaisePlayCard;
+        public static event EventHandler <EventArgsGuiUpdate> RaiseGuiUpdate;
+        public static event EventHandler <EventArgsFinalScore> RaiseFinalScore;
+        public static event EventHandler <EventArgsAddToTournament> RaiseAddToTournament;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -27,8 +27,35 @@ namespace Uno
         public static event EventHandler RaiseUnsubscribeEvents;
         public static event EventHandler <EventArgsGame> RaiseNewGame;
         public static event EventHandler <EventArgsLoadSave> RaiseLoadGame;
-        public static event EventHandler<EventArgsLoadSave> RaiseSaveGame;
+        public static event EventHandler <EventArgsLoadSave> RaiseSaveGame;
         public static event EventHandler RaiseCheckForActiveGame;
+        public static event EventHandler RaiseNewTournament;
+        public static event EventHandler<EventArgsLoadSave> RaiseLoadTournament;
+        public static event EventHandler<EventArgsLoadSave> RaiseSaveTournament;
+
+        public static void SaveTournament(string pName, string pExtraInfo)
+        {
+            if (RaiseSaveTournament != null)
+            {
+                EventPublisher.RaiseSaveTournament(null, new EventArgsLoadSave(pName, pExtraInfo));
+            }
+        }
+
+        public static void LoadTournament(string pName, string pExtraInfo)
+        {
+            if (RaiseLoadTournament != null)
+            {
+                EventPublisher.RaiseLoadTournament(null, new EventArgsLoadSave(pName, pExtraInfo));
+            }
+        }
+            
+        public static void NewTournament()
+        {
+            if (RaiseNewTournament != null)
+            {
+                EventPublisher.RaiseNewTournament(null, null);
+            }
+        }
 
         public static void CheckForActiveGame()
         {
