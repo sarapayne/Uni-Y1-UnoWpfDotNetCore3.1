@@ -25,6 +25,7 @@ namespace Uno.View
             mPlayer = null;
             EventPublisher.RaiseFinalScore += WpfWindowFinalScore_RaiseFinalScore;
             EventPublisher.RaiseMainMenu += WpfWindowFinalScore_RaiseMainMenu;
+            EventPublisher.RaiseCloseWindow += WpfWindowFinalScore_CloseWindow;
         }
 
         private void WpfWindowFinalScore_RaiseMainMenu(object sender, EventArgs eventArgs)
@@ -50,6 +51,12 @@ namespace Uno.View
         private void buttonTournament_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.AddToTournament(mPlayer);
+        }
+
+        private void WpfWindowFinalScore_CloseWindow(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
+            this.Close();
         }
     }
 }

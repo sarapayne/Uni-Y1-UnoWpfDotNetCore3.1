@@ -31,6 +31,7 @@ namespace Uno
             mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
             EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
             EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseMainMenu;
+            EventPublisher.RaiseCloseWindow += WpfWindowGame_CloseWindow;
         }
 
         private void WpfWindowGame_RaiseMainMenu(object sender, EventArgs eventArgs)
@@ -287,6 +288,12 @@ namespace Uno
         private void buttonAcceptDraw4_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.AcceptDraw4();
+        }
+
+        private void WpfWindowGame_CloseWindow(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
+            this.Close();
         }
     }
 }

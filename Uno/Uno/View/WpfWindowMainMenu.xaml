@@ -60,5 +60,6 @@
         <Button x:Name="ButtonNewTournament" Content="New Tournament" Grid.Column="3" Grid.Row="7" Click="ButtonNewTournament_Click"/>
         <Button x:Name="ButtonLoadTournament" Content="Load Tournament" Grid.Column="3" Grid.Row="8" Click="ButtonLoadTournament_Click"/>
         <Button x:Name="ButtonSaveTournament" Content="Save Tournament" Grid.Column="3" Grid.Row="9" Click="ButtonSaveTournament_Click"/>
+        <Button x:Name="ButtonExitGame" Content="Exit Game" Grid.Column="3" Grid.Row="10" Click="ButtonExitGame_Click"/>
     </Grid>
 </Window>

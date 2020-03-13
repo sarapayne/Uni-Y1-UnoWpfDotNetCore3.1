@@ -26,9 +26,15 @@ namespace Uno
         public MainWindow()
         {
             InitializeComponent();
+            EventPublisher.RaiseShutDownRoutine += MainWindow_ShutDown;
             UnoMain unoMain = new UnoMain();
             this.Hide();
-            
+        }
+
+        private void MainWindow_ShutDown(object sender, EventArgs eventArgs)
+        {
+            EventPublisher.CloseWindow();
+            Application.Current.Shutdown();
         }
     }
 }

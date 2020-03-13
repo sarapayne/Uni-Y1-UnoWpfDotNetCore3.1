@@ -33,15 +33,24 @@ namespace Uno
         public static event EventHandler RaiseCheckForActiveGame;
         public static event EventHandler RaiseNewTournament;
         public static event EventHandler RaiseUnsubscribeTournamentEvents;
-        //public static event EventHandler RaiseSubscribeTournamentEvents;
+        public static event EventHandler RaiseShutDownRoutine;
+        public static event EventHandler RaiseCloseWindow;
 
-        //public static void SubscribeTournamentEvents()
-        //{
-        //    if (RaiseSubscribeTournamentEvents != null)
-        //    {
-        //        EventPublisher.RaiseSubscribeTournamentEvents(null, null);
-        //    }
-        //}
+        public static void CloseWindow()
+        {
+            if (RaiseCloseWindow != null)
+            {
+                EventPublisher.RaiseCloseWindow(null, null);
+            }
+        }
+
+        public static void ShutDownRoutine()
+        {
+            if (RaiseShutDownRoutine != null)
+            {
+                EventPublisher.RaiseShutDownRoutine(null, null);
+            }
+        }
 
         public static void UnsubscribeTournamentEvents()
         {

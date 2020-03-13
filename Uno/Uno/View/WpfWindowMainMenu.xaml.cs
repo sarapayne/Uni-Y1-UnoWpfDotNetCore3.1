@@ -98,5 +98,10 @@ namespace Uno
                 EventPublisher.SaveTournament(saveFile.FileName, "");
             }
         }
+
+        private void ButtonExitGame_Click(object sender, RoutedEventArgs e)
+        {
+            EventPublisher.ShutDownRoutine();
+        }
     }
 }

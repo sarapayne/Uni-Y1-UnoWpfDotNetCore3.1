@@ -27,11 +27,6 @@ namespace Uno.View
             listboxNames.ItemsSource = mPlayers;
         }
 
-        private void textboxEnterName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //
-        }
-
         private void textboxEnterName_LostFocus(object sender, RoutedEventArgs e)
         {
             if (textboxEnterName.Text == "")
