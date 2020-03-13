@@ -11,6 +11,12 @@ using Uno.EventsComponents;
 namespace Uno
 {
     [Serializable()]
+    enum RulesType
+    {
+        Standard, House1, House2
+    }
+
+    [Serializable()]
     class UnoMain
     {
         private UnoGame mUnoGame;
@@ -39,7 +45,7 @@ namespace Uno
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
             EventPublisher.UnsubscribeEvents();
-            NewGame(eventArgs.Players, eventArgs.Dealer);
+            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.);
         }
 
         private void NewGame(List<string> pPlayerNames, int pDealer)
