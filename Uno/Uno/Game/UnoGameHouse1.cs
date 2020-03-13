@@ -6,6 +6,7 @@ using Uno.EventsComponents;
 
 namespace Uno.Game
 {
+    [Serializable]
     class UnoGameHouse1: UnoGame
     {
         public UnoGameHouse1 (List<string> pPlayerNames, int pdealer): base(pPlayerNames, pdealer)

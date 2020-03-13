@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows;
 using Uno.EventsComponents;
 
 namespace Uno.Game
 {
-    [Serializable]
     class UnoGameHouse2: UnoGame
     {
         public UnoGameHouse2(List<string> pPlayerNames, int pdealer) : base(pPlayerNames, pdealer)
@@ -36,23 +34,22 @@ namespace Uno.Game
 
         protected override void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
         {
-            EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
-            Card card = ev.mPlayingCard;
-            bool cardPlayable = CheckIfCardCanBePlayed(card);
-            if (mPlayerHasPicked)
-            {
-                cardPlayable = CheckIfDrawnCard(card);
-            }
-            if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
-            else
-            {
-                EventPublisher.PlayCard(card);
-            }
+            base.UnoGame_RaiseGameButtonClick(sender, eventArgs);
         }
 
         protected override bool CheckIfDrawnCard(Card pCard)
         {
             return base.CheckIfDrawnCard(pCard);
+        }
+
+        protected override void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
+        {
+            base.UnoGame_RaisePlus4Challenge(sender, eventArgs);
+        }
+
+        protected override void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
+        {
+            base.UnoGame_AcceptDraw4(sender, eventArgs);
         }
 
         protected override void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
@@ -62,30 +59,7 @@ namespace Uno.Game
 
         protected override void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
-            if (mPlayerHasDiscarded)
-            {
-                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
-                if (mforwards)
-                {
-                    nextPlayerWithoutSips += mNextPlayersToSkipTotal;
-                }
-                else
-                {
-                    nextPlayerWithoutSips -= mNextPlayersToSkipTotal;
-                }
-                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
-                for (int cardsToDraw = 0; cardsToDraw < mNextPlayerPickupTotal; cardsToDraw++)
-                {
-                    DrawCard(mCurrentPlayer);
-                }
-                mNextPlayerPickupTotal = 0;
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
-                mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            }
+            base.UnoGame_RaiseNextPlayerButtonClick(sender, eventArgs);
         }
 
         protected override void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
@@ -105,20 +79,7 @@ namespace Uno.Game
 
         protected override void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
         {
-            if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
-            {
-                CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
-                cardWild.NextSuit = argsColourPick.NextSuit;
-                FinishPlaceCard();
-                if (cardWild.CardsToDraw > 0)
-                {
-                    for (int numToDraw = 0; numToDraw < 4; numToDraw++)
-                    {
-                        DrawCard(NextPlayerWithoutSkips());
-                    }
-                }
-
-            }
+            base.UnoGame_RaiseColourPick(sender, argsColourPick);
         }
 
         protected override void DealCards()

@@ -1,6 +1,8 @@
-﻿W:\source\ACW-Private\Uno\Uno\obj\Release\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+﻿
 
-FW:\source\ACW-Private\Uno\Uno\MainWindow.xaml;;
-FW:\source\ACW-Private\Uno\Uno\View\WpfWindowGame.xaml;;
-FW:\source\ACW-Private\Uno\Uno\View\WpfWindowMainMenu.xaml;;
+FF:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\MainWindow.xaml;;
+FF:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\View\WpfWindowFinalScore.xaml;;
+FF:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\View\WpfWindowGame.xaml;;
+FF:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\View\WpfWindowMainMenu.xaml;;
+FF:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\View\WpfWindowSetupGame.xaml;;
 

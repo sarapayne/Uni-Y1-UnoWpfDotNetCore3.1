@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-W:\source\ACW-Private\Uno\Uno\obj\Release\netcoreapp3.1\
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Release\netcoreapp3.1\
 Uno
 none
 false
 TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1
-W:\source\ACW-Private\Uno\Uno\App.xaml
-3393670328
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
+51883581715
 
-23-508991956
+30-1755223546
 193-1523820446
-MainWindow.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;
+MainWindow.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
 
-True
+False
 
