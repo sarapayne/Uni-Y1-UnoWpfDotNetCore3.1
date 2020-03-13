@@ -43,12 +43,23 @@ namespace Uno
             get { return mUnoGame; }
         }
 
+        /// <summary>
+        /// Takes new game info from the GUI and passes it to the NewGame method
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">Players Names, Dealer and Rules type information</param>
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
             EventPublisher.UnsubscribeEvents();
             NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType);
         }
 
+        /// <summary>
+        /// Launches a new game based on the parameters
+        /// </summary>
+        /// <param name="pPlayerNames">List of player names</param>
+        /// <param name="pDealer">player number of the dealer</param>
+        /// <param name="rulesType">enum defining the game rules</param>
         private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType)
         {
             switch (rulesType)
@@ -65,6 +76,11 @@ namespace Uno
             } 
         }
 
+        /// <summary>
+        /// Checks if an active game exists before raising the event to return to the game.
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">always null</param>
         private void UnoMain_CheckForActiveGame(object sender, EventArgs eventArgs)
         {   //called from return to active game. 
             if (ActiveGameExists())
@@ -78,6 +94,10 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Checks for active game returning a convient bool
+        /// </summary>
+        /// <returns>true/false</returns>
         private bool ActiveGameExists()
         {
             if (mUnoGame != null)
@@ -90,6 +110,9 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Loads the three main GUI windows.
+        /// </summary>
         private void StartNewGuiInteface()
         {
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
@@ -97,12 +120,21 @@ namespace Uno
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
         }
 
+        /// <summary>
+        /// Takes instruction from the Load game event and passes to the load game method. 
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsLoadSave">name of file from file pick dialog</param>
         private void UnoMain_LoadGame(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
             LoadGame(eventArgsLoadSave.Name);
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// Performs the actual loading of game files
+        /// </summary>
+        /// <param name="pFileToLoad">file name</param>
         public void LoadGame(string pFileToLoad)
         {
             try
@@ -126,6 +158,11 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// takes instrcution from the save game event and passes it to the save game method
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsLoadSave">file name from dialog</param>
         private void UnoMain_SaveGame(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
             if (mUnoGame != null)
@@ -140,6 +177,11 @@ namespace Uno
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// performas the actual saving of game files
+        /// </summary>
+        /// <param name="pUnogame">always null</param>
+        /// <param name="pName">file name</param>
         public static void SaveGame(UnoGame pUnogame, String pName)
         {
             try
@@ -157,14 +199,31 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// handles the new tournament event and passes it to the method
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">always null</param>
         private void UnoMain_NewTournament(object sender, EventArgs eventArgs)
         {
             NewTournament();
         }
+
+        /// <summary>
+        /// handles the load tournament event and passes it to the load tournament method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgsLoadSave"></param>
         private void UnoMain_LoadTournament(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
             LoadTournament(eventArgsLoadSave.Name);
         }
+
+        /// <summary>
+        /// handles the save tournament event and passes it to the method. 
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsLoadSave">file name</param>
         private void UnoMain_SaveTournament(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
             if (mUnoTournament != null)
@@ -179,6 +238,11 @@ namespace Uno
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// performs the actual saving of tournament files
+        /// </summary>
+        /// <param name="pTournament">always null</param>
+        /// <param name="pFileName">file name</param>
         private void SaveTournament(UnoTournament pTournament, string pFileName)
         {
             try
@@ -197,6 +261,10 @@ namespace Uno
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// performs the actual loading of tournament files
+        /// </summary>
+        /// <param name="pFileName"></param>
         private void LoadTournament(string pFileName)
         {
             
@@ -222,6 +290,9 @@ namespace Uno
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// begins a new tournament
+        /// </summary>
         private void NewTournament()
         {
             EventPublisher.UnsubscribeTournamentEvents();

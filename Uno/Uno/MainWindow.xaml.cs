@@ -22,7 +22,9 @@ namespace Uno
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        /// <summary>
+        /// Launches the main gaim and provides holding point for UnoMain. 
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +33,11 @@ namespace Uno
             this.Hide();
         }
 
+        /// <summary>
+        /// Provides a clean shut down for the application.
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">always null</param>
         private void MainWindow_ShutDown(object sender, EventArgs eventArgs)
         {
             EventPublisher.CloseWindow();
