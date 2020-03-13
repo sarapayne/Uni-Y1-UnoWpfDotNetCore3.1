@@ -22,26 +22,31 @@ namespace Uno.View
         public WpfWindowSetupGame()
         {
             InitializeComponent();
-            mPlayers = new List<string>();
+            //mPlayers = new List<string>();
             textboxEnterName.IsEnabled = true;
+            listboxNames.ItemsSource = mPlayers;
         }
 
         private void textboxEnterName_GotFocus(object sender, RoutedEventArgs e)
         {
-            textboxEnterName.Foreground = Brushes.Black;
+            //
         }
 
         private void textboxEnterName_LostFocus(object sender, RoutedEventArgs e)
         {
             if (textboxEnterName.Text == "")
             {
-                textboxEnterName.Text = "Enter Name";
+                textboxEnterName.Text = "...";
                 textboxEnterName.Foreground = Brushes.Gray;
             }
         }
 
         private void textboxEnterName_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (mPlayers == null)
+            {
+                mPlayers = new List<string>();
+            }
             if (textboxEnterName.Text.Length > 4)
             {
                 textboxEnterName.Foreground = Brushes.Black;
@@ -67,12 +72,25 @@ namespace Uno.View
 
         private void buttonAddPlayer_Click(object sender, RoutedEventArgs e)
         {
-            mPlayers.Add(textboxEnterName.Text);
-            if (mPlayers.Count == 10)
+            if (!mPlayers.Contains(textboxEnterName.Text))
             {
-                textboxEnterName.IsEnabled = false;
-                buttonAddPlayer.IsEnabled = false;
-                MessageBox.Show("Max 10 players, no more can be added", "max players");
+                mPlayers.Add(textboxEnterName.Text);
+                if (mPlayers.Count == 10)
+                {
+                    textboxEnterName.IsEnabled = false;
+                    buttonAddPlayer.IsEnabled = false;
+                    MessageBox.Show("Max 10 players, no more can be added", "max players");
+                }
+                listboxNames.Items.Refresh();
+                textboxEnterName.Text = "...";
+                if (mPlayers.Count >= 2)
+                {
+                    buttonStart.IsEnabled = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("That name already exists, please change it");
             }
         }
 

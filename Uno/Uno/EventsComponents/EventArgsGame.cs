@@ -28,5 +28,10 @@ namespace Uno.EventsComponents
         {
             get { return this.mDealer; }
         }
+
+        public RulesType GameRulesType
+        {
+            get { return this.mRulesType; }
+        }
     }
 }

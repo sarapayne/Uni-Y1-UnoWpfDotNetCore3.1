@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Uno.View;
 using System.Xml;
 using Uno.EventsComponents;
+using Uno.Game;
 
 namespace Uno
 {
@@ -45,13 +46,23 @@ namespace Uno
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
             EventPublisher.UnsubscribeEvents();
-            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.);
+            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType);
         }
 
-        private void NewGame(List<string> pPlayerNames, int pDealer)
+        private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType)
         {
-            EventPublisher.NextPlayerButtonClick();//not actually clicked but does the same thing
-            mUnoGame = new UnoGame(pPlayerNames, pDealer);
+            switch (rulesType)
+            {
+                case RulesType.Standard:
+                    mUnoGame = new UnoGame(pPlayerNames, pDealer);
+                    break;
+                case RulesType.House1:
+                    mUnoGame = new UnoGameHouse1(pPlayerNames, pDealer);
+                    break;
+                case RulesType.House2:
+                    mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer);
+                    break;
+            } 
         }
 
         private void UnoMain_CheckForActiveGame(object sender, EventArgs eventArgs)
