@@ -22,6 +22,9 @@ namespace Uno
             EventPublisher.RaiseLoadGame += UnoMain_LoadGame;
             EventPublisher.RaiseSaveGame += UnoMain_SaveGame;
             EventPublisher.RaiseCheckForActiveGame += UnoMain_CheckForActiveGame;
+            EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
+            EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
+            EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
             mUnoGame = new UnoGame();
             mUnoTournament = new UnoTournament();        
             StartNewGuiInteface();
@@ -79,14 +82,12 @@ namespace Uno
 
         private void UnoMain_LoadGame(object sender, EventArgsLoadSave eventArgsLoadSave)
         {
-            EventPublisher.UnsubscribeEvents();
             LoadGame(eventArgsLoadSave.Name);
             EventPublisher.MainMenu();
         }
 
         public void LoadGame(string pFileToLoad)
         {
-            //string fileToLoad = pFileToLoad + ".unogame";
             try
             {
                 using (Stream stream = File.Open(pFileToLoad, FileMode.Open))
@@ -97,6 +98,7 @@ namespace Uno
                         mUnoGame = new UnoGame();
                     }
                     mUnoGame = (UnoGame)bin.Deserialize(stream);
+                    EventPublisher.UnsubscribeEvents();
                     mUnoGame.SubscribeToEvents();
                     MessageBox.Show("Your game has been restored", "game restored");
                 }
@@ -123,7 +125,6 @@ namespace Uno
 
         public static void SaveGame(UnoGame pUnogame, String pName)
         {
-            //string fileName=  pName + ".unogame";
             try
             {
                 using (Stream stream = File.Open(pName, FileMode.Create))
@@ -137,6 +138,78 @@ namespace Uno
             {
                 MessageBox.Show("Sorry there was an error saving your game, unable to save for retrieval", "save game file error");
             }
+        }
+
+        private void UnoMain_NewTournament(object sender, EventArgs eventArgs)
+        {
+            NewTournament();
+        }
+        private void UnoMain_LoadTournament(object sender, EventArgsLoadSave eventArgsLoadSave)
+        {
+            LoadTournament(eventArgsLoadSave.Name);
+        }
+        private void UnoMain_SaveTournament(object sender, EventArgsLoadSave eventArgsLoadSave)
+        {
+            if (mUnoTournament != null)
+            {
+                SaveTournament(mUnoTournament, eventArgsLoadSave.Name);
+            }
+            else
+            {
+                MessageBox.Show("Sorry there is no active tournament to save, aborted", "no active tournament error");
+                EventPublisher.MainMenu();
+            }
+            EventPublisher.MainMenu();
+        }
+
+        private void SaveTournament(UnoTournament pTournament, string pFileName)
+        {
+            try
+            {
+                using (Stream stream = File.Open(pFileName, FileMode.Create))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    bin.Serialize(stream, pTournament);
+                    MessageBox.Show("Your tournament has been saved", "save successful");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Sorry there was an error saving your tournament, unable to save for retrieval", "save file error");
+            }
+            EventPublisher.MainMenu();
+        }
+
+        private void LoadTournament(string pFileName)
+        {
+            
+            try
+            {
+                using (Stream stream = File.Open(pFileName, FileMode.Open))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    if (mUnoGame == null)
+                    {
+                        mUnoTournament = new UnoTournament();
+                    }
+                    mUnoTournament = (UnoTournament)bin.Deserialize(stream);
+                    EventPublisher.UnsubscribeTournamentEvents();
+                    mUnoTournament.SubscribeEvents();
+                    MessageBox.Show("Your tournament has been restored", "tournament restored");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Sorry there was an error this file can not be loaded, please choose another or start a new tournament", "tournament load error");
+            }
+            EventPublisher.MainMenu();
+        }
+
+        private void NewTournament()
+        {
+            EventPublisher.UnsubscribeTournamentEvents();
+            mUnoTournament = new UnoTournament();
+            EventPublisher.MainMenu();
         }
     }
 }

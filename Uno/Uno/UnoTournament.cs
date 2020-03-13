@@ -6,6 +6,7 @@ using Uno.EventsComponents;
 
 namespace Uno
 {
+    [Serializable]
     class UnoTournament
     {
         private List<Player> mPlayers;
@@ -14,12 +15,24 @@ namespace Uno
         public UnoTournament()
         {
             mPlayers = new List<Player>();
-            EventPublisher.RaiseAddToTournament += UnoTournament_RaiseAddToTournament;
+            SubscribeEvents();
         }
 
         public List<Player> UnoGames
         {
             get { return mPlayers; }
+        }
+
+        public void SubscribeEvents()
+        {
+            EventPublisher.RaiseAddToTournament += UnoTournament_RaiseAddToTournament;
+            EventPublisher.RaiseUnsubscribeTournamentEvents += UnoTournament_UnsubscribeTournamentEvents;
+        }
+
+        private void UnoTournament_UnsubscribeTournamentEvents(object sender, EventArgs eventArgs)
+        {
+            EventPublisher.RaiseAddToTournament -= UnoTournament_RaiseAddToTournament;
+            EventPublisher.RaiseUnsubscribeTournamentEvents -= UnoTournament_UnsubscribeTournamentEvents;
         }
 
         private void UnoTournament_RaiseAddToTournament(object sender, EventArgsAddToTournament eventArgsAddTo)

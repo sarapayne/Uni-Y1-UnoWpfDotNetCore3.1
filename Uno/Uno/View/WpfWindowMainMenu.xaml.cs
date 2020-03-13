@@ -60,15 +60,6 @@ namespace Uno
             {
                 EventPublisher.LoadGame(openFile.FileName, "");
             }
-            ////***Tempory Strings For Testing, eventually this will come from the GUI
-            //string gameToLoad1 = "game1";
-            //string gameToLoad2 = "game2";
-            //string gameToLoad3 = "game3";
-            //string gameToLoad4 = "game4";
-            //string gameToLoad5 = "game5";
-            ////***Tempory Strings For Testing, eventually this will come from the GUI
-            //string gameToLoad = gameToLoad1;//this will come from the GUI eventually
-            //EventPublisher.LoadGame(gameToLoad, "");
         }
 
         private void ButtonSaveGame_Click(object sender, RoutedEventArgs e)
@@ -89,17 +80,29 @@ namespace Uno
 
         private void ButtonNewTournament_Click(object sender, RoutedEventArgs e)
         {
-
+            EventPublisher.NewTournament();
         }
 
         private void ButtonLoadTournament_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "UnoTournamentFiles(*.unotourn)|*.unotourn";
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFile.ShowDialog() == true)
+            {
+                EventPublisher.LoadTournament(openFile.FileName, "");
+            }
         }
 
         private void ButtonSaveTournament_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "UnoTournamentFiles(*.unotourn)|*.unotourn";
+            saveFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (saveFile.ShowDialog() == true)
+            {
+                EventPublisher.SaveTournament(saveFile.FileName, "");
+            }
         }
     }
 }

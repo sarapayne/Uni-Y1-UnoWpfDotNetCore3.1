@@ -14,6 +14,10 @@ namespace Uno
         public static event EventHandler <EventArgsGuiUpdate> RaiseGuiUpdate;
         public static event EventHandler <EventArgsFinalScore> RaiseFinalScore;
         public static event EventHandler <EventArgsAddToTournament> RaiseAddToTournament;
+        public static event EventHandler<EventArgsLoadSave> RaiseLoadTournament;
+        public static event EventHandler<EventArgsLoadSave> RaiseSaveTournament;
+        public static event EventHandler<EventArgsLoadSave> RaiseLoadGame;
+        public static event EventHandler<EventArgsLoadSave> RaiseSaveGame;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -26,12 +30,34 @@ namespace Uno
         public static event EventHandler RaiseReturnToGame;
         public static event EventHandler RaiseUnsubscribeEvents;
         public static event EventHandler <EventArgsGame> RaiseNewGame;
-        public static event EventHandler <EventArgsLoadSave> RaiseLoadGame;
-        public static event EventHandler <EventArgsLoadSave> RaiseSaveGame;
         public static event EventHandler RaiseCheckForActiveGame;
         public static event EventHandler RaiseNewTournament;
-        public static event EventHandler<EventArgsLoadSave> RaiseLoadTournament;
-        public static event EventHandler<EventArgsLoadSave> RaiseSaveTournament;
+        public static event EventHandler RaiseUnsubscribeTournamentEvents;
+        //public static event EventHandler RaiseSubscribeTournamentEvents;
+
+        //public static void SubscribeTournamentEvents()
+        //{
+        //    if (RaiseSubscribeTournamentEvents != null)
+        //    {
+        //        EventPublisher.RaiseSubscribeTournamentEvents(null, null);
+        //    }
+        //}
+
+        public static void UnsubscribeTournamentEvents()
+        {
+            if (RaiseUnsubscribeTournamentEvents != null)
+            {
+                EventPublisher.RaiseUnsubscribeTournamentEvents(null, null);
+            }
+        }
+
+        public static void NewTournament()
+        {
+            if (RaiseNewTournament != null)
+            {
+                EventPublisher.RaiseNewTournament(null, null);
+            }
+        }
 
         public static void SaveTournament(string pName, string pExtraInfo)
         {
@@ -49,14 +75,7 @@ namespace Uno
             }
         }
             
-        public static void NewTournament()
-        {
-            if (RaiseNewTournament != null)
-            {
-                EventPublisher.RaiseNewTournament(null, null);
-            }
-        }
-
+        
         public static void CheckForActiveGame()
         {
             if (RaiseCheckForActiveGame != null)
