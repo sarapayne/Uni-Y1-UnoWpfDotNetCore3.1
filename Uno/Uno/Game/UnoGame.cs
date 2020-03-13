@@ -45,6 +45,7 @@ namespace Uno
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             this.mCardsDrawnThisTurn = new List<int>();
             SubscribeToEvents();
+            mDeck.DeckRefresh();
             EventPublisher.NextPlayerButtonClick();//not a button click but does the job
         }
 
@@ -196,7 +197,7 @@ namespace Uno
             }
             MessageBox.Show(message, "challenge result");
             mNextPlayerPickupTotal = 0;
-            FinishPlaceCard();
+            //FinishPlaceCard();
             mPlayerHasPicked = true; //set to allow the change of player. 
             EventPublisher.NextPlayerButtonClick();
         }
@@ -205,9 +206,11 @@ namespace Uno
         {
             for (int number = 0; number <4; number++)
             {
-                DrawCard(mCurrentPlayer);
+                DrawCard(NextPlayerWithoutSkips());
             }
-            mPlayerHasPicked = true;//set this so the event doesn't refuse to work. 
+            mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work.
+            mPlayerHasPicked = true;
+            //FinishPlaceCard();
             EventPublisher.SkipGo();
             EventPublisher.NextPlayerButtonClick();
         }
@@ -284,14 +287,12 @@ namespace Uno
             {
                 CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
                 cardWild.NextSuit = argsColourPick.NextSuit;
+                FinishPlaceCard();
                 if (cardWild.CardsToDraw > 0)
                 {
                     EventPublisher.GuiUpdate(mPlayers[NextPlayerWithoutSkips()], mDeck, "Challenge+4");
                 }
-                else
-                {
-                    FinishPlaceCard();
-                }
+
             }
         }
 

@@ -45,6 +45,7 @@ namespace Uno
                 DisableGuiComponents();
                 DisableChallengePlus4();
                 EnableColourPick();
+                buttonEndTurn.IsEnabled = true;
                 this.Show();
             }
             else if (eventArgsGuiUpdate.ExtraInstructions == "Challenge+4")
