@@ -9,57 +9,34 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" 
                    Grid.ColumnSpan="21" 
                    Grid.Row="1"
-                   Text="Main Menu" 
-                   FontSize="30" 
+                   Text="Uno Main Menu" 
+                   FontSize="45" 
                    HorizontalAlignment="Center"/>
 
-        <Button x:Name="ButtonNewGame" Content="New Game" Grid.Column="3" Grid.Row="3" Click="ButtonNewGame_Click"/>
-        <Button x:Name="ButtonLoadGame" Content="Load Game" Grid.Column="3" Grid.Row="4" Click="ButtonLoadGame_Click"/>
-        <Button x:Name="ButtonSaveGame" Content="Save Game" Grid.Column="3" Grid.Row="5" Click="ButtonSaveGame_Click"/>
-        <Button x:Name="ButtonCurrentGame" Content="Return To Game" Grid.Column="3" Grid.Row="6" Click="ButtonCurrentGame_Click"/>
-        <Button x:Name="ButtonNewTournament" Content="New Tournament" Grid.Column="3" Grid.Row="7" Click="ButtonNewTournament_Click"/>
-        <Button x:Name="ButtonLoadTournament" Content="Load Tournament" Grid.Column="3" Grid.Row="8" Click="ButtonLoadTournament_Click"/>
-        <Button x:Name="ButtonSaveTournament" Content="Save Tournament" Grid.Column="3" Grid.Row="9" Click="ButtonSaveTournament_Click"/>
-        <Button x:Name="ButtonExitGame" Content="Exit Game" Grid.Column="3" Grid.Row="10" Click="ButtonExitGame_Click"/>
+        <Button x:Name="ButtonNewGame" Content="New Game" Grid.Column="1" Grid.Row="2" FontSize="30" Margin="10" Click="ButtonNewGame_Click"/>
+        <Button x:Name="ButtonLoadGame" Content="Load Game" Grid.Column="1" Grid.Row="3" FontSize="30" Margin="10" Click="ButtonLoadGame_Click"/>
+        <Button x:Name="ButtonSaveGame" Content="Save Game" Grid.Column="1" Grid.Row="4" FontSize="30" Margin="10" Click="ButtonSaveGame_Click"/>
+        <Button x:Name="ButtonCurrentGame" Content="Return To Game" Grid.Column="1" Grid.Row="5" FontSize="30" Margin="10" Click="ButtonCurrentGame_Click"/>
+        <Button x:Name="ButtonNewTournament" Content="New Tournament" Grid.Column="2" Grid.Row="2" FontSize="30" Margin="10" Click="ButtonNewTournament_Click"/>
+        <Button x:Name="ButtonLoadTournament" Content="Load Tournament" Grid.Column="2" Grid.Row="3" FontSize="30" Margin="10" Click="ButtonLoadTournament_Click"/>
+        <Button x:Name="ButtonSaveTournament" Content="Save Tournament" Grid.Column="2" Grid.Row="4" FontSize="30" Margin="10" Click="ButtonSaveTournament_Click"/>
+        <Button x:Name="ButtonExitGame" Content="Exit Game" Grid.Column="2" Grid.Row="5" Margin="10" FontSize="30" Click="ButtonExitGame_Click"/>
     </Grid>
 </Window>

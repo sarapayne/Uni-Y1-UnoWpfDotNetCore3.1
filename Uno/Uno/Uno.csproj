@@ -76,6 +76,7 @@
     <None Remove="Resources\card_front_wild_red.png" />
     <None Remove="Resources\card_front_wild_standard.png" />
     <None Remove="Resources\card_front_wild_yellow.png" />
+    <None Remove="View\WpfWindowMainMenu.xaml~RF70fd79.TMP" />
   </ItemGroup>
 
   <ItemGroup>
