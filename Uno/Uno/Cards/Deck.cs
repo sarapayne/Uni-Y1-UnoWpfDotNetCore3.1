@@ -36,6 +36,7 @@ namespace Uno
             set { this.mDiscardPile = value; }
         }
 
+
         public virtual void DeckRefresh()
         {
             ResetWildCards(mDiscardPile);
@@ -99,7 +100,6 @@ namespace Uno
                 mDiscardPile = new List<Card>();
                 GenerateCardList();
             }
-            //GenerateCardList();
         }
 
         protected virtual void GenerateCardList()
