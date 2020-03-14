@@ -85,32 +85,13 @@ namespace Uno.Game
         }
 
         /// <summary>
-        /// Compared with the base class this removes the alloance of passing play after picking up a card.
-        /// It also removes the option to challenge a +4 card. Associated methods removed entirely. 
+        /// Referes to base class
         /// </summary>
         /// <param name="sender">always null</param>
-        /// <param name="eventArgs">Card object played</param>
+        /// <param name="eventArgs">always null</param>
         protected override void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
-            if (mPlayerHasDiscarded)
-            {
-                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
-                if (mforwards)
-                {
-                    nextPlayerWithoutSips += mNextPlayersToSkipTotal;
-                }
-                else
-                {
-                    nextPlayerWithoutSips -= mNextPlayersToSkipTotal;
-                }
-                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
-                mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            }
+            base.UnoGame_RaiseNextPlayerButtonClick(sender, eventArgs);
         }
 
         /// <summary>
