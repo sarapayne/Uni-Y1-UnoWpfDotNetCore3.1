@@ -24,6 +24,9 @@ namespace Uno
             get { return this.mSpecialType; }
         }
 
+        /// <summary>
+        /// Overides the base class calling events based on the type of special card. 
+        /// </summary>
         public override void RunCardSpecialFeatures()
         {
             if (mSpecialType == SpecialType.Draw)

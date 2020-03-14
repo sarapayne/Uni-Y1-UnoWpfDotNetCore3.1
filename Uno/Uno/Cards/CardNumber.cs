@@ -18,6 +18,9 @@ namespace Uno
             get { return this.mNumber; }
         }
 
+        /// <summary>
+        /// Refers to base class
+        /// </summary>
         public override void RunCardSpecialFeatures()
         {
             base.RunCardSpecialFeatures();
