@@ -88,9 +88,9 @@ namespace Uno.Game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        protected virtual void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
+        protected override void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
-            if (mPlayerHasDiscarded || mPlayerHasPicked)
+            if (mPlayerHasDiscarded)
             {
                 int nextPlayerWithoutSips = NextPlayerWithoutSkips();
                 if (mforwards)
