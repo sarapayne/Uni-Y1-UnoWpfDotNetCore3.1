@@ -51,7 +51,7 @@ namespace Uno
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
             EventPublisher.UnsubscribeEvents();
-            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType);
+            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType, eventArgs.NumOfSwapHands);
         }
 
         /// <summary>
@@ -60,18 +60,18 @@ namespace Uno
         /// <param name="pPlayerNames">List of player names</param>
         /// <param name="pDealer">player number of the dealer</param>
         /// <param name="rulesType">enum defining the game rules</param>
-        private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType)
+        private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType, int pNumOfSwapHands)
         {
             switch (rulesType)
             {
                 case RulesType.Standard:
-                    mUnoGame = new UnoGame(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGame(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
                 case RulesType.House1:
-                    mUnoGame = new UnoGameHouse1(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGameHouse1(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
                 case RulesType.House2:
-                    mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
             } 
         }
