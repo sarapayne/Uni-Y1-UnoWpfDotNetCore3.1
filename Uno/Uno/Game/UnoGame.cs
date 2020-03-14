@@ -36,7 +36,7 @@ namespace Uno
             {   //this should be impossible, its made impossible by GUI limits
                 MessageBox.Show("Sorry something has gone wrong, the maximum number of players is 10, please reduce and try again", "too many players");
             }
-            this.mDeck = new Deck();
+            this.mDeck = new Deck(mNumOfSwapHands);
             DealCards();
             this.mforwards = true;
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 

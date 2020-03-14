@@ -18,7 +18,7 @@ namespace Uno
         protected List<Card> mDiscardPile;
         protected int mUniqueIdentifier;
 
-        public Deck()
+        public Deck(int pNumOfSwapHands)
         {
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
@@ -109,6 +109,8 @@ namespace Uno
         /// </summary>
         protected virtual void LoadFullCardDeck()
         {
+            /* Disabled into i figure out how to include load and save into the new changeable cards.
+             * This might have to just get discared. Not big deal.
             try
             {
                 using (Stream stream = File.Open(mCardDeckFileName, FileMode.Open))
@@ -123,6 +125,8 @@ namespace Uno
                 mDiscardPile = new List<Card>();
                 GenerateCardList();
             }
+            */
+            GenerateCardList();
         }
 
         /// <summary>
