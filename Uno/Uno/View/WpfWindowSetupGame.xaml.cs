@@ -140,6 +140,11 @@ namespace Uno.View
             this.Close();
         }
 
+        /// <summary>
+        /// Enables the radio buttons for choosing how many cards to add
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void checkBoxSwapHands_Checked(object sender, RoutedEventArgs e)
         {
             foreach (RadioButton radioButton in mNumberOfCardsCheck)
@@ -148,6 +153,11 @@ namespace Uno.View
             }
         }
 
+        /// <summary>
+        /// Disables the radio buttons for choosing how many cards to add
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void checkBoxSwapHands_Unchecked(object sender, RoutedEventArgs e)
         {
             foreach (RadioButton radioButton in mNumberOfCardsCheck)
