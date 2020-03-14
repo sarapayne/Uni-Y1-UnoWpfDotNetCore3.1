@@ -34,15 +34,29 @@ namespace Uno
             EventPublisher.RaiseCloseWindow += WpfWindowGame_CloseWindow;
         }
 
+        /// <summary>
+        /// hides this window when another menu is called
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">always null </param>
         private void WpfWindowGame_RaiseMainMenu(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }
 
+        /// <summary>
+        /// Updates the GUI based on the information in the EventArgs
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsGuiUpdate">
+        /// Full Player Information(including player cards)
+        /// Full Deck (draw and discard)
+        /// Extra Instructions
+        /// </param>
         private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
         {
             if (eventArgsGuiUpdate.ExtraInstructions == "ChooseColour")
-            {
+            {   //sets up the window for wild card colour selection
                 DisableGuiComponents();
                 DisableChallengePlus4();
                 EnableColourPick();
@@ -50,7 +64,7 @@ namespace Uno
                 this.Show();
             }
             else if (eventArgsGuiUpdate.ExtraInstructions == "Challenge+4")
-            {
+            {   //sets up the window so the player can accept or challenge +4 use
                 DisableColourPick();
                 DisableGuiComponents();
                 EnableChallengePlus4();
@@ -58,12 +72,12 @@ namespace Uno
                 this.Show();
             }
             else if (eventArgsGuiUpdate.ExtraInstructions == "GameOver")
-            {
+            {   //ensures nothing can be click to avoid erroneous clicks and hides the window.
                 DisableGuiComponents();
                 this.Hide();
             }
             else
-            {
+            {   //sets up the GUI for normal game play based on the updated information.
                 DisableColourPick();
                 DisableChallengePlus4();
                 EnableCoreGameButtons();
@@ -71,6 +85,9 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Enables the main game play buttons other than playing cards.
+        /// </summary>
         private void EnableCoreGameButtons()
         {
             buttonEndTurn.IsEnabled = true;
@@ -79,6 +96,9 @@ namespace Uno
             imageDiscardPile.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Enables the colour pick buttons and shows them.
+        /// </summary>
         private void EnableColourPick()
         {
             foreach (Button button in mColourPickButtons)
@@ -88,6 +108,9 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// disables and hides the challenge plus 4 buttons
+        /// </summary>
         private void DisableChallengePlus4()
         {
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
@@ -96,6 +119,9 @@ namespace Uno
             buttonAcceptDraw4.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Enables and Shows the challenge +4 controls
+        /// </summary>
         private void EnableChallengePlus4()
         {
             buttonDraw4Challenge.Visibility = Visibility.Visible;
@@ -104,6 +130,9 @@ namespace Uno
             buttonAcceptDraw4.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Disables the colour pick buttons and hides them
+        /// </summary>
         private void DisableColourPick()
         {
             foreach (Button button in mColourPickButtons)
@@ -113,6 +142,9 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Disables all GUI components
+        /// </summary>
         private void DisableGuiComponents()
         {
             foreach (UIElement uIElement in MainGrid.Children)
@@ -121,6 +153,11 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Removes all player cards and then adds them fresh based on the new list.
+        /// This both adds/remove cards and displays them in a sorted fashion.
+        /// </summary>
+        /// <param name="pUpdateData"></param>
         private void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
         {
             ClearCards();
@@ -130,6 +167,12 @@ namespace Uno
             this.Show();
         }
 
+        /// <summary>
+        /// Each GUI card has the related card as a property. When clicked this
+        /// card reference is passed to the main program to be played. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">Card Object</param>
         private void GameButtonClickHandler(object sender, EventArgs e)
         {
             ImgCardControl playerCard = sender as ImgCardControl;
@@ -137,35 +180,62 @@ namespace Uno
             EventPublisher.GameButtonClick(selectedCard);
         }
 
+        /// <summary>
+        /// sets the suit colour based on the button clicked, then passes to an event which sends to the main program. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonRed_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Red;
             TriggerEvent(suit);
         }
 
+        /// <summary>
+        /// sets the suit colour based on the button clicked, then passes to an event which sends to the main program. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonGren_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Green;
             TriggerEvent(suit);
         }
 
+        /// <summary>
+        /// sets the suit colour based on the button clicked, then passes to an event which sends to the main program. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonBlue_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Blue;
             TriggerEvent(suit);
         }
 
+        /// <summary>
+        /// sets the suit colour based on the button clicked, then passes to an event which sends to the main program. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonYellow_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Yellow;
             TriggerEvent(suit);
         }
 
+        /// <summary>
+        /// Sends the selected suit of a wild card to the main program via an event
+        /// </summary>
+        /// <param name="pSuit">enum suit</param>
         private void TriggerEvent(Suit pSuit)
         {
             EventPublisher.ColourPick(pSuit);
         }
 
+        /// <summary>
+        /// Removes all existing player cards from the GUI
+        /// </summary>
         private void ClearCards()
         {   //surely there must be a better way than this! however it works for now. 
             List<UIElement> toRemove = new List<UIElement>();
@@ -182,16 +252,23 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// loops through the player cards passed from the main program,
+        /// adding one gui element with embeded card objects for each one found. 
+        /// </summary>
+        /// <param name="pPlayerCards">list of cards held by the player</param>
         private void AddPlayerCards(List<Card> pPlayerCards)
         {
             int lastGuiElement = pPlayerCards.Count;
             if (lastGuiElement > 54)
-            {
+            {   //According to a source I read it is basically impossible under normal game play for one player to have more than 35 cards unless
+                //they are deliberately collecting cards. So instead of worrying about handling the eventuality I just stopped a crash if they hold 
+                //more than half of the whole deck. 
                 lastGuiElement = 54;
                 MessageBox.Show("You have more than 54 cards, you can continue to play but only the first 54 cards will be show", "too many cards");
             }
             for (int playerCardIndex = 0; playerCardIndex < lastGuiElement; playerCardIndex++)
-            {
+            {   //places upto 18 cards in 3 rows onto the GUI
                 Card card = pPlayerCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
                 string imageName = card.ImageName;
@@ -217,16 +294,30 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// Returns user to the main menu
+        /// </summary>
+        /// <param name="sender">unusd</param>
+        /// <param name="e">unused</param>
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// Sends End turn request to the main program
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.NextPlayerButtonClick();
         }
 
+        /// <summary>
+        /// sets to appropriate image for the discard pile
+        /// </summary>
+        /// <param name="pDiscardPile"></param>
         private void UpdateDrawCard(List<Card> pDiscardPile)
         {
             Uri imageUri = null;
@@ -267,17 +358,32 @@ namespace Uno
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }
 
+        /// <summary>
+        /// takes a passed name and turns it into a URI in the resources. 
+        /// </summary>
+        /// <param name="resouceNane"></param>
+        /// <returns></returns>
         private Uri GetResourceUri(string resouceNane)
         {
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
         }
 
+        /// <summary>
+        /// sends a draw card instruction to the main program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
         {
             EventPublisher.DrawCard();
         }
 
+        /// <summary>
+        /// sends a challenge +4 event to the main program then hides and disables the button
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonDraw4Challenge_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.Plus4Challenge();
@@ -285,11 +391,21 @@ namespace Uno
             buttonDraw4Challenge.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Sends Draw 4 accepted event to the main program.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAcceptDraw4_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.AcceptDraw4();
         }
 
+        /// <summary>
+        /// hides and closes this window ready for a clean shutdown. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="eventArgs">unused</param>
         private void WpfWindowGame_CloseWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
