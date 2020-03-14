@@ -7,6 +7,7 @@ using Image = System.Windows.Controls.Image;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Net.Http;
+using Uno.Cards;
 
 namespace Uno
 {
@@ -174,6 +175,13 @@ namespace Uno
             CardWild cardWildPickup = new CardWild(imagePickupName, 4);
             AddCardToDeck(cardWildStandard, 4); //four of each
             AddCardToDeck(cardWildPickup, 4); //four of each
+            if (mNumOfSwapHands > 0)
+            {
+                string imageSwapHandsName = "card_front_wild_swaphands.png";
+                CardWildSwapHands cardWildSwapHands = new CardWildSwapHands(imageSwapHandsName, 0);
+                AddCardToDeck(cardWildSwapHands, mNumOfSwapHands);
+            }
+            
         }
 
         /// <summary>
