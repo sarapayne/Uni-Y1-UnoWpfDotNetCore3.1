@@ -25,7 +25,6 @@ namespace Uno
         public static event EventHandler RaiseReverseDirection;
         public static event EventHandler RaiseAcceptDraw4;
         public static event EventHandler RaiseDrawCard;
-        public static event EventHandler RaiseRefreshCardPiles;
         public static event EventHandler RaiseMainMenu;
         public static event EventHandler RaiseReturnToGame;
         public static event EventHandler RaiseUnsubscribeEvents;
@@ -155,14 +154,6 @@ namespace Uno
             if (RaiseFinalScore != null)
             {
                 EventPublisher.RaiseFinalScore(null, new EventArgsFinalScore(pPlayer));
-            }
-        }
-
-        public static void RefreshCardPiles()
-        {
-            if (RaiseRefreshCardPiles != null)
-            {
-                EventPublisher.RaiseRefreshCardPiles(null, null);
             }
         }
 

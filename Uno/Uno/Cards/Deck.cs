@@ -12,10 +12,10 @@ namespace Uno
     [Serializable]
     class Deck
     {
-        private string mCardDeckFileName = "CardDeck.bin";
-        private List<Card> mDrawPile;
-        private List<Card> mDiscardPile;
-        private int mUniqueIdentifier;
+        protected string mCardDeckFileName = "CardDeck.bin";
+        protected List<Card> mDrawPile;
+        protected List<Card> mDiscardPile;
+        protected int mUniqueIdentifier;
 
         public Deck()
         {
@@ -36,12 +36,12 @@ namespace Uno
             set { this.mDiscardPile = value; }
         }
 
-        private void Deck_RaiseRefreshCardPiles(object sender, EventArgs eventArgs)
-        {
-            //code may return here later
-        }
+        //private void Deck_RaiseRefreshCardPiles(object sender, EventArgs eventArgs)
+        //{
+        //    //code may return here later
+        //}
 
-        public void DeckRefresh()
+        public virtual void DeckRefresh()
         {
             ResetWildCards(mDiscardPile);
             MakeSureTopCardNotWild(mDiscardPile);
@@ -53,7 +53,7 @@ namespace Uno
             ShuffleDeck(mDrawPile);
         }
 
-        private void ResetWildCards(List<Card> pCardList)
+        protected virtual void ResetWildCards(List<Card> pCardList)
         {
             foreach (Card card in pCardList)
             {
@@ -65,7 +65,7 @@ namespace Uno
             }
         }
 
-        private void MakeSureTopCardNotWild(List<Card> pCardList)
+        protected virtual void MakeSureTopCardNotWild(List<Card> pCardList)
         {
             while (pCardList[0] is CardWild)
             {
@@ -75,7 +75,7 @@ namespace Uno
             }
         }
 
-        public void ShuffleDeck(List<Card> pCardList)
+        public virtual void ShuffleDeck(List<Card> pCardList)
         {
             Random random = new Random();
             for (int cardIndex = 0; cardIndex < mDiscardPile.Count; cardIndex++)
@@ -87,7 +87,7 @@ namespace Uno
             }
         }
 
-        private void LoadFullCardDeck()
+        protected virtual void LoadFullCardDeck()
         {
             try
             {
@@ -106,7 +106,7 @@ namespace Uno
             //GenerateCardList();
         }
 
-        private void GenerateCardList()
+        protected virtual void GenerateCardList()
         {
             mDiscardPile = new List<Card>();
             List<Suit> suites = new List<Suit> { Suit.Red, Suit.Green, Suit.Blue, Suit.Yellow };
@@ -134,7 +134,7 @@ namespace Uno
             SaveFullCardDeck(mDiscardPile);
         }
 
-        private void GenerateWildCards()
+        protected virtual void GenerateWildCards()
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
@@ -146,13 +146,13 @@ namespace Uno
 
 
 
-        private void GenerateSuitCards(Suit pSuit, string pColour)
+        protected virtual void GenerateSuitCards(Suit pSuit, string pColour)
         {
             GenerateNumberCards(pSuit, pColour);
             GenerateSpecialCards(pSuit, pColour);
         }
 
-        private void GenerateSpecialCards(Suit pSuit, string pColour)
+        protected virtual void GenerateSpecialCards(Suit pSuit, string pColour)
         {
             List<SpecialType> specialTypes = new List<SpecialType> { SpecialType.Draw, SpecialType.Reverse, SpecialType.Skip };
             foreach (SpecialType specialType in specialTypes)
@@ -176,7 +176,7 @@ namespace Uno
             }
         }
 
-        private void GenerateNumberCards(Suit pSuit, string pColour)
+        protected virtual void GenerateNumberCards(Suit pSuit, string pColour)
         {
             for (int number = 0; number <= 9; number++)
             {
@@ -193,7 +193,7 @@ namespace Uno
             }
         }
 
-        private void AddCardToDeck(Card pCard, int pNumToAdd)
+        protected virtual void AddCardToDeck(Card pCard, int pNumToAdd)
         {
             for (int count = 0; count < pNumToAdd; count++)
             {
@@ -203,14 +203,14 @@ namespace Uno
             }
         }
 
-        private void AddNewCardToDeck(Card pcard)
+        protected virtual void AddNewCardToDeck(Card pcard)
         {   //ever time this is called increment then return the number before it was incremented. 
             pcard.UniqueIdentifier = mUniqueIdentifier;
             mDiscardPile.Add(pcard);
             mUniqueIdentifier++;
         }
 
-        private void SaveFullCardDeck(List<Card> pCardList)
+        protected virtual void SaveFullCardDeck(List<Card> pCardList)
         {
             try
             {
