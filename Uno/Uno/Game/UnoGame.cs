@@ -19,13 +19,14 @@ namespace Uno
         protected bool mPlayerHasPicked = false;
         protected Player mWinner = null;
         protected List<int> mCardsDrawnThisTurn;
+        protected int mNumOfSwapHands;
 
         public UnoGame ()
         {
             
         }
 
-        public UnoGame(List<string> pPlayerNames, int pdealer)
+        public UnoGame(List<string> pPlayerNames, int pdealer, int pNumOfSwapHands)
         {
             if (pPlayerNames.Count <= 10)
             {
@@ -43,6 +44,7 @@ namespace Uno
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             this.mCardsDrawnThisTurn = new List<int>();
+            this.mNumOfSwapHands = pNumOfSwapHands;
             SubscribeToEvents();
             mDeck.DeckRefresh();
             EventPublisher.NextPlayerButtonClick();//not a button click but does the job
