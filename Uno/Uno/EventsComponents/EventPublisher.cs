@@ -108,11 +108,11 @@ namespace Uno
             }
         }
 
-        public static void NewGame(List<string> pPlayers, int pDealer, RulesType pRulesType)
+        public static void NewGame(List<string> pPlayers, int pDealer, RulesType pRulesType, int pNumOfSwapHands)
         {
             if (RaiseNewGame != null)
             {
-                EventPublisher.RaiseNewGame(null, new EventArgsGame(pPlayers, pDealer, pRulesType));
+                EventPublisher.RaiseNewGame(null, new EventArgsGame(pPlayers, pDealer, pRulesType, pNumOfSwapHands));
             }
         }
 

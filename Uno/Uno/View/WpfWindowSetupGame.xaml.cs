@@ -19,12 +19,12 @@ namespace Uno.View
     {
         private List<string> mPlayers;
         private List<RadioButton> mNumberOfCardsCheck;
-
+        private bool mIncSwapHands;
+        
 
         public WpfWindowSetupGame()
         {
             InitializeComponent();
-            //mPlayers = new List<string>();
             textboxEnterName.IsEnabled = true;
             listboxNames.ItemsSource = mPlayers;
             mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
@@ -122,6 +122,26 @@ namespace Uno.View
         {
             Random random = new Random();
             int dealer = random.Next(0, mPlayers.Count - 1);
+            int numOfSwapHandCards = 0;
+            if (mIncSwapHands)
+            {
+                if (radio1Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 1;
+                }
+                else if (radio2Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 2;
+                }
+                else if (radio3Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 3;
+                }
+                else if(radio4Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 4;
+                }
+            }
             RulesType rulesType = new RulesType();
             if (radioOfficialRules.IsChecked == true)
             {
@@ -135,7 +155,7 @@ namespace Uno.View
             {
                 rulesType = RulesType.House2;
             }
-            EventPublisher.NewGame(mPlayers, dealer, rulesType);
+            EventPublisher.NewGame(mPlayers, dealer, rulesType, numOfSwapHandCards);
             this.Hide();
             this.Close();
         }
@@ -151,6 +171,7 @@ namespace Uno.View
             {
                 radioButton.IsEnabled = true;
             }
+            mIncSwapHands = true;
         }
 
         /// <summary>
@@ -164,6 +185,7 @@ namespace Uno.View
             {
                 radioButton.IsEnabled = false;
             }
+            mIncSwapHands = false;
         }
     }
 }
