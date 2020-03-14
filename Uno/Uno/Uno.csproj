@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Remove="Game\UnoGame.cs~RF634ed.TMP" />
     <None Remove="Resources\card_back.png" />
+    <None Remove="Resources\card_back_landscape.png" />
     <None Remove="Resources\card_empty.png" />
     <None Remove="Resources\card_front_suit_Blue_0.png" />
     <None Remove="Resources\card_front_suit_Blue_1.png" />
@@ -75,12 +76,16 @@
     <None Remove="Resources\card_front_wild_pickup.png" />
     <None Remove="Resources\card_front_wild_red.png" />
     <None Remove="Resources\card_front_wild_standard.png" />
+    <None Remove="Resources\card_front_wild_swaphands.png" />
     <None Remove="Resources\card_front_wild_yellow.png" />
     <None Remove="View\WpfWindowMainMenu.xaml~RF70fd79.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\card_back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\card_back_landscape.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\card_empty.png">
@@ -255,6 +260,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\card_front_wild_standard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\card_front_wild_swaphands.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\card_front_wild_yellow.png">
