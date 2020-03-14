@@ -1,6 +1,5 @@
 ﻿House Rules 1
 =============
 
-This version is very similar to the original rules with just one difference. You have to play a card before you can pass your go to the next player. 
-If you can not play you must continue to pickup cards until you can play. 
-
+This version is very similar to the original rules with just one difference. You must play a card before you can pass your go to the next player. 
+If you cannot play you must continue to pick up cards until you can play.

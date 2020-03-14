@@ -1,18 +1,16 @@
 ﻿House Rules 2
 =============
-In their turn players can play any comination of cards that follow. 
-eg. If the Discard Pile starts with a Red card, and a player 1 has all red cards in their hand they can win without anyone else playing. 
+In their turn players can play any combination of cards that follow. 
+e.g. If the Discard Pile starts with a Red card, and a player 1 has all red cards in their hand they can win without anyone else playing. 
 
 Special Cards
 =============
-Players must discard before passing play to the next player. If they can't go they must pickup untill they can go. 
+Players must discard before passing play to the next player. If they can't go, they must pick up until they can go. 
 
-+2: can be stacked, so if a player puts down two +2 cards in a row, the next player will pickup two cards for each one played.
-+4: can be played at any time, and stacked. So playing 2 plus+4 cards will mean the next player in the diection of play at that time would pickup 8 cards. 
++2: can be stacked, so if a player puts down two +2 cards in a row, the next player will pick up two cards for each one played.
++4: can be played at any time and stacked. So playing 2 plus+4 cards will mean the next player in the direction of play at that time would pick up 8 cards. 
 
 Skip Go: multiple may be played in one hand, but only one will be actioned at the point the next player is called. Who skips the go will depend
 on the direction of play at the time. 
 
-Change Direction Happens Imediately, This could be combined with +2 or +4 cards to make people on either side of the player pickup cards. 
-
-
+Change Direction Happens Immediately, this could be combined with +2 or +4 cards to make people on either side of the player pickup cards.
