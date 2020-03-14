@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
 
             <Image Source="/Resources/card_front_wild_swaphands.png" Grid.ColumnSpan="2" Grid.Column="1" />
-            <CheckBox x:Name="checkBoxSwapHands" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Include" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <CheckBox x:Name="checkBoxSwapHands" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Include" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Checked="checkBoxSwapHands_Checked" Unchecked="checkBoxSwapHands_Unchecked"/>
             <Label x:Name="labelHowMany" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Content="Please Select The Number Of Wild Cards" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <RadioButton x:Name="radio1Card" Grid.Column="0" Grid.Row="3" Content="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsChecked="True" IsEnabled="False"/>
             <RadioButton x:Name="radio2Card" Grid.Column="1" Grid.Row="3" Content="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsEnabled="False"/>

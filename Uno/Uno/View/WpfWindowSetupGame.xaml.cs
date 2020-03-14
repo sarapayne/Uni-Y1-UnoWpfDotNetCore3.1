@@ -18,6 +18,8 @@ namespace Uno.View
     public partial class WpfWindowSetupGame : Window
     {
         private List<string> mPlayers;
+        private List<RadioButton> mNumberOfCardsCheck;
+
 
         public WpfWindowSetupGame()
         {
@@ -25,6 +27,7 @@ namespace Uno.View
             //mPlayers = new List<string>();
             textboxEnterName.IsEnabled = true;
             listboxNames.ItemsSource = mPlayers;
+            mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
         }
 
         /// <summary>
@@ -135,6 +138,22 @@ namespace Uno.View
             EventPublisher.NewGame(mPlayers, dealer, rulesType);
             this.Hide();
             this.Close();
+        }
+
+        private void checkBoxSwapHands_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (RadioButton radioButton in mNumberOfCardsCheck)
+            {
+                radioButton.IsEnabled = true;
+            }
+        }
+
+        private void checkBoxSwapHands_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (RadioButton radioButton in mNumberOfCardsCheck)
+            {
+                radioButton.IsEnabled = false;
+            }
         }
     }
 }
