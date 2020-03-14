@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Image = System.Windows.Controls.Image;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Net.Http;
 
 namespace Uno
 {
@@ -36,7 +37,12 @@ namespace Uno
             set { this.mDiscardPile = value; }
         }
 
-
+        /// <summary>
+        /// Takes the last card on the discard pile and preserves it. 
+        /// Then moves the discard pile to the draw pile
+        /// Adds the preserved card to the discard pile
+        /// Shuffles the draw pile. 
+        /// </summary>
         public virtual void DeckRefresh()
         {
             ResetWildCards(mDiscardPile);
@@ -49,6 +55,10 @@ namespace Uno
             ShuffleDeck(mDrawPile);
         }
 
+        /// <summary>
+        /// //takes the provided list of cards and shuffles them. 
+        /// </summary>
+        /// <param name="pCardList">list of cards</param>
         public virtual void ShuffleDeck(List<Card> pCardList)
         {
             Random random = new Random();
@@ -61,6 +71,11 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// loops through the provided list of cards, resetting the next
+        /// suit value of any wild cards to an unused state
+        /// </summary>
+        /// <param name="pCardList">list of cards</param>
         protected virtual void ResetWildCards(List<Card> pCardList)
         {
             foreach (Card card in pCardList)
@@ -73,6 +88,12 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// After the deck is refreshed, ensure the top card is not wild
+        /// if the top card is wild, place it at the bottom, repeat untill the top 
+        /// card is not wild. 
+        /// </summary>
+        /// <param name="pCardList"></param>
         protected virtual void MakeSureTopCardNotWild(List<Card> pCardList)
         {
             while (pCardList[0] is CardWild)
@@ -83,7 +104,9 @@ namespace Uno
             }
         }
                 
-
+        /// <summary>
+        /// if a saved version of the deck exists load it, if not generate a new set of cards
+        /// </summary>
         protected virtual void LoadFullCardDeck()
         {
             try
@@ -96,18 +119,22 @@ namespace Uno
             }
             catch (IOException)
             {
-                MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "Dictionary load error");
+                MessageBox.Show("There was an error loading saved settings, generating new settings, if this is the first time you used this software, this is to be expected", "load error");
                 mDiscardPile = new List<Card>();
                 GenerateCardList();
             }
         }
 
+        /// <summary>
+        /// When no saved deck of cards is found, generate and entirely new deck. 
+        /// Save the new deck to save generating each time in the future. 
+        /// </summary>
         protected virtual void GenerateCardList()
         {
             mDiscardPile = new List<Card>();
             List<Suit> suites = new List<Suit> { Suit.Red, Suit.Green, Suit.Blue, Suit.Yellow };
             foreach (Suit suit in suites)
-            {
+            {   //generate each suit one after the other. 
                 string colour = "";
                 switch (suit)
                 {
@@ -125,29 +152,43 @@ namespace Uno
                         break;
                 }
                 GenerateSuitCards(suit, colour);
-            }
+            }// after the suit cards are made also generate the wild cards. 
             GenerateWildCards();
             SaveFullCardDeck(mDiscardPile);
         }
 
+        /// <summary>
+        /// Generates all the wild cards in the deck.
+        /// </summary>
         protected virtual void GenerateWildCards()
         {
             string imageStandardName = "card_front_wild_standard";
             string imagePickupName = "card_front_wild_pickup";
             CardWild cardWildStandard = new CardWild(imageStandardName, 0);
             CardWild cardWildPickup = new CardWild(imagePickupName, 4);
-            AddCardToDeck(cardWildStandard, 4);
-            AddCardToDeck(cardWildPickup, 4);
+            AddCardToDeck(cardWildStandard, 4); //four of each
+            AddCardToDeck(cardWildPickup, 4); //four of each
         }
 
-
-
+        /// <summary>
+        /// Takes the supplied parameters and uses them to generate
+        /// All the number cards in the given suit and then all the 
+        /// special cards in the given suit. 
+        /// </summary>
+        /// <param name="pSuit">emum of the suit</param>
+        /// <param name="pColour">name to match the enum, used to make the image name</param>
         protected virtual void GenerateSuitCards(Suit pSuit, string pColour)
         {
             GenerateNumberCards(pSuit, pColour);
             GenerateSpecialCards(pSuit, pColour);
         }
 
+        /// <summary>
+        /// takes the supplied suit and generates all the special cards in that suit
+        /// 
+        /// </summary>
+        /// <param name="pSuit">enum suit</param>
+        /// <param name="pColour">string matching the emum</param>
         protected virtual void GenerateSpecialCards(Suit pSuit, string pColour)
         {
             List<SpecialType> specialTypes = new List<SpecialType> { SpecialType.Draw, SpecialType.Reverse, SpecialType.Skip };
@@ -168,10 +209,15 @@ namespace Uno
                 }
                 string imgFileName = "card_front_suit_" + pColour + "_" + tail;
                 CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
-                AddCardToDeck(cardSpecial, 2);
+                AddCardToDeck(cardSpecial, 2);//two of each
             }
         }
 
+        /// <summary>
+        /// takes the supplied suit and generates all the number cards for that suit
+        /// </summary>
+        /// <param name="pSuit">enum for the suit</param>
+        /// <param name="pColour">string mathing the enum</param>
         protected virtual void GenerateNumberCards(Suit pSuit, string pColour)
         {
             for (int number = 0; number <= 9; number++)
@@ -179,16 +225,33 @@ namespace Uno
                 string imgFileName = "card_front_suit_" + pColour + "_" + number.ToString();
                 CardNumber cardNumber = new CardNumber(imgFileName, pSuit, number);
                 if (number == 0)
-                {
+                {   //one of each
                     AddCardToDeck(cardNumber,1);
                 }
                 else
-                {
+                {   //two of each
                     AddCardToDeck(cardNumber,2);
                 }
             }
         }
 
+        /// <summary>
+        /// Takes the supplied card, gives it a number and adds it to the deck however
+        /// many times the pNumToAdd parameter states. 
+        /// 
+        /// About The Identifiers: 
+        /// The Cards are all supplied in an order. First of all All the red numbers, then the red specials,
+        /// followed by the same for the other suites, then the wild cards come in last. This allows for increment
+        /// based identifiers to be generated.
+        /// 
+        /// Because these are references the result is that each unique
+        /// type of card gets the same number. eg. Red-0 is different from any other card in the deck.
+        /// But Red-1 is the same as Red-1 even though there are two of them in the deck. 
+        /// In the same way, each of the wild cards type has one identifier. These identifiers are
+        /// used during hand sorting. They are also used after a player has picked up when deciding if a card can be played.
+        /// </summary>
+        /// <param name="pCard">Card object supplied</param>
+        /// <param name="pNumToAdd">number of times this card should be added.</param>
         protected virtual void AddCardToDeck(Card pCard, int pNumToAdd)
         {
             for (int count = 0; count < pNumToAdd; count++)
@@ -199,13 +262,10 @@ namespace Uno
             }
         }
 
-        protected virtual void AddNewCardToDeck(Card pcard)
-        {   //ever time this is called increment then return the number before it was incremented. 
-            pcard.UniqueIdentifier = mUniqueIdentifier;
-            mDiscardPile.Add(pcard);
-            mUniqueIdentifier++;
-        }
-
+        /// <summary>
+        /// saves the newly generated list of cards so it can just be loaded next time. 
+        /// </summary>
+        /// <param name="pCardList">list of all cards in the deck</param>
         protected virtual void SaveFullCardDeck(List<Card> pCardList)
         {
             try
