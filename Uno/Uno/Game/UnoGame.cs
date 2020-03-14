@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using Uno.Cards;
 using Uno.EventsComponents;
 
 namespace Uno
@@ -369,7 +370,10 @@ namespace Uno
                 {
                     EventPublisher.GuiUpdate(mPlayers[NextPlayerWithoutSkips()], mDeck, "Challenge+4");
                 }
-
+                else if (cardWild is CardWildSwapHands)
+                {
+                    EventPublisher.SwapHandsPlayerChoose(mPlayers);
+                }
             }
         }
 
