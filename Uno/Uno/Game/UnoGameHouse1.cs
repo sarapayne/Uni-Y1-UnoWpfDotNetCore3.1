@@ -9,7 +9,7 @@ namespace Uno.Game
     [Serializable]
     class UnoGameHouse1: UnoGame
     {
-        public UnoGameHouse1 (List<string> pPlayerNames, int pdealer): base(pPlayerNames, pdealer)
+        public UnoGameHouse1 (List<string> pPlayerNames, int pdealer, int pNumOfSwapHands): base(pPlayerNames, pdealer, pNumOfSwapHands)
         {
 
         }
