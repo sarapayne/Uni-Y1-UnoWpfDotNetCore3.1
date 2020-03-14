@@ -36,11 +36,6 @@ namespace Uno
             set { this.mDiscardPile = value; }
         }
 
-        //private void Deck_RaiseRefreshCardPiles(object sender, EventArgs eventArgs)
-        //{
-        //    //code may return here later
-        //}
-
         public virtual void DeckRefresh()
         {
             ResetWildCards(mDiscardPile);
@@ -51,6 +46,18 @@ namespace Uno
             mDiscardPile.Add(mDrawPile[0]);
             mDrawPile.RemoveAt(0);
             ShuffleDeck(mDrawPile);
+        }
+
+        public virtual void ShuffleDeck(List<Card> pCardList)
+        {
+            Random random = new Random();
+            for (int cardIndex = 0; cardIndex < mDiscardPile.Count; cardIndex++)
+            {
+                int swapIndex = random.Next(0, mDiscardPile.Count - 1);
+                Card temp = mDiscardPile[cardIndex];
+                mDiscardPile[cardIndex] = mDiscardPile[swapIndex];
+                mDiscardPile[swapIndex] = temp;
+            }
         }
 
         protected virtual void ResetWildCards(List<Card> pCardList)
@@ -74,18 +81,7 @@ namespace Uno
                 pCardList.Add(temp);
             }
         }
-
-        public virtual void ShuffleDeck(List<Card> pCardList)
-        {
-            Random random = new Random();
-            for (int cardIndex = 0; cardIndex < mDiscardPile.Count; cardIndex++)
-            {
-                int swapIndex = random.Next(0, mDiscardPile.Count - 1);
-                Card temp = mDiscardPile[cardIndex];
-                mDiscardPile[cardIndex] = mDiscardPile[swapIndex];
-                mDiscardPile[swapIndex] = temp;
-            }
-        }
+                
 
         protected virtual void LoadFullCardDeck()
         {
