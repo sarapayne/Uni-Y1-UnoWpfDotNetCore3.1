@@ -38,6 +38,10 @@ namespace Uno
             get { return this.mName; }
         }
 
+        /// <summary>
+        /// Sorts player cards using improved bubble sort since other than the first run
+        /// the cards will be almost sorted with each subsequent use. 
+        /// </summary>
         public void SortPlayerCards()
         {
             for (int outIndex = 0; outIndex < mCards.Count; outIndex++)
