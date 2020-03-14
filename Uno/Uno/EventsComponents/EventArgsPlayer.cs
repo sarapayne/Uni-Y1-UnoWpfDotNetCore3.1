@@ -8,7 +8,7 @@ namespace Uno.EventsComponents
     {
         Player mPlayer;
 
-        EventArgsPlayer(Player pPlayer)
+        public EventArgsPlayer(Player pPlayer)
         {
             mPlayer = pPlayer;
         }
