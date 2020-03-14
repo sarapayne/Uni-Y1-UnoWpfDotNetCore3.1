@@ -19,7 +19,7 @@ namespace Uno
         public static event EventHandler<EventArgsLoadSave> RaiseLoadGame;
         public static event EventHandler<EventArgsLoadSave> RaiseSaveGame;
         public static event EventHandler<EventArgsPlayer> RaiseSwapHandsPlayerChosen;
-        public static event EventHandler<EventArgsPlayer> RaiseSwapHandsPlayerChoose;
+        public static event EventHandler<EventArgsPlayers> RaiseSwapHandsPlayerChoose;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -37,11 +37,11 @@ namespace Uno
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
 
-        public static void SwapHandsPlayerChoose(Player pPlayer)
+        public static void SwapHandsPlayerChoose(List<Player> pPlayers)
         {
             if (RaiseSwapHandsPlayerChoose != null)
             {
-                EventPublisher.RaiseSwapHandsPlayerChoose(null, new EventArgsPlayer(pPlayer));
+                EventPublisher.RaiseSwapHandsPlayerChoose(null, new EventArgsPlayers(pPlayers));
             }
         }
 
