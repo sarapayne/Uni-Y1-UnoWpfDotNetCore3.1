@@ -17,12 +17,14 @@ namespace Uno
         protected List<Card> mDrawPile;
         protected List<Card> mDiscardPile;
         protected int mUniqueIdentifier;
+        protected int mNumOfSwapHands;
 
         public Deck(int pNumOfSwapHands)
         {
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
+            this.mNumOfSwapHands = pNumOfSwapHands;
         }
 
         public List<Card> DrawPile
