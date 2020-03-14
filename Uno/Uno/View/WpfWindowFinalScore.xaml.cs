@@ -28,11 +28,21 @@ namespace Uno.View
             EventPublisher.RaiseCloseWindow += WpfWindowFinalScore_CloseWindow;
         }
 
+        /// <summary>
+        /// hides this window
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="eventArgs">unused</param>
         private void WpfWindowFinalScore_RaiseMainMenu(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }
 
+        /// <summary>
+        /// Updates the player name and score display based on the passed EventArgs
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsFinalScore">Player Object, full details</param>
         private void WpfWindowFinalScore_RaiseFinalScore(object sender, EventArgsFinalScore eventArgsFinalScore)
         {
             string playerName = eventArgsFinalScore.Winner.Name;
@@ -43,16 +53,31 @@ namespace Uno.View
             this.Show();
         }
 
+        /// <summary>
+        /// returns user to the main menu
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.MainMenu();
         }
 
+        /// <summary>
+        /// Sends the current player details to the main program via an event to add to the tournament. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
         private void buttonTournament_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.AddToTournament(mPlayer);
         }
 
+        /// <summary>
+        /// hides then closes this window ready for a clean shutdown. 
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="eventArgs">unused</param>
         private void WpfWindowFinalScore_CloseWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
