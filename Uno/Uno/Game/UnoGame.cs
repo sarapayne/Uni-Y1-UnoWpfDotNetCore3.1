@@ -580,83 +580,91 @@ namespace Uno
         protected virtual bool CheckIfCardCanBePlayed(Card pCard)
         {
             bool canBePlayed = false;
-            Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
-            switch (discardPile)
-            {   //start evaluation by looking at the discard pile
-                case CardWild discardPileWild:
-                    //discard pile is wild. 
-                    switch (pCard)
-                    {   //Evaluate the card being played. 
-                        case CardSuit playedSuitCard:
-                            //if the suit matches the wild card in the discard pile ok
-                            if (playedSuitCard.Csuit == discardPileWild.NextSuit) canBePlayed = true;
-                            break;
-                        case CardWild cardWild:
-                            //if the card being played is wild ok, it can go on anything. 
-                            canBePlayed = true;
-                            break;
-                    }
-                    break;
-                case CardSuit discardPileSuit:
-                    //card on discard pile is a suit card.
-                    switch (pCard)
+            if (!(mDeck.DiscardPile.Count == 0 || mDeck.DiscardPile == null))
+            {
+                Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
+                switch (discardPile)
+                {   //start evaluation by looking at the discard pile
+                    case CardWild discardPileWild:
+                        //discard pile is wild. 
+                        switch (pCard)
+                        {   //Evaluate the card being played. 
+                            case CardSuit playedSuitCard:
+                                //if the suit matches the wild card in the discard pile ok
+                                if (playedSuitCard.Csuit == discardPileWild.NextSuit) canBePlayed = true;
+                                break;
+                            case CardWild cardWild:
+                                //if the card being played is wild ok, it can go on anything. 
+                                canBePlayed = true;
+                                break;
+                        }
+                        break;
+                    case CardSuit discardPileSuit:
+                        //card on discard pile is a suit card.
+                        switch (pCard)
                         //evaluate next against the card being played.
-                    {
-                        case CardWild playedWildCard:
-                            //card being played is wild, it can go on anything, ok. 
-                            canBePlayed = true;
-                            break;
-                        case CardSuit playedSuitCard:
-                            //played card is a suit card, and so is the discard pile.
-                            if (discardPileSuit.Csuit == playedSuitCard.Csuit) canBePlayed = true; //matching suits. ok.
-                            else
-                            {   //come here if both cards are suits do they do not match
-                                switch (discardPileSuit)
-                                {
-                                    case CardNumber discardPileNumberCard:
-                                        //discard pile is a number card 
-                                        switch (playedSuitCard)
-                                        {   //check against the played card
-                                            case CardNumber playedNumberCard:
-                                                if (discardPileNumberCard.Number == playedNumberCard.Number)
-                                                {   //suites are different but the numbers match ok.
-                                                    canBePlayed = true;
-                                                }
-                                                break;
-                                            case CardSpecial playedSpecialCard:
-                                                //card played is skip/draw/reverse but discard is a number card
-                                                canBePlayed = false; //not ok as this is not a match. 
-                                                break;
-                                        }
-                                        break;
-                                    case CardSpecial discardPileSpecialCard:
-                                        //discard pile is a draw/skip/reverse
-                                        switch (playedSuitCard)
-                                        {   //check against the played card, which is a different suit
-                                            case CardNumber playedNumberCard:
-                                                //played card is a number card and suites do not match
-                                                canBePlayed = false; //number card doesn't match a special
-                                                break;
-                                            case CardSpecial playedSpecialCard:
-                                                //played card is a special card.
-                                                if (discardPileSpecialCard.Type == playedSpecialCard.Type)
-                                                {   //special types match, eg two skip cards, ok
-                                                    canBePlayed = true;
-                                                }
-                                                else
-                                                {   //special type dos not match, etc draw and skip, not ok
-                                                    canBePlayed = false;
-                                                }
-                                                break;
-                                        }
-                                        break;
+                        {
+                            case CardWild playedWildCard:
+                                //card being played is wild, it can go on anything, ok. 
+                                canBePlayed = true;
+                                break;
+                            case CardSuit playedSuitCard:
+                                //played card is a suit card, and so is the discard pile.
+                                if (discardPileSuit.Csuit == playedSuitCard.Csuit) canBePlayed = true; //matching suits. ok.
+                                else
+                                {   //come here if both cards are suits do they do not match
+                                    switch (discardPileSuit)
+                                    {
+                                        case CardNumber discardPileNumberCard:
+                                            //discard pile is a number card 
+                                            switch (playedSuitCard)
+                                            {   //check against the played card
+                                                case CardNumber playedNumberCard:
+                                                    if (discardPileNumberCard.Number == playedNumberCard.Number)
+                                                    {   //suites are different but the numbers match ok.
+                                                        canBePlayed = true;
+                                                    }
+                                                    break;
+                                                case CardSpecial playedSpecialCard:
+                                                    //card played is skip/draw/reverse but discard is a number card
+                                                    canBePlayed = false; //not ok as this is not a match. 
+                                                    break;
+                                            }
+                                            break;
+                                        case CardSpecial discardPileSpecialCard:
+                                            //discard pile is a draw/skip/reverse
+                                            switch (playedSuitCard)
+                                            {   //check against the played card, which is a different suit
+                                                case CardNumber playedNumberCard:
+                                                    //played card is a number card and suites do not match
+                                                    canBePlayed = false; //number card doesn't match a special
+                                                    break;
+                                                case CardSpecial playedSpecialCard:
+                                                    //played card is a special card.
+                                                    if (discardPileSpecialCard.Type == playedSpecialCard.Type)
+                                                    {   //special types match, eg two skip cards, ok
+                                                        canBePlayed = true;
+                                                    }
+                                                    else
+                                                    {   //special type dos not match, etc draw and skip, not ok
+                                                        canBePlayed = false;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                    }
                                 }
-                            }
-                            break;
-                    }
-                    break;
+                                break;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                canBePlayed = true;
             }
             return canBePlayed;
+            
         }
     }
 }

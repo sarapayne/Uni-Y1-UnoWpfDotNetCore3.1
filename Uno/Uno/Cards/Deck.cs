@@ -43,8 +43,8 @@ namespace Uno
             mDrawPile = new List<Card>();
             mDrawPile = mDiscardPile;
             mDiscardPile = new List<Card>();
-            mDiscardPile.Add(mDrawPile[0]);
-            mDrawPile.RemoveAt(0);
+            mDiscardPile.Add(mDrawPile[mDrawPile.Count-1]);
+            mDrawPile.RemoveAt(mDrawPile.Count-1);
             ShuffleDeck(mDrawPile);
         }
 
