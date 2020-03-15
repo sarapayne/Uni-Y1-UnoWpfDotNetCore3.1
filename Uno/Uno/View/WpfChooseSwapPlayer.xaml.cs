@@ -27,6 +27,8 @@ namespace Uno.View
             mPlayers = new List<Player>();
             comboboxPlayers.ItemsSource = mPlayers;
             EventPublisher.RaiseSwapHandsPlayerChoose += WpfChooseSwapPlayer_SwapHandsPlayerChoose;
+            EventPublisher.RaiseMainMenu += WpfChooseSwapHands_MainMenu;
+            EventPublisher.RaiseShutDownRoutine += WpfChooseSwapPlayer_ShutDownRoutine;
         }
 
         private void WpfChooseSwapPlayer_SwapHandsPlayerChoose(object sender, EventArgsPlayers eventArgsPlayers)
@@ -39,11 +41,23 @@ namespace Uno.View
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
+            this.Hide();
         }
 
         private void comboboxPlayers_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             mSelectedIndex = comboboxPlayers.SelectedIndex;
+        }
+
+        private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
+        }
+
+        private void WpfChooseSwapPlayer_ShutDownRoutine(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
+            this.Close();
         }
     }
 }
