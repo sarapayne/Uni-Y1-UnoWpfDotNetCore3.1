@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
-51883581715
+6355822586
 
-30-1755223546
+34179847703
 193-1523820446
-MainWindow.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
+MainWindow.xaml;View\WpfChooseSwapPlayer.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
 
 False
 

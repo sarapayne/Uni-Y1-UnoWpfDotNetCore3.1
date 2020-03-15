@@ -105,3 +105,5 @@ W:\source\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetu
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetupGame.g.cs
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetupGame.baml
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml

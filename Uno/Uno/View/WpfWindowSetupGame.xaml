@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uno.View"
         mc:Ignorable="d"
-        Title="WpfWindowSetupGame" Height="450" Width="1600">
+        Title="WpfWindowSetupGame" Height="450" Width="1200">
     <Grid x:Name="OuterGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
