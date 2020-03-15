@@ -25,13 +25,7 @@ namespace Uno
 
         public UnoMain()
         {
-            EventPublisher.RaiseNewGame += UnoMain_RaiseNewGame;
-            EventPublisher.RaiseLoadGame += UnoMain_LoadGame;
-            EventPublisher.RaiseSaveGame += UnoMain_SaveGame;
-            EventPublisher.RaiseCheckForActiveGame += UnoMain_CheckForActiveGame;
-            EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
-            EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
-            EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
+            SubscribeToEvents();
             mUnoGame = new UnoGame();
             mUnoTournament = new UnoTournament();        
             StartNewGuiInteface();
@@ -41,6 +35,17 @@ namespace Uno
         public UnoGame UnoGame
         {
             get { return mUnoGame; }
+        }
+
+        private void SubscribeToEvents()
+        {
+            EventPublisher.RaiseNewGame += UnoMain_RaiseNewGame;
+            EventPublisher.RaiseLoadGame += UnoMain_LoadGame;
+            EventPublisher.RaiseSaveGame += UnoMain_SaveGame;
+            EventPublisher.RaiseCheckForActiveGame += UnoMain_CheckForActiveGame;
+            EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
+            EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
+            EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
         }
 
         /// <summary>
