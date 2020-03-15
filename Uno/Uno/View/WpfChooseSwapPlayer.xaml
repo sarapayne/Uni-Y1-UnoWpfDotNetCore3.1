@@ -21,7 +21,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="comboboxPlayers" Text="Players List" Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" Margin="10"/>
+        <ComboBox x:Name="comboboxPlayers" Text="Players List" Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" Margin="10" SizeChanged="comboboxPlayers_SizeChanged"/>
         <Label x:Name="labelPlayerName" Content="Player Name" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
         <Button x:Name="buttonSubmit" Content="Submit" Grid.Column="1" Grid.Row="4" FontSize="30" Margin="10" Click="buttonSubmit_Click"/>
         <Label x:Name="labelChoosePlayer" Content="Choose Player To Swap Hands With" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>

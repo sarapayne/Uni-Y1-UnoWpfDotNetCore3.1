@@ -19,6 +19,7 @@ namespace Uno.View
     public partial class WpfChooseSwapPlayer : Window
     {
         List<Player> mPlayers;
+        int mSelectedIndex;
 
         public WpfChooseSwapPlayer()
         {
@@ -37,7 +38,12 @@ namespace Uno.View
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
+            EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
+        }
 
+        private void comboboxPlayers_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            mSelectedIndex = comboboxPlayers.SelectedIndex;
         }
     }
 }
