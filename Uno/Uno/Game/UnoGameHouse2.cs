@@ -39,6 +39,16 @@ namespace Uno.Game
         }
 
         /// <summary>
+        /// refers to base class
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsPlayer">chosen Player object</param>
+        protected override void UnoGame_SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
+        {
+            base.UnoGame_SwapHandsPlayerChosen(sender, eventArgsPlayer);
+        }
+
+        /// <summary>
         /// Refers To Base Class
         /// </summary>
         protected override void CalculateFinalScores()
