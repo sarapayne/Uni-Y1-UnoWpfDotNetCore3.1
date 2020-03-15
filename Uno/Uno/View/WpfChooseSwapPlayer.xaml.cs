@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Uno.EventsComponents;
 
 namespace Uno.View
 {
@@ -24,6 +25,14 @@ namespace Uno.View
             InitializeComponent();
             mPlayers = new List<Player>();
             comboboxPlayers.ItemsSource = mPlayers;
+            EventPublisher.RaiseSwapHandsPlayerChoose += WpfChooseSwapPlayer_SwapHandsPlayerChoose;
+        }
+
+        private void WpfChooseSwapPlayer_SwapHandsPlayerChoose(object sender, EventArgsPlayers eventArgsPlayers)
+        {
+            mPlayers = eventArgsPlayers.Players;
+            labelPlayerName.Content = eventArgsPlayers.CurrentPlayer.Name;
+            this.Show();
         }
     }
 }
