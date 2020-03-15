@@ -25,7 +25,6 @@ namespace Uno.View
         {
             InitializeComponent();
             mPlayers = new List<Player>();
-            comboboxPlayers.ItemsSource = mPlayers;
             EventPublisher.RaiseSwapHandsPlayerChoose += WpfChooseSwapPlayer_SwapHandsPlayerChoose;
             EventPublisher.RaiseMainMenu += WpfChooseSwapHands_MainMenu;
             EventPublisher.RaiseShutDownRoutine += WpfChooseSwapPlayer_ShutDownRoutine;
@@ -34,7 +33,9 @@ namespace Uno.View
         private void WpfChooseSwapPlayer_SwapHandsPlayerChoose(object sender, EventArgsPlayers eventArgsPlayers)
         {
             mPlayers = eventArgsPlayers.Players;
+            comboboxPlayers.ItemsSource = mPlayers;
             labelPlayerName.Content = eventArgsPlayers.CurrentPlayer.Name;
+            comboboxPlayers.Items.Refresh();
             this.Show();
         }
 
