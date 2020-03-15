@@ -37,11 +37,11 @@ namespace Uno
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
 
-        public static void SwapHandsPlayerChoose(List<Player> pPlayers)
+        public static void SwapHandsPlayerChoose(List<Player> pPlayers, Player pCurrentPlayer)
         {
             if (RaiseSwapHandsPlayerChoose != null)
             {
-                EventPublisher.RaiseSwapHandsPlayerChoose(null, new EventArgsPlayers(pPlayers));
+                EventPublisher.RaiseSwapHandsPlayerChoose(null, new EventArgsPlayers(pPlayers, pCurrentPlayer));
             }
         }
 

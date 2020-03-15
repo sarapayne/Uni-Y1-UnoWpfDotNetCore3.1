@@ -23,6 +23,7 @@ namespace Uno.View
         {
             InitializeComponent();
             mPlayers = new List<Player>();
+            comboboxPlayers.ItemsSource = mPlayers;
         }
     }
 }
