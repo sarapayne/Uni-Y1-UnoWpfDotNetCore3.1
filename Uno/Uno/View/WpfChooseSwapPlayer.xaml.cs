@@ -45,11 +45,6 @@ namespace Uno.View
             this.Hide();
         }
 
-        private void comboboxPlayers_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            mSelectedIndex = comboboxPlayers.SelectedIndex;
-        }
-
         private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
         {
             this.Hide();
@@ -59,6 +54,11 @@ namespace Uno.View
         {
             this.Hide();
             this.Close();
+        }
+
+        private void comboboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mSelectedIndex = comboboxPlayers.SelectedIndex;
         }
     }
 }
