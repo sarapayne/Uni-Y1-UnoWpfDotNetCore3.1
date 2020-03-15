@@ -389,7 +389,7 @@ namespace Uno
                 }
                 else if (cardWild is CardWildSwapHands)
                 {
-                    EventPublisher.SwapHandsPlayerChoose(mPlayers);
+                    EventPublisher.SwapHandsPlayerChoose(mPlayers, mPlayers[mCurrentPlayer]);
                 }
             }
         }
