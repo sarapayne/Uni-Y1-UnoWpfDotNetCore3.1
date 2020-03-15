@@ -37,6 +37,9 @@ namespace Uno
             get { return mUnoGame; }
         }
 
+        /// <summary>
+        /// Subscribes to all events needed by this class.
+        /// </summary>
         private void SubscribeToEvents()
         {
             EventPublisher.RaiseNewGame += UnoMain_RaiseNewGame;
@@ -123,6 +126,7 @@ namespace Uno
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
             WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
+            WpfChooseSwapPlayer wpfChooseSwapPlayer = new WpfChooseSwapPlayer();
         }
 
         /// <summary>
