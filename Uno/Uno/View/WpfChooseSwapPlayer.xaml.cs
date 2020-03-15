@@ -34,5 +34,10 @@ namespace Uno.View
             labelPlayerName.Content = eventArgsPlayers.CurrentPlayer.Name;
             this.Show();
         }
+
+        private void buttonSubmit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
