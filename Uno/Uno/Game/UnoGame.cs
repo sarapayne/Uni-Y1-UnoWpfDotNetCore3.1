@@ -68,6 +68,7 @@ namespace Uno
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
             EventPublisher.RaiseUnsubscribeEvents += UnoGame_RaiseUnsubscribeEvents;
+            EventPublisher.RaiseSwapHandsPlayerChosen += UnoGame_SwapHandsPlayerChosen;
         }
 
         /// <summary>
@@ -96,6 +97,22 @@ namespace Uno
             EventPublisher.RaiseDrawCard -= UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick -= UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame -= UnoMain_RaiseReturnToGame;
+            EventPublisher.RaiseSwapHandsPlayerChosen -= UnoGame_SwapHandsPlayerChosen;
+        }
+
+        /// <summary>
+        /// Swaps the hands of the current player, with the chosen player then updates the gui with the current players hand
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsPlayer">Card object of the chosen player.</param>
+        protected virtual void UnoGame_SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
+        {
+            List<Card> temp = eventArgsPlayer.ChosenPlayer.Cards;
+            eventArgsPlayer.ChosenPlayer.Cards = new List<Card>();
+            eventArgsPlayer.ChosenPlayer.Cards = mPlayers[mCurrentPlayer].Cards;
+            mPlayers[mCurrentPlayer].Cards = new List<Card>();
+            mPlayers[mCurrentPlayer].Cards = temp;
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "");
         }
 
         /// <summary>
