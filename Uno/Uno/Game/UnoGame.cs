@@ -390,7 +390,15 @@ namespace Uno
                 }
                 else if (cardWild is CardWildSwapHands)
                 {
-                    EventPublisher.SwapHandsPlayerChoose(mPlayers, mPlayers[mCurrentPlayer]);
+                    List<Player> otherPlayers = new List<Player>();
+                    foreach(Player player in mPlayers)
+                    {   //we dont want to be able to swap hands with ourself so make a new list without the current player
+                        if (player.Name != mPlayers[mCurrentPlayer].Name)
+                        {
+                            otherPlayers.Add(player);
+                        }
+                    }
+                    EventPublisher.SwapHandsPlayerChoose(otherPlayers, mPlayers[mCurrentPlayer]);
                 }
             }
         }
