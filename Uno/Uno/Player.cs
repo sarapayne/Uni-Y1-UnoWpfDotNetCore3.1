@@ -39,6 +39,15 @@ namespace Uno
         }
 
         /// <summary>
+        /// used to give a nice visual display of player objects as strings. 
+        /// </summary>
+        /// <returns>player name</returns>
+        public override string ToString()
+        {
+            return this.mName;
+        }
+
+        /// <summary>
         /// Sorts player cards using improved bubble sort since other than the first run
         /// the cards will be almost sorted with each subsequent use. 
         /// </summary>
