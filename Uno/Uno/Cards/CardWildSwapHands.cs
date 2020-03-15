@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Uno.Cards
 {
+    [Serializable]
     class CardWildSwapHands: CardWild
     {
         
