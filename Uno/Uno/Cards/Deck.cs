@@ -22,10 +22,11 @@ namespace Uno
 
         public Deck(int pNumOfSwapHands)
         {
+            this.mNumOfSwapHands = pNumOfSwapHands;
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
-            this.mNumOfSwapHands = pNumOfSwapHands;
+            
         }
 
         public List<Card> DrawPile
@@ -177,7 +178,7 @@ namespace Uno
             AddCardToDeck(cardWildPickup, 4); //four of each
             if (mNumOfSwapHands > 0)
             {
-                string imageSwapHandsName = "card_front_wild_swaphands.png";
+                string imageSwapHandsName = "card_front_wild_swaphands";
                 CardWildSwapHands cardWildSwapHands = new CardWildSwapHands(imageSwapHandsName, 0);
                 AddCardToDeck(cardWildSwapHands, mNumOfSwapHands);
             }

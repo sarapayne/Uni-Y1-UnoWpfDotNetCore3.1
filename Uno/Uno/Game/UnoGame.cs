@@ -37,6 +37,7 @@ namespace Uno
             {   //this should be impossible, its made impossible by GUI limits
                 MessageBox.Show("Sorry something has gone wrong, the maximum number of players is 10, please reduce and try again", "too many players");
             }
+            this.mNumOfSwapHands = pNumOfSwapHands;
             this.mDeck = new Deck(mNumOfSwapHands);
             DealCards();
             this.mforwards = true;
@@ -45,7 +46,7 @@ namespace Uno
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             this.mCardsDrawnThisTurn = new List<int>();
-            this.mNumOfSwapHands = pNumOfSwapHands;
+            
             SubscribeToEvents();
             mDeck.DeckRefresh();
             EventPublisher.NextPlayerButtonClick();//not a button click but does the job
