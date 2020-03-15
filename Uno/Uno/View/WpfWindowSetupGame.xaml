@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uno.View"
         mc:Ignorable="d"
-        Title="WpfWindowSetupGame" Height="450" Width="800">
-    <Grid>
+        Title="WpfWindowSetupGame" Height="450" Width="1200">
+    <Grid x:Name="OuterGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -34,5 +35,28 @@
         <RadioButton x:Name="radioOfficialRules" Content="Official Rules" Grid.Column="1" Grid.Row="5" FontSize="30" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <RadioButton x:Name="radioHouseRules1" Content="House Rules1" Grid.Column="1" Grid.Row="6" FontSize="30" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <RadioButton x:Name="radioHouseRules2" Content="House Rules2" Grid.Column="1" Grid.Row="7" FontSize="30" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <Grid x:Name="RightSide" Grid.Column="3" Grid.Row="1" Grid.RowSpan="7" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="/Resources/card_front_wild_swaphands.png" Grid.ColumnSpan="2" Grid.Column="1" />
+            <CheckBox x:Name="checkBoxSwapHands" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Include" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Checked="checkBoxSwapHands_Checked" Unchecked="checkBoxSwapHands_Unchecked"/>
+            <Label x:Name="labelHowMany" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Content="Please Select The Number Of Wild Cards" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <RadioButton x:Name="radio1Card" Grid.Column="0" Grid.Row="3" Content="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsChecked="True" IsEnabled="False"/>
+            <RadioButton x:Name="radio2Card" Grid.Column="1" Grid.Row="3" Content="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsEnabled="False"/>
+            <RadioButton x:Name="radio3Card" Grid.Column="2" Grid.Row="3" Content="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsEnabled="False"/>
+            <RadioButton x:Name="radio4Card" Grid.Column="3" Grid.Row="3" Content="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" IsEnabled="False"/>
+        </Grid>
     </Grid>
 </Window>

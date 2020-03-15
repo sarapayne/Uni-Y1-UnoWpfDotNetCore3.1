@@ -25,13 +25,7 @@ namespace Uno
 
         public UnoMain()
         {
-            EventPublisher.RaiseNewGame += UnoMain_RaiseNewGame;
-            EventPublisher.RaiseLoadGame += UnoMain_LoadGame;
-            EventPublisher.RaiseSaveGame += UnoMain_SaveGame;
-            EventPublisher.RaiseCheckForActiveGame += UnoMain_CheckForActiveGame;
-            EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
-            EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
-            EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
+            SubscribeToEvents();
             mUnoGame = new UnoGame();
             mUnoTournament = new UnoTournament();        
             StartNewGuiInteface();
@@ -44,6 +38,20 @@ namespace Uno
         }
 
         /// <summary>
+        /// Subscribes to all events needed by this class.
+        /// </summary>
+        private void SubscribeToEvents()
+        {
+            EventPublisher.RaiseNewGame += UnoMain_RaiseNewGame;
+            EventPublisher.RaiseLoadGame += UnoMain_LoadGame;
+            EventPublisher.RaiseSaveGame += UnoMain_SaveGame;
+            EventPublisher.RaiseCheckForActiveGame += UnoMain_CheckForActiveGame;
+            EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
+            EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
+            EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
+        }
+
+        /// <summary>
         /// Takes new game info from the GUI and passes it to the NewGame method
         /// </summary>
         /// <param name="sender">always null</param>
@@ -51,7 +59,7 @@ namespace Uno
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
             EventPublisher.UnsubscribeEvents();
-            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType);
+            NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType, eventArgs.NumOfSwapHands);
         }
 
         /// <summary>
@@ -60,18 +68,18 @@ namespace Uno
         /// <param name="pPlayerNames">List of player names</param>
         /// <param name="pDealer">player number of the dealer</param>
         /// <param name="rulesType">enum defining the game rules</param>
-        private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType)
+        private void NewGame(List<string> pPlayerNames, int pDealer, RulesType rulesType, int pNumOfSwapHands)
         {
             switch (rulesType)
             {
                 case RulesType.Standard:
-                    mUnoGame = new UnoGame(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGame(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
                 case RulesType.House1:
-                    mUnoGame = new UnoGameHouse1(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGameHouse1(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
                 case RulesType.House2:
-                    mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer);
+                    mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
             } 
         }
@@ -118,6 +126,7 @@ namespace Uno
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
             WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
+            WpfChooseSwapPlayer wpfChooseSwapPlayer = new WpfChooseSwapPlayer();
         }
 
         /// <summary>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="Uno.View.WpfChooseSwapPlayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Uno.View"
+        mc:Ignorable="d"
+        Title="WpfChooseSwapPlayer" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="comboboxPlayers" Text="Players List" Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" Margin="10" SelectionChanged="comboboxPlayers_SelectionChanged"/>
+        <Label x:Name="labelPlayerName" Content="Player Name" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+        <Button x:Name="buttonSubmit" Content="Submit" Grid.Column="1" Grid.Row="4" FontSize="30" Margin="10" Click="buttonSubmit_Click"/>
+        <Label x:Name="labelChoosePlayer" Content="Choose Player To Swap Hands With" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
+        <Image Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Source="/Resources/card_front_wild_swaphands.png"/>
+    </Grid>
+</Window>

@@ -18,13 +18,16 @@ namespace Uno.View
     public partial class WpfWindowSetupGame : Window
     {
         private List<string> mPlayers;
+        private List<RadioButton> mNumberOfCardsCheck;
+        private bool mIncSwapHands;
+        
 
         public WpfWindowSetupGame()
         {
             InitializeComponent();
-            //mPlayers = new List<string>();
             textboxEnterName.IsEnabled = true;
             listboxNames.ItemsSource = mPlayers;
+            mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
         }
 
         /// <summary>
@@ -119,6 +122,26 @@ namespace Uno.View
         {
             Random random = new Random();
             int dealer = random.Next(0, mPlayers.Count - 1);
+            int numOfSwapHandCards = 0;
+            if (mIncSwapHands)
+            {
+                if (radio1Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 1;
+                }
+                else if (radio2Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 2;
+                }
+                else if (radio3Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 3;
+                }
+                else if(radio4Card.IsChecked == true)
+                {
+                    numOfSwapHandCards = 4;
+                }
+            }
             RulesType rulesType = new RulesType();
             if (radioOfficialRules.IsChecked == true)
             {
@@ -132,9 +155,37 @@ namespace Uno.View
             {
                 rulesType = RulesType.House2;
             }
-            EventPublisher.NewGame(mPlayers, dealer, rulesType);
+            EventPublisher.NewGame(mPlayers, dealer, rulesType, numOfSwapHandCards);
             this.Hide();
             this.Close();
+        }
+
+        /// <summary>
+        /// Enables the radio buttons for choosing how many cards to add
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
+        private void checkBoxSwapHands_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (RadioButton radioButton in mNumberOfCardsCheck)
+            {
+                radioButton.IsEnabled = true;
+            }
+            mIncSwapHands = true;
+        }
+
+        /// <summary>
+        /// Disables the radio buttons for choosing how many cards to add
+        /// </summary>
+        /// <param name="sender">unused</param>
+        /// <param name="e">unused</param>
+        private void checkBoxSwapHands_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (RadioButton radioButton in mNumberOfCardsCheck)
+            {
+                radioButton.IsEnabled = false;
+            }
+            mIncSwapHands = false;
         }
     }
 }

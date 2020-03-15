@@ -6,8 +6,8 @@ namespace Uno
     [Serializable()]
     class CardWild : Card
     {
-        private int mCardsToDraw;
-        private Suit mNextSuit;
+        protected int mCardsToDraw;
+        protected Suit mNextSuit;
 
         public CardWild (string pImageName, int pCardsToDraw): base (pImageName)
         {

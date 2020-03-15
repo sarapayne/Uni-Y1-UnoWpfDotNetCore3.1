@@ -73,6 +73,16 @@ namespace Uno.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap card_back_landscape {
+            get {
+                object obj = ResourceManager.GetObject("card_back_landscape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap card_empty {
             get {
                 object obj = ResourceManager.GetObject("card_empty", resourceCulture);
@@ -647,6 +657,16 @@ namespace Uno.Properties {
             get {
                 object obj = ResourceManager.GetObject("card_front_wild_standard", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap card_front_wild_swaphands {
+            get {
+                object obj = ResourceManager.GetObject("card_front_wild_swaphands", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

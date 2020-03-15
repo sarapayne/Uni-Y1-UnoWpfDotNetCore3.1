@@ -9,7 +9,7 @@ namespace Uno.Game
     [Serializable]
     class UnoGameHouse2: UnoGameHouse1
     {
-        public UnoGameHouse2(List<string> pPlayerNames, int pdealer) : base(pPlayerNames, pdealer)
+        public UnoGameHouse2(List<string> pPlayerNames, int pdealer, int pNumOfSwapHands) : base(pPlayerNames, pdealer, pNumOfSwapHands)
         {
 
         }
@@ -36,6 +36,16 @@ namespace Uno.Game
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
+        }
+
+        /// <summary>
+        /// refers to base class
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsPlayer">chosen Player object</param>
+        protected override void UnoGame_SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
+        {
+            base.UnoGame_SwapHandsPlayerChosen(sender, eventArgsPlayer);
         }
 
         /// <summary>

@@ -18,6 +18,8 @@ namespace Uno
         public static event EventHandler<EventArgsLoadSave> RaiseSaveTournament;
         public static event EventHandler<EventArgsLoadSave> RaiseLoadGame;
         public static event EventHandler<EventArgsLoadSave> RaiseSaveGame;
+        public static event EventHandler<EventArgsPlayer> RaiseSwapHandsPlayerChosen;
+        public static event EventHandler<EventArgsPlayers> RaiseSwapHandsPlayerChoose;
         public static event EventHandler RaiseNextPlayerButtonClick;
         public static event EventHandler RaisePlus4Challenge;
         public static event EventHandler RaiseDrawTwoCards;
@@ -34,6 +36,22 @@ namespace Uno
         public static event EventHandler RaiseUnsubscribeTournamentEvents;
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
+
+        public static void SwapHandsPlayerChoose(List<Player> pPlayers, Player pCurrentPlayer)
+        {
+            if (RaiseSwapHandsPlayerChoose != null)
+            {
+                EventPublisher.RaiseSwapHandsPlayerChoose(null, new EventArgsPlayers(pPlayers, pCurrentPlayer));
+            }
+        }
+
+        public static void SwapHandsPlayerChosen(Player pPlayer)
+        {
+            if (RaiseSwapHandsPlayerChosen != null)
+            {
+                EventPublisher.RaiseSwapHandsPlayerChosen(null, new EventArgsPlayer(pPlayer));
+            }
+        }
 
         public static void CloseWindow()
         {
@@ -108,11 +126,11 @@ namespace Uno
             }
         }
 
-        public static void NewGame(List<string> pPlayers, int pDealer, RulesType pRulesType)
+        public static void NewGame(List<string> pPlayers, int pDealer, RulesType pRulesType, int pNumOfSwapHands)
         {
             if (RaiseNewGame != null)
             {
-                EventPublisher.RaiseNewGame(null, new EventArgsGame(pPlayers, pDealer, pRulesType));
+                EventPublisher.RaiseNewGame(null, new EventArgsGame(pPlayers, pDealer, pRulesType, pNumOfSwapHands));
             }
         }
 

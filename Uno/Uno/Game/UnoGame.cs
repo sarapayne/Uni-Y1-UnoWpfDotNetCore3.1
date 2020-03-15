@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using Uno.Cards;
 using Uno.EventsComponents;
 
 namespace Uno
@@ -19,13 +20,14 @@ namespace Uno
         protected bool mPlayerHasPicked = false;
         protected Player mWinner = null;
         protected List<int> mCardsDrawnThisTurn;
+        protected int mNumOfSwapHands;
 
         public UnoGame ()
         {
             
         }
 
-        public UnoGame(List<string> pPlayerNames, int pdealer)
+        public UnoGame(List<string> pPlayerNames, int pdealer, int pNumOfSwapHands)
         {
             if (pPlayerNames.Count <= 10)
             {
@@ -35,7 +37,8 @@ namespace Uno
             {   //this should be impossible, its made impossible by GUI limits
                 MessageBox.Show("Sorry something has gone wrong, the maximum number of players is 10, please reduce and try again", "too many players");
             }
-            this.mDeck = new Deck();
+            this.mNumOfSwapHands = pNumOfSwapHands;
+            this.mDeck = new Deck(mNumOfSwapHands);
             DealCards();
             this.mforwards = true;
             this.mCurrentPlayer = pdealer; //set to the dealer, so when next player is called, it moves to the preson after the dealer. 
@@ -43,6 +46,7 @@ namespace Uno
             this.mPlayerHasPicked = true;// set to true initially so that the next player function call works.
             this.mPlayerHasDiscarded = true; // set to true initially so that the next player function call works.
             this.mCardsDrawnThisTurn = new List<int>();
+            
             SubscribeToEvents();
             mDeck.DeckRefresh();
             EventPublisher.NextPlayerButtonClick();//not a button click but does the job
@@ -65,6 +69,7 @@ namespace Uno
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
             EventPublisher.RaiseUnsubscribeEvents += UnoGame_RaiseUnsubscribeEvents;
+            EventPublisher.RaiseSwapHandsPlayerChosen += UnoGame_SwapHandsPlayerChosen;
         }
 
         /// <summary>
@@ -93,6 +98,22 @@ namespace Uno
             EventPublisher.RaiseDrawCard -= UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick -= UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame -= UnoMain_RaiseReturnToGame;
+            EventPublisher.RaiseSwapHandsPlayerChosen -= UnoGame_SwapHandsPlayerChosen;
+        }
+
+        /// <summary>
+        /// Swaps the hands of the current player, with the chosen player then updates the gui with the current players hand
+        /// </summary>
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgsPlayer">Card object of the chosen player.</param>
+        protected virtual void UnoGame_SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
+        {
+            List<Card> temp = eventArgsPlayer.ChosenPlayer.Cards;
+            eventArgsPlayer.ChosenPlayer.Cards = new List<Card>();
+            eventArgsPlayer.ChosenPlayer.Cards = mPlayers[mCurrentPlayer].Cards;
+            mPlayers[mCurrentPlayer].Cards = new List<Card>();
+            mPlayers[mCurrentPlayer].Cards = temp;
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "");
         }
 
         /// <summary>
@@ -367,7 +388,18 @@ namespace Uno
                 {
                     EventPublisher.GuiUpdate(mPlayers[NextPlayerWithoutSkips()], mDeck, "Challenge+4");
                 }
-
+                else if (cardWild is CardWildSwapHands)
+                {
+                    List<Player> otherPlayers = new List<Player>();
+                    foreach(Player player in mPlayers)
+                    {   //we dont want to be able to swap hands with ourself so make a new list without the current player
+                        if (player.Name != mPlayers[mCurrentPlayer].Name)
+                        {
+                            otherPlayers.Add(player);
+                        }
+                    }
+                    EventPublisher.SwapHandsPlayerChoose(otherPlayers, mPlayers[mCurrentPlayer]);
+                }
             }
         }
 

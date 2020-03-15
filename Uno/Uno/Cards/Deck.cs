@@ -7,6 +7,7 @@ using Image = System.Windows.Controls.Image;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Net.Http;
+using Uno.Cards;
 
 namespace Uno
 {
@@ -17,12 +18,15 @@ namespace Uno
         protected List<Card> mDrawPile;
         protected List<Card> mDiscardPile;
         protected int mUniqueIdentifier;
+        protected int mNumOfSwapHands;
 
-        public Deck()
+        public Deck(int pNumOfSwapHands)
         {
+            this.mNumOfSwapHands = pNumOfSwapHands;
             LoadFullCardDeck();//add cards to the discard originally so it works with refresh piles correctly
             this.mDrawPile = new List<Card>();
             mUniqueIdentifier = 0;
+            
         }
 
         public List<Card> DrawPile
@@ -109,6 +113,8 @@ namespace Uno
         /// </summary>
         protected virtual void LoadFullCardDeck()
         {
+            /* Disabled into i figure out how to include load and save into the new changeable cards.
+             * This might have to just get discared. Not big deal.
             try
             {
                 using (Stream stream = File.Open(mCardDeckFileName, FileMode.Open))
@@ -123,6 +129,8 @@ namespace Uno
                 mDiscardPile = new List<Card>();
                 GenerateCardList();
             }
+            */
+            GenerateCardList();
         }
 
         /// <summary>
@@ -168,6 +176,13 @@ namespace Uno
             CardWild cardWildPickup = new CardWild(imagePickupName, 4);
             AddCardToDeck(cardWildStandard, 4); //four of each
             AddCardToDeck(cardWildPickup, 4); //four of each
+            if (mNumOfSwapHands > 0)
+            {
+                string imageSwapHandsName = "card_front_wild_swaphands";
+                CardWildSwapHands cardWildSwapHands = new CardWildSwapHands(imageSwapHandsName, 0);
+                AddCardToDeck(cardWildSwapHands, mNumOfSwapHands);
+            }
+            
         }
 
         /// <summary>
