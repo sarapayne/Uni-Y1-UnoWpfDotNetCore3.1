@@ -92,7 +92,6 @@ F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfW
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.g.resources
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.Properties.Resources.resources
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.GenerateResource.cache
-F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.CoreCompileInputs.cache
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.AssemblyInfoInputs.cache
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.AssemblyInfo.cs
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.dll
@@ -107,3 +106,4 @@ F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfW
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetupGame.baml
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml
+F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.CoreCompileInputs.cache
