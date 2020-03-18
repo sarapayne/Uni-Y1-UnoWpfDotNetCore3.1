@@ -23,13 +23,5 @@ namespace Uno
         {
             get { return this.mSuit; }
         }
-
-        /// <summary>
-        /// Referes to base class
-        /// </summary>
-        public override void RunCardSpecialFeatures()
-        {
-            base.RunCardSpecialFeatures();
-        }
     }
 }

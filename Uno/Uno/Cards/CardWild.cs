@@ -26,12 +26,5 @@ namespace Uno
             set { this.mNextSuit = value; }
         }
 
-        /// <summary>
-        /// Refers To Base Class
-        /// </summary>
-        public override void RunCardSpecialFeatures()
-        {
-            base.RunCardSpecialFeatures();
-        }
     }
 }

@@ -15,9 +15,5 @@ namespace Uno.Cards
             this.mNextSuit = Suit.Unused;
         }
 
-        public override void RunCardSpecialFeatures()
-        {
-            base.RunCardSpecialFeatures();
-        }
     }
 }
