@@ -10,7 +10,7 @@ namespace Uno
     }
 
     [Serializable()]
-    class CardSuit : Card
+    abstract class CardSuit : Card
     {
         private Suit mSuit;
 
