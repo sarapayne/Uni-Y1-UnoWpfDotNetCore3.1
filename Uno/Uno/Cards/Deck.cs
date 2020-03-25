@@ -12,7 +12,7 @@ using Uno.Cards;
 namespace Uno
 {
     [Serializable]
-    class Deck
+    public class Deck
     {
         protected string mCardDeckFileName = "CardDeck.bin";
         protected List<Card> mDrawPile;

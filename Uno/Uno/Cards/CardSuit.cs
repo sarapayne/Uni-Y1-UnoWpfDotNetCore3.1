@@ -4,7 +4,7 @@ using Image = System.Windows.Controls.Image;
 namespace Uno
 {
     [Serializable()]
-    enum Suit
+    public enum Suit
     {
         Red, Green, Blue, Yellow, Unused
     }

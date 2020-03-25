@@ -53,7 +53,7 @@
         <Button Content="MainMenu" x:Name="buttonMainMenu" Grid.Column="2" Grid.Row="9" Click="buttonMainMenu_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button Content="EndTurn" x:Name="buttonEndTurn" Grid.Column="17" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="buttonEndTurn_Click"/>
         <Button Content="Draw4 Challenge" x:Name="buttonDraw4Challenge" Grid.Column="9" Grid.Row="10" Grid.ColumnSpan="3" IsEnabled="False" Visibility="Hidden" Click="buttonDraw4Challenge_Click"/>
-        <Button Content="Accept Draw 4" x:Name="buttonAcceptDraw4" Grid.Column="9" Grid.Row="11" Grid.ColumnSpan="3" IsEnabled="False" Visibility="Hidden" Click="buttonAcceptDraw4_Click"/>
+        <Button Content="Accept" x:Name="buttonAccept" Grid.Column="9" Grid.Row="11" Grid.ColumnSpan="3" IsEnabled="False" Visibility="Hidden" Click="buttonAccept_Click"/>
         <Button x:Name="buttonRed" Grid.Column="9" Grid.Row="9" Background="Red" Click="buttonRed_Click" IsEnabled="False" Visibility="Hidden"/>
         <Button x:Name="buttonGren" Grid.Column="10" Grid.Row="9" Background="Green" Click="buttonGren_Click" IsEnabled="False" Visibility="Hidden"/>
         <Button x:Name="buttonBlue" Grid.Column="11" Grid.Row="9" Background="Blue" Click="buttonBlue_Click" IsEnabled="False" Visibility="Hidden"/>

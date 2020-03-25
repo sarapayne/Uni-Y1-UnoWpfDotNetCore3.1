@@ -10,7 +10,7 @@ using Image = System.Windows.Controls.Image;
 namespace Uno
 {
     [Serializable()]
-    abstract class Card
+    public abstract class Card
     {
         private string  mImageName;
         private int mUniqueItentifier;

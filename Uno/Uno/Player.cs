@@ -6,7 +6,7 @@ using System.Text;
 namespace Uno
 {
     [Serializable()]
-    class Player
+    public class Player
     {
         private string mName;
         private List<Card> mCards;
