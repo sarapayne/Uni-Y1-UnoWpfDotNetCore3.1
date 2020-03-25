@@ -15,7 +15,6 @@ namespace Uno
         protected Deck mDeck;
         protected bool mforwards;
         protected int mCurrentPlayer;
-        //protected int mNextPlayerPickupTotal = 0;
         protected int mNextPlayersToSkipTotal = 0;
         protected bool mPlayerHasDiscarded = false;
         protected bool mPlayerHasPicked = false;
