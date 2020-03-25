@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using Uno.Cards;
 using Uno.EventsComponents;
+using Uno.Interfaces;
 
 namespace Uno
 {
@@ -287,9 +288,9 @@ namespace Uno
         /// <param name="eventArgs">selected card object</param>
         protected virtual void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {
-            if (eventArgs.UnoCard is CardSpecial)
+            if (eventArgs.UnoCard is IFeatureCard)
             {
-                (eventArgs.UnoCard as CardSpecial).RunCardSpecialFeatures();
+                (eventArgs.UnoCard as IFeatureCard).CardFeatures();
             }
                 
             mDeck.DiscardPile.Add(eventArgs.UnoCard);
