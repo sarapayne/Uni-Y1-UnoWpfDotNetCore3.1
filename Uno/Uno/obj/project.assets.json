@@ -154,11 +154,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
+      "projectUniqueName": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
       "projectName": "Uno",
-      "projectPath": "F:\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
+      "projectPath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\Uno.csproj",
       "packagesPath": "C:\\Users\\manwa\\.nuget\\packages\\",
-      "outputPath": "F:\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\obj\\",
+      "outputPath": "C:\\Users\\manwa\\source\\Personal\\UnoWpfDotNetCore3.1\\Uno\\Uno\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
