@@ -677,14 +677,40 @@ namespace Uno
                                                     break;
                                                 case CardSpecial playedSpecialCard:
                                                     //played card is a special card.
-                                                    if (discardPileSpecialCard.Type == playedSpecialCard.Type)
-                                                    {   //special types match, eg two skip cards, ok
-                                                        canBePlayed = true;
+                                                    switch (playedSpecialCard)
+                                                    {
+                                                        case CardDraw playedDrawCard:
+                                                            if (discardPileSpecialCard is CardDraw)
+                                                            {
+                                                                canBePlayed = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                canBePlayed = false;
+                                                            }
+                                                            break;
+                                                        case CardReverse playedReverseCard:
+                                                            if (discardPileSpecialCard is CardReverse)
+                                                            {
+                                                                canBePlayed = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                canBePlayed = false;
+                                                            }
+                                                            break;
+                                                        case CardSkip playedSkipCard:
+                                                            if (discardPileSpecialCard is CardSkip)
+                                                            {
+                                                                canBePlayed = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                canBePlayed = false;
+                                                            }
+                                                            break;
                                                     }
-                                                    else
-                                                    {   //special type dos not match, etc draw and skip, not ok
-                                                        canBePlayed = false;
-                                                    }
+
                                                     break;
                                             }
                                             break;

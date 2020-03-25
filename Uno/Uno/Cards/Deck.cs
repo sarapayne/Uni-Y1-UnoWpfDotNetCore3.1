@@ -162,7 +162,7 @@ namespace Uno
                 GenerateSuitCards(suit, colour);
             }// after the suit cards are made also generate the wild cards. 
             GenerateWildCards();
-            SaveFullCardDeck(mDiscardPile);
+            //SaveFullCardDeck(mDiscardPile);
         }
 
         /// <summary>
@@ -206,25 +206,33 @@ namespace Uno
         /// <param name="pColour">string matching the emum</param>
         protected virtual void GenerateSpecialCards(Suit pSuit, string pColour)
         {
-            List<SpecialType> specialTypes = new List<SpecialType> { SpecialType.Draw, SpecialType.Reverse, SpecialType.Skip };
-            foreach (SpecialType specialType in specialTypes)
+            List<string> specialTypes = new List<string> { "Draw", "Reverse", "Skip" };
+            string prefixFileName = "card_front_suit_" + pColour + "_";
+            string imgFileName = "";
+            foreach (string specialType in specialTypes)
             {
                 string tail = "";
                 switch (specialType)
                 {
-                    case SpecialType.Draw:
+                    case "Draw":
                         tail = "draw";
+                        imgFileName = prefixFileName + tail;
+                        CardDraw cardDraw = new CardDraw(imgFileName, pSuit);
+                        AddCardToDeck(cardDraw, 2);//two of each
                         break;
-                    case SpecialType.Reverse:
+                    case "Reverse":
                         tail = "reverse";
+                        imgFileName = prefixFileName + tail;
+                        CardReverse cardReverse = new CardReverse(imgFileName, pSuit);
+                        AddCardToDeck(cardReverse, 2);//two of each
                         break;
-                    case SpecialType.Skip:
+                    case "Skip":
                         tail = "skip";
+                        imgFileName = prefixFileName + tail;
+                        CardSkip cardSkip = new CardSkip(imgFileName, pSuit);
+                        AddCardToDeck(cardSkip, 2);//two of each
                         break;
-                }
-                string imgFileName = "card_front_suit_" + pColour + "_" + tail;
-                CardSpecial cardSpecial = new CardSpecial(imgFileName, pSuit, specialType);
-                AddCardToDeck(cardSpecial, 2);//two of each
+                } 
             }
         }
 
