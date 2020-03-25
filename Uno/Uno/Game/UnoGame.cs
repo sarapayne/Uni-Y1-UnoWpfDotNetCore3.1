@@ -402,6 +402,7 @@ namespace Uno
                             otherPlayers.Add(player);
                         }
                     }
+                    EventPublisher.HideGuiWindows();
                     EventPublisher.SwapHandsPlayerChoose(otherPlayers, mPlayers[mCurrentPlayer]);
                 }
             }

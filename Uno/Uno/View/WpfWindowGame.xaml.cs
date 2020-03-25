@@ -30,16 +30,12 @@ namespace Uno
             InitializeComponent();
             mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
             EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
-            EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseMainMenu;
+            EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseHideGuiWindow;
             EventPublisher.RaiseCloseWindow += WpfWindowGame_CloseWindow;
+            EventPublisher.RaiseHideGuiWindows += WpfWindowGame_RaiseHideGuiWindow;
         }
 
-        /// <summary>
-        /// hides this window when another menu is called
-        /// </summary>
-        /// <param name="sender">always null</param>
-        /// <param name="eventArgs">always null </param>
-        private void WpfWindowGame_RaiseMainMenu(object sender, EventArgs eventArgs)
+        private void WpfWindowGame_RaiseHideGuiWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }

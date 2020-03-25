@@ -36,6 +36,15 @@ namespace Uno
         public static event EventHandler RaiseUnsubscribeTournamentEvents;
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
+        public static event EventHandler RaiseHideGuiWindows;
+
+        public static void HideGuiWindows()
+        {
+            if (RaiseHideGuiWindows != null)
+            {
+                EventPublisher.RaiseHideGuiWindows(null, null);
+            }
+        }
 
         public static void SwapHandsPlayerChoose(List<Player> pPlayers, Player pCurrentPlayer)
         {
