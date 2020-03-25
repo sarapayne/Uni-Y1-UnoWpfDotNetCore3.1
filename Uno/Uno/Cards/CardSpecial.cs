@@ -40,24 +40,5 @@ namespace Uno
                 EventPublisher.SkipGo();
             }
         }
-
-        ///// <summary>
-        ///// Overides the base class calling events based on the type of special card. 
-        ///// </summary>
-        //public void RunCardSpecialFeatures()
-        //{
-        //    if (mSpecialType == SpecialType.Draw)
-        //    {
-        //        EventPublisher.DrawTwoCards();
-        //    }
-        //    else if (mSpecialType == SpecialType.Reverse)
-        //    {
-        //        EventPublisher.ReverseDirection();
-        //    }
-        //    else if (mSpecialType == SpecialType.Skip)
-        //    {
-        //        EventPublisher.SkipGo();
-        //    }
-        //}
     }
 }
