@@ -287,7 +287,11 @@ namespace Uno
         /// <param name="eventArgs">selected card object</param>
         protected virtual void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {
-            eventArgs.UnoCard.RunCardSpecialFeatures();
+            if (eventArgs.UnoCard is CardSpecial)
+            {
+                (eventArgs.UnoCard as CardSpecial).RunCardSpecialFeatures();
+            }
+                
             mDeck.DiscardPile.Add(eventArgs.UnoCard);
             mPlayers[mCurrentPlayer].Cards.Remove(eventArgs.UnoCard);
             if (eventArgs.UnoCard is CardWild)

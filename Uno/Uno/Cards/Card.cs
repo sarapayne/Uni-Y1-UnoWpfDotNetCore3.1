@@ -37,14 +37,5 @@ namespace Uno
             get { return this.mUniqueItentifier; }
             set { this.mUniqueItentifier = value; }
         }
-
-        /// <summary>
-        /// Overridden by some cards
-        /// </summary>
-        public virtual void RunCardSpecialFeatures()
-        {
-            //nothing to do here. 
-        }
-
     }
 }

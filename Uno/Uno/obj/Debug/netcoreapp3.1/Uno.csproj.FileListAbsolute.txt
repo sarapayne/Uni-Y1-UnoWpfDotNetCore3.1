@@ -107,3 +107,9 @@ F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfW
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.CoreCompileInputs.cache
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowFinalScore.g.cs
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetupGame.g.cs
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowFinalScore.baml
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowSetupGame.baml
