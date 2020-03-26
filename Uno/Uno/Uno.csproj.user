@@ -12,6 +12,9 @@
     <Compile Update="View\WpfChooseSwapPlayer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\WpfWindowConsequences.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\WpfWindowFinalScore.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +33,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WpfChooseSwapPlayer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WpfWindowConsequences.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WpfWindowFinalScore.xaml">
