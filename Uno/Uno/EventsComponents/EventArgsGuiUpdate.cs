@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace Uno.EventsComponents
 {
-    public class EventArgsGuiUpdate
+    class EventArgsGuiUpdate
     {
         private Player mPlayer;
         private Deck mDeck;

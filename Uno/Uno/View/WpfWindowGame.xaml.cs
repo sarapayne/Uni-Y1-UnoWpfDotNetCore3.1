@@ -49,7 +49,7 @@ namespace Uno
         /// Full Deck (draw and discard)
         /// Extra Instructions
         /// </param>
-        protected virtual void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
+        private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
         {
             if (eventArgsGuiUpdate.ExtraInstructions == "ChooseColour")
             {   //sets up the window for wild card colour selection
@@ -154,7 +154,7 @@ namespace Uno
         /// This both adds/remove cards and displays them in a sorted fashion.
         /// </summary>
         /// <param name="pUpdateData"></param>
-        protected virtual void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
+        private void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
         {
             ClearCards();
             AddPlayerCards(pUpdateData.ThisPlayer.Cards);
@@ -253,7 +253,7 @@ namespace Uno
         /// adding one gui element with embeded card objects for each one found. 
         /// </summary>
         /// <param name="pPlayerCards">list of cards held by the player</param>
-        protected virtual void AddPlayerCards(List<Card> pPlayerCards)
+        private void AddPlayerCards(List<Card> pPlayerCards)
         {
             int lastGuiElement = pPlayerCards.Count;
             if (lastGuiElement > 54)
@@ -314,7 +314,7 @@ namespace Uno
         /// sets to appropriate image for the discard pile
         /// </summary>
         /// <param name="pDiscardPile"></param>
-        protected virtual void UpdateDrawCard(List<Card> pDiscardPile)
+        private void UpdateDrawCard(List<Card> pDiscardPile)
         {
             Uri imageUri = null;
             if (pDiscardPile.Count == 0)

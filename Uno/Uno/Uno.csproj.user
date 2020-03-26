@@ -18,9 +18,6 @@
     <Compile Update="View\WpfWindowGame.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\WpfWindowGameStacks.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\WpfWindowMainMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -39,9 +36,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WpfWindowGame.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\WpfWindowGameStacks.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WpfWindowMainMenu.xaml">

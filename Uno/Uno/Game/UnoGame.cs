@@ -255,8 +255,10 @@ namespace Uno
                 EventPublisher.SkipGo();
             }
             MessageBox.Show(message, "challenge result");
-            mPlayerHasPicked = true; //set to allow the change of player. 
-            EventPublisher.NextPlayerButtonClick();
+            mPlayerHasPicked = true; //set to allow the change of player.
+            mPlayerHasDiscarded = true; //set to block the playing of more cards.
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            //EventPublisher.NextPlayerButtonClick();
         }
 
         /// <summary>
@@ -270,11 +272,12 @@ namespace Uno
             {
                 DrawCard(NextPlayerWithoutSkips());
             }
-            mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work.
+            mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work. and stops playing of more cards. 
             mPlayerHasPicked = true;
             //FinishPlaceCard();
             EventPublisher.SkipGo();
-            EventPublisher.NextPlayerButtonClick();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            //EventPublisher.NextPlayerButtonClick();
         }
 
         /// <summary>
