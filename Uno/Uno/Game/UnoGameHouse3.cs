@@ -10,7 +10,7 @@ namespace Uno.Game
     class UnoGameHouse3: UnoGame
     {
         protected int mNextPlayerInLine;
-        protected int mNextPlayerAfterSkips;
+        
         protected bool mStackedCardsAccepted = false;
         protected int mNumNextPlayerDrawCards;
 
@@ -51,6 +51,9 @@ namespace Uno.Game
                     {
                         // Add code here to launch the GUI for consequences based on the next player in line who has not played a like for like card. 
                         // Neither the prequal code nor this code yet implemented. 
+                        mNextPlayerInLine = NextPlayerWithoutSips(mNextPlayerInLine);
+                        List<Card> playableCards = GetStackableCards(mNextPlayerInLine);
+                        EventPublisher.GuiConsequencesUpdate(mPlayers[mNextPlayerInLine].Name, playableCards);
                     }
                 }
                 int startPlayer = mCurrentPlayer;
@@ -72,6 +75,43 @@ namespace Uno.Game
         }
 
         /// <summary>
+        /// generates and returns a list of stackable cards from the porivided player number
+        /// </summary>
+        /// <param name="pNextPlayerInLine"></param>
+        /// <returns></returns>
+        protected virtual List<Card> GetStackableCards (int pNextPlayerInLine)
+        {
+            List<Card> stackableCards = new List<Card>();
+            Card lastDiscardedCard = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
+            foreach(Card card in mPlayers[pNextPlayerInLine].Cards)
+            {
+                switch (lastDiscardedCard)
+                {
+                    case CardWild discardCardWild:
+                        if (card is CardWild && (card as CardWild).CardsToDraw > 0)
+                        {
+                            stackableCards.Add(card);
+                        }
+                        break;
+                    case CardSkip discardedCardSkip:
+                        if(card is CardSkip)
+                        {
+                            stackableCards.Add(card);
+                        }
+                        break;
+                    case CardDraw discardedCardDraw:
+                        if (card is CardDraw)
+                        {
+                            stackableCards.Add(card);
+                        }
+                        break;
+                }
+            }
+            return stackableCards;
+        }
+            
+
+        /// <summary>
         /// Overrides the base class so that the total to pick up is increased instead of passing strait to the next player now.
         /// </summary>
         /// <param name="sender">always null</param>
@@ -89,6 +129,8 @@ namespace Uno.Game
         {
             base.ResetTurnVariblesForNextPlayer();
             mStackedCardsAccepted = false;
+            mNumNextPlayerDrawCards = 0;
+            mNextPlayerInLine = mCurrentPlayer;//set to current player so it moves to the next natural in line when update is called. 
         }
             
 
