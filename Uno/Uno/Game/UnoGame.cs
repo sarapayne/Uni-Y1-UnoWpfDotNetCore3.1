@@ -273,7 +273,6 @@ namespace Uno
             }
             mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work. and stops playing of more cards. 
             mPlayerHasPicked = true;
-            //FinishPlaceCard();
             EventPublisher.SkipGo();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
@@ -324,10 +323,7 @@ namespace Uno
                     nextPlayer = NextPlayerWithoutSips(startPlayer);
                 }
                 mCurrentPlayer = nextPlayer;
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
+                ResetTurnVariblesForNextPlayer();
                 mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
@@ -336,6 +332,17 @@ namespace Uno
                 MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
+        }
+
+        /// <summary>
+        /// Resets the variables for this turn for the next player.
+        /// </summary>
+        protected virtual void ResetTurnVariblesForNextPlayer()
+        {
+            mNextPlayersToSkipTotal = 0;
+            mPlayerHasPicked = false;
+            mPlayerHasDiscarded = false;
+            mCardsDrawnThisTurn.Clear();
         }
 
         /// <summary>
