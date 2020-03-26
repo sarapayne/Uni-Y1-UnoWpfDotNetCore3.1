@@ -151,9 +151,17 @@ namespace Uno.View
             {
                 rulesType = RulesType.House1;
             }
-            else
+            else if (radioHouseRules2.IsChecked == true)
             {
                 rulesType = RulesType.House2;
+            }
+            else if (radioHouseRules3.IsChecked == true)
+            {
+                rulesType = RulesType.House3;
+            }
+            else
+            {   //how did we end up here? did someone add too many options to the GUI?
+                MessageBox.Show("Something has gone wrong, please contact support", "unknown rule set selected.");
             }
             EventPublisher.NewGame(mPlayers, dealer, rulesType, numOfSwapHandCards);
             this.Hide();

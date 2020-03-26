@@ -7,5 +7,10 @@ namespace Uno.Game
     class UnoGameHouse3: UnoGame
     {
 
+        public UnoGameHouse3(List<string> pPlayerNames, int pdealer, int pNumOfSwapHands) : base(pPlayerNames, pdealer, pNumOfSwapHands)
+        {
+
+        }
+
     }
 }
