@@ -12,6 +12,7 @@ namespace Uno
         public static event EventHandler <EventArgsColourPick> RaiseColourPick;
         public static event EventHandler <EventArgsPlayCard> RaisePlayCard;
         public static event EventHandler <EventArgsGuiUpdate> RaiseGuiUpdate;
+        public static event EventHandler<EventArgsGuiConsequencesUpdate> RaiseGuiConsequencesUpdate;
         public static event EventHandler <EventArgsFinalScore> RaiseFinalScore;
         public static event EventHandler <EventArgsAddToTournament> RaiseAddToTournament;
         public static event EventHandler<EventArgsLoadSave> RaiseLoadTournament;
@@ -37,6 +38,14 @@ namespace Uno
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
+
+        public static void GuiConsequencesUpdate(string pPlayerName, List<Card> pPlayableCards)
+        {
+            if (RaiseGuiConsequencesUpdate != null)
+            {
+                EventPublisher.RaiseGuiConsequencesUpdate(null, new EventArgsGuiConsequencesUpdate(pPlayerName, pPlayableCards));
+            }
+        }
 
         public static void HideGuiWindows()
         {

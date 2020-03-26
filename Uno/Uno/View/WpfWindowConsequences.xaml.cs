@@ -76,7 +76,7 @@ namespace Uno.View
         private void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
         {
             ClearCards();
-            AddPlayerCards(pUpdateData.ThisPlayer.Cards);
+            AddPlayerCards(pUpdateData.ThisPlayer.Cards, pUpdateData.ThisDeck.DiscardPile);
             UpdateDrawCard(pUpdateData.ThisDeck.DiscardPile);
             labelSecondTitle.Content = pUpdateData.ThisPlayer.Name;
             this.Show();
@@ -131,16 +131,15 @@ namespace Uno.View
         /// adding one gui element with embeded card objects for each one found. 
         /// </summary>
         /// <param name="pPlayerCards">list of cards held by the player</param>
-        private void AddPlayerCards(List<Card> pPlayerCards)
+        private void AddPlayerCards(List<Card> pPlayerCards, List<Card>pDiscardPile)
         {
-            int lastGuiElement = pPlayerCards.Count;
-            if (lastGuiElement > 54)
-            {   //According to a source I read it is basically impossible under normal game play for one player to have more than 35 cards unless
-                //they are deliberately collecting cards. So instead of worrying about handling the eventuality I just stopped a crash if they hold 
-                //more than half of the whole deck. 
-                lastGuiElement = 54;
-                MessageBox.Show("You have more than 54 cards, you can continue to play but only the first 54 cards will be show", "too many cards");
+            List<Card> cardsToDisplay = new List<Card>();
+            Card lastPlayedCard = pDiscardPile[pDiscardPile.Count - 1];
+            foreach(Card card in pPlayerCards)
+            {
+                if 
             }
+
             for (int playerCardIndex = 0; playerCardIndex < lastGuiElement; playerCardIndex++)
             {   //places upto 18 cards in 3 rows onto the GUI
                 Card card = pPlayerCards[playerCardIndex];
