@@ -317,16 +317,13 @@ namespace Uno
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
-                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
-                if (mforwards) 
-                { 
-                    nextPlayerWithoutSips += mNextPlayersToSkipTotal; 
+                int startPlayer = mCurrentPlayer;
+                int nextPlayer = 0;//just initilise at this point. 
+                for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
+                {
+                    nextPlayer = NextPlayerWithoutSips(startPlayer);
                 }
-                else 
-                { 
-                    nextPlayerWithoutSips-= mNextPlayersToSkipTotal; 
-                }
-                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
+                mCurrentPlayer = nextPlayer;
                 mNextPlayersToSkipTotal = 0;
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
@@ -486,27 +483,6 @@ namespace Uno
                 nextPlayer = 0;
             }
             return nextPlayer;
-        }
-
-        
-        /// <summary>
-        /// takes an index and corrects it if its outside the bounds of the list
-        /// plans to expand this later to account for multiple skips. 
-        /// </summary>
-        /// <param name="pIndex">list index after applying skips before correction</param>
-        /// <returns>fixed index</returns>
-        protected virtual int FixOutOfBounds(int pIndex)
-        {
-            int toFix = pIndex;
-            if (pIndex < 0)
-            {
-                toFix = mPlayers.Count - 1;
-            }
-            else if (pIndex >= mPlayers.Count)
-            {
-                toFix = 0;
-            }
-            return toFix;
         }
 
         /// <summary>

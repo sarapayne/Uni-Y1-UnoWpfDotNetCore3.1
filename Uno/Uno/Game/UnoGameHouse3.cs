@@ -45,16 +45,13 @@ namespace Uno.Game
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
-                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
-                if (mforwards)
+                int startPlayer = mCurrentPlayer;
+                int nextPlayer = 0;//just initilise at this point. 
+                for (int skips = 0; skips < mNextPlayersToSkipTotal; skips++)
                 {
-                    nextPlayerWithoutSips += mNextPlayersToSkipTotal;
+                    nextPlayer = NextPlayerWithoutSips(startPlayer);
                 }
-                else
-                {
-                    nextPlayerWithoutSips -= mNextPlayersToSkipTotal;
-                }
-                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
+                mCurrentPlayer = nextPlayer;
                 mNextPlayersToSkipTotal = 0;
                 mPlayerHasPicked = false;
                 mPlayerHasDiscarded = false;
