@@ -130,6 +130,7 @@ namespace Uno
             WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
             WpfChooseSwapPlayer wpfChooseSwapPlayer = new WpfChooseSwapPlayer();
+            WpfWindowConsequences wpfWindowConsequences = new WpfWindowConsequences();
         }
 
         /// <summary>
