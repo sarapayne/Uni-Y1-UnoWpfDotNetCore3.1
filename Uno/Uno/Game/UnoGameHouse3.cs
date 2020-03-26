@@ -43,27 +43,7 @@ namespace Uno.Game
 
         protected override void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
-            if (mPlayerHasDiscarded || mPlayerHasPicked)
-            {
-                int startPlayer = mCurrentPlayer;
-                int nextPlayer = 0;//just initilise at this point. 
-                for (int skips = 0; skips < mNextPlayersToSkipTotal; skips++)
-                {
-                    nextPlayer = NextPlayerWithoutSips(startPlayer);
-                }
-                mCurrentPlayer = nextPlayer;
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
-                mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            }
-            else
-            {
-                MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            }
+            base.UnoGame_RaiseNextPlayerButtonClick(sender, eventArgs);
         }
 
         protected override void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
