@@ -258,7 +258,6 @@ namespace Uno
             mPlayerHasPicked = true; //set to allow the change of player.
             mPlayerHasDiscarded = true; //set to block the playing of more cards.
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            //EventPublisher.NextPlayerButtonClick();
         }
 
         /// <summary>
@@ -277,7 +276,6 @@ namespace Uno
             //FinishPlaceCard();
             EventPublisher.SkipGo();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
-            //EventPublisher.NextPlayerButtonClick();
         }
 
         /// <summary>
@@ -462,16 +460,22 @@ namespace Uno
         /// </summary>
         /// <returns>index of the player</returns>
         protected virtual int NextPlayerWithoutSkips()
-        {   //this is not using the fix out of bounds method do to plans to expand the skips
+        {
+            return NextPlayerWithoutSips(mCurrentPlayer);
+        }
+
+        protected virtual int NextPlayerWithoutSips(int pStartPlayer)
+        {
+            //this is not using the fix out of bounds method do to plans to expand the skips
             //in a later release with more alternate rules. 
             int nextPlayer = 0;
             if (mforwards)
             {
-                nextPlayer = mCurrentPlayer+1;
+                nextPlayer = pStartPlayer + 1;
             }
             else
             {
-                nextPlayer = mCurrentPlayer-1;
+                nextPlayer = pStartPlayer - 1;
             }
             if (nextPlayer < 0)
             {
