@@ -8,11 +8,13 @@ namespace Uno.EventsComponents
     {
         private string mPlayerName;
         private List<Card> mPlayableCards;
+        private Card mLastDisardedCard;
 
-        public EventArgsGuiConsequencesUpdate (string pPlayerName, List<Card> pPlayableCards)
+        public EventArgsGuiConsequencesUpdate (string pPlayerName, List<Card> pPlayableCards, Card pLastDiscardedCard)
         {
             this.mPlayableCards = pPlayableCards;
             this.mPlayerName = pPlayerName;
+            this.mLastDisardedCard = pLastDiscardedCard;
         }
 
         public string PlayerName
@@ -23,6 +25,11 @@ namespace Uno.EventsComponents
         public List<Card> PlayableCards
         {
             get { return this.mPlayableCards; }
+        }
+
+        public Card LastDiscarededCard
+        {
+            get { return this.mLastDisardedCard; }
         }
     }
 }

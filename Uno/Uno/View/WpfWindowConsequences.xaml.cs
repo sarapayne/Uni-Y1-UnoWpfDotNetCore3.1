@@ -30,12 +30,14 @@ namespace Uno.View
             EventPublisher.RaiseHideGuiWindows += HideGuiWindow;
             EventPublisher.RaiseMainMenu += HideGuiWindow;
             EventPublisher.RaiseCloseWindow += CloseWindow;
+            EventPublisher.RaiseGuiConsequencesUpdate += UpdateDisplay;
         }
 
         private void UnsubscribeEvents()
         {
             EventPublisher.RaiseHideGuiWindows -= HideGuiWindow;
             EventPublisher.RaiseMainMenu -= HideGuiWindow;
+            EventPublisher.RaiseGuiConsequencesUpdate -= UpdateDisplay;
         }
 
         private void HideGuiWindow(object sender, EventArgs eventArgs)
@@ -73,12 +75,12 @@ namespace Uno.View
         /// This both adds/remove cards and displays them in a sorted fashion.
         /// </summary>
         /// <param name="pUpdateData"></param>
-        private void UpdateDisplay(EventArgsGuiUpdate pUpdateData)
+        private void UpdateDisplay(object sender, EventArgsGuiConsequencesUpdate pUpdateData)
         {
             ClearCards();
-            AddPlayerCards(pUpdateData.ThisPlayer.Cards, pUpdateData.ThisDeck.DiscardPile);
-            UpdateDrawCard(pUpdateData.ThisDeck.DiscardPile);
-            labelSecondTitle.Content = pUpdateData.ThisPlayer.Name;
+            AddPlayerCards(pUpdateData.PlayableCards, pUpdateData.LastDiscarededCard);
+            UpdateDeckImage(pUpdateData.LastDiscarededCard);
+            labelSecondTitle.Content = pUpdateData.PlayerName;
             this.Show();
         }
 
@@ -86,43 +88,10 @@ namespace Uno.View
         /// sets to appropriate image for the discard pile
         /// </summary>
         /// <param name="pDiscardPile"></param>
-        private void UpdateDrawCard(List<Card> pDiscardPile)
+        private void UpdateDeckImage(Card pLastDiscardedCard)
         {
             Uri imageUri = null;
-            if (pDiscardPile.Count == 0)
-            {
-                string emptyCardName = "card_empty";
-                imageUri = GetResourceUri(emptyCardName);
-            }
-            else
-            {
-                Card card = pDiscardPile[pDiscardPile.Count - 1];
-                if (card is CardWild)
-                {
-                    CardWild wildCard = card as CardWild;
-                    string imageName = "";
-                    switch (wildCard.NextSuit)
-                    {
-                        case Suit.Red:
-                            imageName = "card_front_wild_red";
-                            break;
-                        case Suit.Green:
-                            imageName = "card_front_wild_green";
-                            break;
-                        case Suit.Blue:
-                            imageName = "card_front_wild_blue";
-                            break;
-                        case Suit.Yellow:
-                            imageName = "card_front_wild_yellow";
-                            break;
-                    }
-                    imageUri = GetResourceUri(imageName);
-                }
-                else
-                {
-                    imageUri = GetResourceUri(card.ImageName);
-                }
-            }
+            imageUri = GetResourceUri(pLastDiscardedCard.ImageName);
             imageDiscardPile.Source = new BitmapImage(imageUri);
         }
 
@@ -131,37 +100,18 @@ namespace Uno.View
         /// adding one gui element with embeded card objects for each one found. 
         /// </summary>
         /// <param name="pPlayerCards">list of cards held by the player</param>
-        private void AddPlayerCards(List<Card> pPlayerCards, List<Card>pDiscardPile)
+        private void AddPlayerCards(List<Card> pPlayerCards, Card pLastDiscardedCard)
         {
-            List<Card> cardsToDisplay = new List<Card>();
-            Card lastPlayedCard = pDiscardPile[pDiscardPile.Count - 1];
-            foreach(Card card in pPlayerCards)
-            {
-                if 
-            }
-
-            for (int playerCardIndex = 0; playerCardIndex < lastGuiElement; playerCardIndex++)
+            for (int playerCardIndex = 0; playerCardIndex < pPlayerCards.Count; playerCardIndex++)
             {   //places upto 18 cards in 3 rows onto the GUI
                 Card card = pPlayerCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
                 string imageName = card.ImageName;
                 Uri imageUri = GetResourceUri(imageName);
                 playerCard.Source = new BitmapImage(imageUri);
-                if (playerCardIndex < 18)
-                {
-                    Grid.SetColumn(playerCard, playerCardIndex + 1);
-                    Grid.SetRow(playerCard, 3);
-                }
-                else if (playerCardIndex < 36)
-                {
-                    Grid.SetColumn(playerCard, playerCardIndex - 17); //18 cards in a row, and col number starts at 1
-                    Grid.SetRow(playerCard, 4);
-                }
-                else
-                {
-                    Grid.SetColumn(playerCard, playerCardIndex - 35); //index - (2*18-1)
-                    Grid.SetRow(playerCard, 5);
-                }
+                //unlike the main game window the largest number of cards possible is 8. So no need to manage rows. 
+                Grid.SetColumn(playerCard, playerCardIndex + 1);
+                Grid.SetRow(playerCard, 3);
                 playerCard.MouseUp += new MouseButtonEventHandler(GameButtonClickHandler);
                 MainGrid.Children.Add(playerCard);
             }

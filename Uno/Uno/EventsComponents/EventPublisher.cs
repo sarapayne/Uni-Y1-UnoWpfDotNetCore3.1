@@ -39,11 +39,11 @@ namespace Uno
         public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
 
-        public static void GuiConsequencesUpdate(string pPlayerName, List<Card> pPlayableCards)
+        public static void GuiConsequencesUpdate(string pPlayerName, List<Card> pPlayableCards, Card pLastDiscard)
         {
             if (RaiseGuiConsequencesUpdate != null)
             {
-                EventPublisher.RaiseGuiConsequencesUpdate(null, new EventArgsGuiConsequencesUpdate(pPlayerName, pPlayableCards));
+                EventPublisher.RaiseGuiConsequencesUpdate(null, new EventArgsGuiConsequencesUpdate(pPlayerName, pPlayableCards, pLastDiscard));
             }
         }
 

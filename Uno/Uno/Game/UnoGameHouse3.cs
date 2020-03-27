@@ -35,6 +35,17 @@ namespace Uno.Game
         }
 
         /// <summary>
+        /// Updates the next player in line, then sends the option to stack cards
+        /// to that player. 
+        /// </summary>
+        protected virtual void SendStackCardsOption()
+        {
+            mNextPlayerInLine = NextPlayerWithoutSips(mNextPlayerInLine);
+            List<Card> playableCards = GetStackableCards(mNextPlayerInLine);
+            EventPublisher.GuiConsequencesUpdate(mPlayers[mNextPlayerInLine].Name, playableCards, mDeck.DiscardPile[mDeck.DiscardPile.Count-1]);
+        }
+
+        /// <summary>
         /// Overides the base class and adds a check to see if a stackable card is on the discard pile and if other players need to take action.
         /// Launces the WpfConsequencesWindow if they do. 
         /// </summary>
@@ -49,11 +60,7 @@ namespace Uno.Game
                 {
                     if (!mStackedCardsAccepted)
                     {
-                        // Add code here to launch the GUI for consequences based on the next player in line who has not played a like for like card. 
-                        // Neither the prequal code nor this code yet implemented. 
-                        mNextPlayerInLine = NextPlayerWithoutSips(mNextPlayerInLine);
-                        List<Card> playableCards = GetStackableCards(mNextPlayerInLine);
-                        EventPublisher.GuiConsequencesUpdate(mPlayers[mNextPlayerInLine].Name, playableCards);
+                        SendStackCardsOption();
                     }
                 }
                 int startPlayer = mCurrentPlayer;
