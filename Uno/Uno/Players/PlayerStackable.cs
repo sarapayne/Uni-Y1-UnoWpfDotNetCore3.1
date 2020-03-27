@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Uno.Players
 {
+    [Serializable]
     class PlayerStackable : Player
     {
         protected int mTurnsToSkip;

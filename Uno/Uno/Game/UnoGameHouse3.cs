@@ -8,6 +8,7 @@ using Uno.Players;
 
 namespace Uno.Game
 {
+    [Serializable]
     class UnoGameHouse3: UnoGame
     {
         protected int mNextPlayerInLine;
@@ -30,11 +31,6 @@ namespace Uno.Game
         {
             base.UnoGame_RaiseUnsubscribeEvents(sender, eventArgs);
             EventPublisher.RaiseStackedCardButtonClick -= StackedCardButtonClick;
-        }
-
-        protected override void FinishPlaceCard()
-        {
-            base.FinishPlaceCard();
         }
 
         /// <summary>
