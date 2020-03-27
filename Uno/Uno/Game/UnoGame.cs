@@ -469,10 +469,13 @@ namespace Uno
             return NextPlayerWithoutSips(mCurrentPlayer);
         }
 
+        /// <summary>
+        /// returns the next player which follows the provided player number. 
+        /// </summary>
+        /// <param name="pStartPlayer"></param>
+        /// <returns></returns>
         protected virtual int NextPlayerWithoutSips(int pStartPlayer)
         {
-            //this is not using the fix out of bounds method do to plans to expand the skips
-            //in a later release with more alternate rules. 
             int nextPlayer = 0;
             if (mforwards)
             {

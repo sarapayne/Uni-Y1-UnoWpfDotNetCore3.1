@@ -98,6 +98,9 @@ namespace Uno.Game
             }
         }
 
+        /// <summary>
+        /// applies the stacked consequences to the player including drawing cards and skips go
+        /// </summary>
         protected virtual void ApplyStackedConsequences()
         {
             (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give al the skips to this player if any exist.
@@ -165,14 +168,31 @@ namespace Uno.Game
             mNextPlayerInLine = mCurrentPlayer;//set to current player so it moves to the next natural in line when update is called. 
         }
             
+        /// <summary>
+        /// process a stacked played card, adding skips and draws to the total for the next person
+        /// then deals with actually moving the cards from the players hand to the draw pile
+        /// if its a wild ensures the changed suit matches the first in the stacked cards.
+        /// calls next player when finished. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgsPlayCard"></param>
         protected virtual void StackedCardButtonClick(object sender, EventArgsPlayCard eventArgsPlayCard)
         {
             //add code here to process the played card. 
-        }
-
-        protected override void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
-        {
-            base.UnoGame_RaisePlayCard(sender, eventArgs);
+            Card playedCard = eventArgsPlayCard.UnoCard;
+            if (playedCard is CardDraw)
+            {   //if this card is played, the top of the discard pile MUST be a wild+4 so no need to test.
+                mNumNextPlayerDrawCards += 4;
+                (playedCard as CardWild).NextSuit = (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild).NextSuit;
+            }
+            else if (playedCard is CardDraw)
+            {
+                mNumNextPlayerDrawCards += 2;
+            }
+            EventPublisher.SkipGo();
+            mDeck.DiscardPile.Add(playedCard);
+            mPlayers[mNextPlayerInLine].Cards.Remove(playedCard);
+            EventPublisher.NextPlayerButtonClick();
         }
 
         /// <summary>
@@ -244,6 +264,10 @@ namespace Uno.Game
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
+        /// <summary>
+        /// Overrides the base class. Changes to the if current player to allow for stacked cards.
+        /// </summary>
+        /// <param name="pPlayer"></param>
         protected override void DrawCard(int pPlayer)
         {
             if (mDeck.DiscardPile.Count == 0 && mDeck.DrawPile.Count == 0)
@@ -279,6 +303,11 @@ namespace Uno.Game
             }
         }
 
+        /// <summary>
+        /// Overrides the base method by creating PlayerStackable objects instead of Player objects.
+        /// </summary>
+        /// <param name="pPlayerNames"></param>
+        /// <returns></returns>
         protected override List<Player> GenerateNewPlayers(List<string>pPlayerNames)
         {
             List<Player> players = new List<Player>();
