@@ -28,6 +28,7 @@ namespace Uno.Game
         protected override void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
         {
             base.UnoGame_RaiseUnsubscribeEvents(sender, eventArgs);
+            EventPublisher.RaiseStackedCardButtonClick -= StackedCardButtonClick;
         }
 
         protected override void FinishPlaceCard()
