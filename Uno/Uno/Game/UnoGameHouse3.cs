@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using Uno.Cards;
 using Uno.EventsComponents;
+using Uno.Players;
 
 namespace Uno.Game
 {
@@ -219,6 +220,17 @@ namespace Uno.Game
             mPlayerHasPicked = true; //set to allow the change of player.
             mPlayerHasDiscarded = true; //set to block the playing of more cards.
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+        }
+
+        protected override List<Player> GenerateNewPlayers(List<string>pPlayerNames)
+        {
+            List<Player> players = new List<Player>();
+            for (int playerIndex = 0; playerIndex < pPlayerNames.Count; playerIndex++)
+            {
+                PlayerStackable player = new PlayerStackable(playerIndex, pPlayerNames[playerIndex]);
+                players.Add(player);
+            }
+            return players;
         }
     }
 }
