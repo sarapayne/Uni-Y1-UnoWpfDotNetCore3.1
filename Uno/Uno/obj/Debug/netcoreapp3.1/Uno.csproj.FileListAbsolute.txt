@@ -82,7 +82,12 @@ F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfW
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml
 F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csproj.CoreCompileInputs.cache
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.exe
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.deps.json
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.json
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.dev.json
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.dll
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.pdb
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\MainWindow.g.cs
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.g.cs
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowConsequences.g.cs
@@ -93,12 +98,6 @@ C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\App.g.cs
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno_MarkupCompile.cache
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno_MarkupCompile.lref
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.exe
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.deps.json
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.json
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.runtimeconfig.dev.json
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.dll
-C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\bin\Debug\netcoreapp3.1\Uno.pdb
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\MainWindow.baml
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfChooseSwapPlayer.baml
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\View\WpfWindowConsequences.baml
@@ -115,3 +114,4 @@ C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.dll
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.pdb
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.genruntimeconfig.cache
+C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\Uno.csprojAssemblyReference.cache

@@ -219,7 +219,7 @@ namespace Uno.Game
             bool hadPlayableCard = false;
             foreach (Card card in mPlayers[mCurrentPlayer].Cards)
             {
-                bool playableCardFound = CheckIfCardCanBePlayed(card);
+                bool playableCardFound = CheckIfCardCanBePlayed(card, 0);// 0 is the offset from the last discarded card. 
                 if (playableCardFound)
                 {
                     if (!(card is CardWild))

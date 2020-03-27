@@ -166,7 +166,7 @@ namespace Uno
             Card card = ev.mPlayingCard;
             if (!mPlayerHasDiscarded) //block playing more cards if player has discard
             {   //only come here if play is allowed for this player. 
-                bool cardPlayable = CheckIfCardCanBePlayed(card);
+                bool cardPlayable = CheckIfCardCanBePlayed(card, 0);//0 is the offset from the last discared card, 
                 if (mPlayerHasPicked)
                 {
                     cardPlayable = CheckIfDrawnCard(card);
@@ -219,7 +219,7 @@ namespace Uno
             bool hadPlayableCard = false;
             foreach (Card card in mPlayers[mCurrentPlayer].Cards)
             {
-                bool playableCardFound = CheckIfCardCanBePlayed(card);
+                bool playableCardFound = CheckIfCardCanBePlayed(card, 1);//the 0 is the offset from the last discarded card. 
                 if (playableCardFound)
                 {
                     if (!(card is CardWild))
@@ -317,11 +317,11 @@ namespace Uno
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
-                int startPlayer = mCurrentPlayer;
-                int nextPlayer = 0;//just initilise at this point. 
+                //int startPlayer = mCurrentPlayer;
+                int nextPlayer = mCurrentPlayer; 
                 for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
                 {
-                    nextPlayer = NextPlayerWithoutSips(startPlayer);
+                    nextPlayer = NextPlayerWithoutSips(nextPlayer);
                 }
                 mCurrentPlayer = nextPlayer;
                 ResetTurnVariblesForNextPlayer();
@@ -608,17 +608,21 @@ namespace Uno
         /// </summary>
         /// <param name="pCard"></param>
         /// <returns></returns>
-        protected virtual bool CheckIfCardCanBePlayed(Card pCard)
-        {
+        protected virtual bool CheckIfCardCanBePlayed(Card pPlayedCard, int pOffset)
+        {//the offset is from the last discared card, used by +4 challenge
             bool canBePlayed = false;
             if (!(mDeck.DiscardPile.Count == 0 || mDeck.DiscardPile == null))
             {
-                Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
-                switch (discardPile)
+                if(mDeck.DiscardPile.Count < 2 )
+                {   //catch the edge case where someone played a plus + card after all other cards were exhausted
+                    pOffset = 0;
+                }
+                Card checkAgainstCard = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1 - pOffset];
+                switch (checkAgainstCard)
                 {   //start evaluation by looking at the discard pile
                     case CardWild discardPileWild:
                         //discard pile is wild. 
-                        switch (pCard)
+                        switch (pPlayedCard)
                         {   //Evaluate the card being played. 
                             case CardSuit playedSuitCard:
                                 //if the suit matches the wild card in the discard pile ok
@@ -632,7 +636,7 @@ namespace Uno
                         break;
                     case CardSuit discardPileSuit:
                         //card on discard pile is a suit card.
-                        switch (pCard)
+                        switch (pPlayedCard)
                         //evaluate next against the card being played.
                         {
                             case CardWild playedWildCard:
