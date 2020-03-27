@@ -1,5 +1,5 @@
 ﻿Uno
-
+1.0.0.0
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
 71527252212
 
-42927972492
+44-611707091
 193-1523820446
 MainWindow.xaml;View\WpfChooseSwapPlayer.xaml;View\WpfWindowConsequences.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
 

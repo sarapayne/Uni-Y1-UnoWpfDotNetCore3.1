@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\manwa\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
 71527252212
 
-41-526412946
+42-1058256170
 193-1523820446
 MainWindow.xaml;View\WpfChooseSwapPlayer.xaml;View\WpfWindowConsequences.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
 
-True
+False
 
