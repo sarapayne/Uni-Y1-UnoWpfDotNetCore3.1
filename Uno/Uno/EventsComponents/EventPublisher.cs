@@ -11,6 +11,7 @@ namespace Uno
         public static event EventHandler <EventArgsGameButtonClick> RaiseGameButtonClick; 
         public static event EventHandler <EventArgsColourPick> RaiseColourPick;
         public static event EventHandler <EventArgsPlayCard> RaisePlayCard;
+        public static event EventHandler<EventArgsPlayCard> RaiseStackedCardButtonClick;
         public static event EventHandler <EventArgsGuiUpdate> RaiseGuiUpdate;
         public static event EventHandler<EventArgsGuiConsequencesUpdate> RaiseGuiConsequencesUpdate;
         public static event EventHandler <EventArgsFinalScore> RaiseFinalScore;
@@ -38,6 +39,14 @@ namespace Uno
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
+
+        public static void StackedCardButtonClick(Card pCard)
+        {
+            if (RaiseStackedCardButtonClick != null)
+            {
+                EventPublisher.RaiseStackedCardButtonClick(null, new EventArgsPlayCard(pCard));
+            }
+        }
 
         public static void GuiConsequencesUpdate(string pPlayerName, List<Card> pPlayableCards, Card pLastDiscard)
         {

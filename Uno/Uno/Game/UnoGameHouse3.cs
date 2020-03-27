@@ -22,6 +22,7 @@ namespace Uno.Game
         public override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
+            EventPublisher.RaiseStackedCardButtonClick += StackedCardButtonClick;
         }
 
         protected override void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
@@ -140,6 +141,10 @@ namespace Uno.Game
             mNextPlayerInLine = mCurrentPlayer;//set to current player so it moves to the next natural in line when update is called. 
         }
             
+        protected virtual void StackedCardButtonClick(object sender, EventArgsPlayCard eventArgsPlayCard)
+        {
+            //add code here to process the played card. 
+        }
 
         protected override void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
         {

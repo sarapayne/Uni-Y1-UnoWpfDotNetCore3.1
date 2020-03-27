@@ -67,7 +67,7 @@ namespace Uno.View
         {
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
-            EventPublisher.GameButtonClick(selectedCard);
+            EventPublisher.StackedCardButtonClick(selectedCard);
         }
 
         /// <summary>
