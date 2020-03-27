@@ -86,6 +86,7 @@ namespace Uno.Game
                     MessageBox.Show(mPlayers[mCurrentPlayer].ToString() + "skips their turn");
                     mPlayerHasDiscarded = true;//set to allow change of player in all circumstances
                     mPlayerHasPicked = true; //set to allow change of player all circumstances
+                    (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip--;
                     EventPublisher.NextPlayerButtonClick();
                 }
                 
