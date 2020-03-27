@@ -61,8 +61,9 @@ namespace Uno.Game
                 Card lastDiscardCard = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
                 if (lastDiscardCard is CardDraw || lastDiscardCard is CardSkip || (lastDiscardCard is CardWild && (lastDiscardCard as CardWild).CardsToDraw > 0))
                 {
-                    if (!mStackedCardsAccepted)
-                    {
+                    if (!mStackedCardsAccepted && mNextPlayersToSkipTotal != 0)
+                    {   //only come here if a possibility to stack cards exists. All stackable cards add skips. 
+                        //So if skips is set to 0, this means either its a new game, or the end of a stack was reached. 
                         SendStackCardsOption();
                     }
                 }
@@ -73,14 +74,35 @@ namespace Uno.Game
                     nextPlayer = NextPlayerWithoutSips(startPlayer);
                 }
                 mCurrentPlayer = nextPlayer;
+                ApplyStackedConsequences();
                 ResetTurnVariblesForNextPlayer();
                 mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                if (    (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip == 0 )
+                {
+                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                }
+                else
+                {
+                    MessageBox.Show(mPlayers[mCurrentPlayer].ToString() + "skips their turn");
+                    mPlayerHasDiscarded = true;//set to allow change of player in all circumstances
+                    mPlayerHasPicked = true; //set to allow change of player all circumstances
+                    EventPublisher.NextPlayerButtonClick();
+                }
+                
             }
             else
             {
                 MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+            }
+        }
+
+        protected virtual void ApplyStackedConsequences()
+        {
+            (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give al the skips to this player if any exist.
+            for(int count = 0; count < mNumNextPlayerDrawCards; count++)
+            {   //draw a cared how ever many times is needed. 
+                DrawCard(mCurrentPlayer);
             }
         }
 
@@ -120,7 +142,6 @@ namespace Uno.Game
             return stackableCards;
         }
             
-
         /// <summary>
         /// Overrides the base class so that the total to pick up is increased instead of passing strait to the next player now.
         /// </summary>
@@ -130,7 +151,7 @@ namespace Uno.Game
         {
             mNumNextPlayerDrawCards += 2;
             EventPublisher.SkipGo(); 
-        }
+        }   
 
         /// <summary>
         /// Calls the base class then resets a few member variables specific to this class. 
@@ -220,6 +241,41 @@ namespace Uno.Game
             mPlayerHasPicked = true; //set to allow the change of player.
             mPlayerHasDiscarded = true; //set to block the playing of more cards.
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+        }
+
+        protected override void DrawCard(int pPlayer)
+        {
+            if (mDeck.DiscardPile.Count == 0 && mDeck.DrawPile.Count == 0)
+            {
+                MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
+                mPlayerHasPicked = true;//set this to allow play to continue.
+            }
+            else if (mDeck.DrawPile.Count == 0 && mDeck.DiscardPile.Count == 1)
+            {
+                MoveCardFromDiscardToPlayer(pPlayer);
+                mPlayerHasPicked = true;
+            }
+            else if (mDeck.DrawPile.Count == 0)
+            {
+                mDeck.DeckRefresh();
+                MoveCardFromDrawToPlayer(pPlayer);
+                mPlayerHasPicked = true;
+            }
+            else
+            {
+                MoveCardFromDrawToPlayer(pPlayer);
+                mPlayerHasPicked = true;
+            }
+            if (pPlayer == mCurrentPlayer)
+            {
+                mPlayerHasPicked = true;
+                mPlayerHasDiscarded = true;//set these to allow play to continue 
+                if ((mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip != 0)
+                {
+                    mPlayers[mCurrentPlayer].SortPlayerCards();
+                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                }
+            }
         }
 
         protected override List<Player> GenerateNewPlayers(List<string>pPlayerNames)
