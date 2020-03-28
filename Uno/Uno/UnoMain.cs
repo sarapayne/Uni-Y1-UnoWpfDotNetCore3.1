@@ -14,7 +14,7 @@ namespace Uno
     [Serializable()]
     enum RulesType
     {
-        Standard, House1, House2
+        Standard, House1, House2, House3
     }
 
     [Serializable()]
@@ -81,6 +81,9 @@ namespace Uno
                 case RulesType.House2:
                     mUnoGame = new UnoGameHouse2(pPlayerNames, pDealer, pNumOfSwapHands);
                     break;
+                case RulesType.House3:
+                    mUnoGame = new UnoGameHouse3(pPlayerNames, pDealer, pNumOfSwapHands);
+                    break;
             } 
         }
 
@@ -127,6 +130,7 @@ namespace Uno
             WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
             WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
             WpfChooseSwapPlayer wpfChooseSwapPlayer = new WpfChooseSwapPlayer();
+            WpfWindowConsequences wpfWindowConsequences = new WpfWindowConsequences();
         }
 
         /// <summary>

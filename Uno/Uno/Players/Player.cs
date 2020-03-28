@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Uno
+namespace Uno.Players
 {
     [Serializable()]
     class Player
     {
-        private string mName;
-        private List<Card> mCards;
-        private int mNumber;
-        private int mFinalScore;
+        protected string mName;
+        protected List<Card> mCards;
+        protected int mNumber;
+        protected int mFinalScore;
 
         public Player (int pPlayerNumber, string pPlayerName)
         {
@@ -21,19 +21,19 @@ namespace Uno
             mFinalScore = 0;
         }
 
-        public int FinalScore
+        public virtual int FinalScore
         {
             get { return this.mFinalScore; }
             set { this.mFinalScore = value; }
         }
 
-        public List <Card> Cards
+        public virtual List<Card> Cards
         {
             get { return mCards; }
             set { mCards = value; }
         }
 
-        public string Name
+        public virtual string Name
         {
             get { return this.mName; }
         }
@@ -51,7 +51,7 @@ namespace Uno
         /// Sorts player cards using improved bubble sort since other than the first run
         /// the cards will be almost sorted with each subsequent use. 
         /// </summary>
-        public void SortPlayerCards()
+        public virtual void SortPlayerCards()
         {
             for (int outIndex = 0; outIndex < mCards.Count; outIndex++)
             {

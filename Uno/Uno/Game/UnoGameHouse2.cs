@@ -24,7 +24,7 @@ namespace Uno.Game
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            bool cardPlayable = CheckIfCardCanBePlayed(card);
+            bool cardPlayable = CheckIfCardCanBePlayed(card, 0);
             if (mPlayerHasPicked)
             {
                 cardPlayable = CheckIfDrawnCard(card);

@@ -5,6 +5,7 @@ using System.Windows;
 using Uno.Cards;
 using Uno.EventsComponents;
 using Uno.Interfaces;
+using Uno.Players;
 
 namespace Uno
 {
@@ -165,7 +166,7 @@ namespace Uno
             Card card = ev.mPlayingCard;
             if (!mPlayerHasDiscarded) //block playing more cards if player has discard
             {   //only come here if play is allowed for this player. 
-                bool cardPlayable = CheckIfCardCanBePlayed(card);
+                bool cardPlayable = CheckIfCardCanBePlayed(card, 0);//0 is the offset from the last discared card, 
                 if (mPlayerHasPicked)
                 {
                     cardPlayable = CheckIfDrawnCard(card);
@@ -218,7 +219,7 @@ namespace Uno
             bool hadPlayableCard = false;
             foreach (Card card in mPlayers[mCurrentPlayer].Cards)
             {
-                bool playableCardFound = CheckIfCardCanBePlayed(card);
+                bool playableCardFound = CheckIfCardCanBePlayed(card, 1);//the 0 is the offset from the last discarded card. 
                 if (playableCardFound)
                 {
                     if (!(card is CardWild))
@@ -255,8 +256,9 @@ namespace Uno
                 EventPublisher.SkipGo();
             }
             MessageBox.Show(message, "challenge result");
-            mPlayerHasPicked = true; //set to allow the change of player. 
-            EventPublisher.NextPlayerButtonClick();
+            mPlayerHasPicked = true; //set to allow the change of player.
+            mPlayerHasDiscarded = true; //set to block the playing of more cards.
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
         /// <summary>
@@ -270,11 +272,10 @@ namespace Uno
             {
                 DrawCard(NextPlayerWithoutSkips());
             }
-            mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work.
+            mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work. and stops playing of more cards. 
             mPlayerHasPicked = true;
-            //FinishPlaceCard();
             EventPublisher.SkipGo();
-            EventPublisher.NextPlayerButtonClick();
+            EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
 
         /// <summary>
@@ -316,20 +317,14 @@ namespace Uno
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
-                int nextPlayerWithoutSips = NextPlayerWithoutSkips();
-                if (mforwards) 
-                { 
-                    nextPlayerWithoutSips += mNextPlayersToSkipTotal; 
+                //int startPlayer = mCurrentPlayer;
+                int nextPlayer = mCurrentPlayer; 
+                for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
+                {
+                    nextPlayer = NextPlayerWithoutSips(nextPlayer);
                 }
-                else 
-                { 
-                    nextPlayerWithoutSips-= mNextPlayersToSkipTotal; 
-                }
-                mCurrentPlayer = FixOutOfBounds(nextPlayerWithoutSips);
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
+                mCurrentPlayer = nextPlayer;
+                ResetTurnVariblesForNextPlayer();
                 mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
@@ -338,6 +333,17 @@ namespace Uno
                 MessageBox.Show("Sorry you need to either pickup or play a card before you pass the turn to the next player", "player change error");
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }
+        }
+
+        /// <summary>
+        /// Resets the variables for this turn for the next player.
+        /// </summary>
+        protected virtual void ResetTurnVariblesForNextPlayer()
+        {
+            mNextPlayersToSkipTotal = 0;
+            mPlayerHasPicked = false;
+            mPlayerHasDiscarded = false;
+            mCardsDrawnThisTurn.Clear();
         }
 
         /// <summary>
@@ -459,16 +465,25 @@ namespace Uno
         /// </summary>
         /// <returns>index of the player</returns>
         protected virtual int NextPlayerWithoutSkips()
-        {   //this is not using the fix out of bounds method do to plans to expand the skips
-            //in a later release with more alternate rules. 
+        {
+            return NextPlayerWithoutSips(mCurrentPlayer);
+        }
+
+        /// <summary>
+        /// returns the next player which follows the provided player number. 
+        /// </summary>
+        /// <param name="pStartPlayer"></param>
+        /// <returns></returns>
+        protected virtual int NextPlayerWithoutSips(int pStartPlayer)
+        {
             int nextPlayer = 0;
             if (mforwards)
             {
-                nextPlayer = mCurrentPlayer+1;
+                nextPlayer = pStartPlayer + 1;
             }
             else
             {
-                nextPlayer = mCurrentPlayer-1;
+                nextPlayer = pStartPlayer - 1;
             }
             if (nextPlayer < 0)
             {
@@ -479,27 +494,6 @@ namespace Uno
                 nextPlayer = 0;
             }
             return nextPlayer;
-        }
-
-        
-        /// <summary>
-        /// takes an index and corrects it if its outside the bounds of the list
-        /// plans to expand this later to account for multiple skips. 
-        /// </summary>
-        /// <param name="pIndex">list index after applying skips before correction</param>
-        /// <returns>fixed index</returns>
-        protected virtual int FixOutOfBounds(int pIndex)
-        {
-            int toFix = pIndex;
-            if (pIndex < 0)
-            {
-                toFix = mPlayers.Count - 1;
-            }
-            else if (pIndex >= mPlayers.Count)
-            {
-                toFix = 0;
-            }
-            return toFix;
         }
 
         /// <summary>
@@ -614,17 +608,21 @@ namespace Uno
         /// </summary>
         /// <param name="pCard"></param>
         /// <returns></returns>
-        protected virtual bool CheckIfCardCanBePlayed(Card pCard)
-        {
+        protected virtual bool CheckIfCardCanBePlayed(Card pPlayedCard, int pOffset)
+        {//the offset is from the last discared card, used by +4 challenge
             bool canBePlayed = false;
             if (!(mDeck.DiscardPile.Count == 0 || mDeck.DiscardPile == null))
             {
-                Card discardPile = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
-                switch (discardPile)
+                if(mDeck.DiscardPile.Count < 2 )
+                {   //catch the edge case where someone played a plus + card after all other cards were exhausted
+                    pOffset = 0;
+                }
+                Card checkAgainstCard = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1 - pOffset];
+                switch (checkAgainstCard)
                 {   //start evaluation by looking at the discard pile
                     case CardWild discardPileWild:
                         //discard pile is wild. 
-                        switch (pCard)
+                        switch (pPlayedCard)
                         {   //Evaluate the card being played. 
                             case CardSuit playedSuitCard:
                                 //if the suit matches the wild card in the discard pile ok
@@ -638,7 +636,7 @@ namespace Uno
                         break;
                     case CardSuit discardPileSuit:
                         //card on discard pile is a suit card.
-                        switch (pCard)
+                        switch (pPlayedCard)
                         //evaluate next against the card being played.
                         {
                             case CardWild playedWildCard:

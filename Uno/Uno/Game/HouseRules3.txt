@@ -1,0 +1,51 @@
+﻿House Rules 3
+=============
+
+This version of the game includes the ability to stack certain special cards on a player by player bases to pass on consequences. 
+
+Stackable Cards:
+Wild +4 Card
+------------
+This is the most complicated card due to the ability to challenge its use. However, only the first in the stack could play it illegally, so we only have to worry about this once. 
+
+example1 assuming 3 players, with order of play 1,2,3
+Player1 - Player1 plays+4 (legally)
+Player2 - Challenges & Looses. So usually player 2 would draw 6 cards. 
+Player2 - Plays a +4 card. (total to pickup is now 10)
+Player3 - Plays a +4 card. (total to pickup is now 14)
+Player3 - Playe a +4 card. (total to pickup is now 18)
+Play returns to player 1 who doesn't have another +4 card, clicks accept and draws 18 cards (player 2 also misses 4 turns)
+Player 1 - has 4 turns to miss, uses one of them and skips a go
+Player 2 - Continues play as normal. 
+
+Stack options reset and normal play resumes with player 2. 
+If player2 had accepted the challenge the flow would be the same except there would be 2 less cards to collect because they would draw4 cards not 6. 
+
+example2 assuming 3 players, with order of play 1,2,3
+Player1 - plays +4 card (illegally)
+Player2 - Challenges and wins
+Player1 - draws 4 cards
+Stack options reset, player 2 plays as in any other versoin of the game.
+
+
+Draw 2 Card
+-----------
+example1 assuming 3 players, with order of play 1,2,3
+Player1 - plays +2 card
+Player2 - plays +2 card
+Player3 - plays +2 card
+Player1 - plays +2 card
+Player2 - has no plus2 card, and clicks accept, then draws 8 cards and skips 4 turns 
+Player2 - has stacked skips and doesn't play
+Player3 - plays in the normal fashion based on the last discard card.
+
+
+Skip Go Card
+------------
+This is as described above but without the addition of drawing cards. 
+
+
+Players with skip turns applied
+-------------------------------
+If a player has a skip turn applied, when it comes to their turn a message will pop up saying they missed their turn. The same will happen during a stack build up. 
+The number of skips applied to the play is then reduced and play continues with the next player. 

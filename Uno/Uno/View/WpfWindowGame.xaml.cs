@@ -23,7 +23,7 @@ namespace Uno
     /// </summary>
     public partial class WpfWindowGame : Window
     {
-        private List<Button> mColourPickButtons;
+        protected List<Button> mColourPickButtons;
 
         public WpfWindowGame()
         {
@@ -35,7 +35,7 @@ namespace Uno
             EventPublisher.RaiseHideGuiWindows += WpfWindowGame_RaiseHideGuiWindow;
         }
 
-        private void WpfWindowGame_RaiseHideGuiWindow(object sender, EventArgs eventArgs)
+        protected virtual void WpfWindowGame_RaiseHideGuiWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }
@@ -84,7 +84,7 @@ namespace Uno
         /// <summary>
         /// Enables the main game play buttons other than playing cards.
         /// </summary>
-        private void EnableCoreGameButtons()
+        protected virtual void EnableCoreGameButtons()
         {
             buttonEndTurn.IsEnabled = true;
             buttonMainMenu.IsEnabled = true;
@@ -95,7 +95,7 @@ namespace Uno
         /// <summary>
         /// Enables the colour pick buttons and shows them.
         /// </summary>
-        private void EnableColourPick()
+        protected virtual void EnableColourPick()
         {
             foreach (Button button in mColourPickButtons)
             {
@@ -107,29 +107,29 @@ namespace Uno
         /// <summary>
         /// disables and hides the challenge plus 4 buttons
         /// </summary>
-        private void DisableChallengePlus4()
+        protected virtual void DisableChallengePlus4()
         {
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
             buttonDraw4Challenge.IsEnabled = false;
-            buttonAcceptDraw4.Visibility = Visibility.Hidden;
-            buttonAcceptDraw4.IsEnabled = false;
+            buttonAccept.Visibility = Visibility.Hidden;
+            buttonAccept.IsEnabled = false;
         }
 
         /// <summary>
         /// Enables and Shows the challenge +4 controls
         /// </summary>
-        private void EnableChallengePlus4()
+        protected virtual void EnableChallengePlus4()
         {
             buttonDraw4Challenge.Visibility = Visibility.Visible;
             buttonDraw4Challenge.IsEnabled = true;
-            buttonAcceptDraw4.Visibility = Visibility.Visible;
-            buttonAcceptDraw4.IsEnabled = true;
+            buttonAccept.Visibility = Visibility.Visible;
+            buttonAccept.IsEnabled = true;
         }
 
         /// <summary>
         /// Disables the colour pick buttons and hides them
         /// </summary>
-        private void DisableColourPick()
+        protected virtual void DisableColourPick()
         {
             foreach (Button button in mColourPickButtons)
             {
@@ -141,7 +141,7 @@ namespace Uno
         /// <summary>
         /// Disables all GUI components
         /// </summary>
-        private void DisableGuiComponents()
+        protected virtual void DisableGuiComponents()
         {
             foreach (UIElement uIElement in MainGrid.Children)
             {
@@ -169,7 +169,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">Card Object</param>
-        private void GameButtonClickHandler(object sender, EventArgs e)
+        protected virtual void GameButtonClickHandler(object sender, EventArgs e)
         {
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
@@ -181,7 +181,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonRed_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonRed_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Red;
             TriggerEvent(suit);
@@ -192,7 +192,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonGren_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonGren_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Green;
             TriggerEvent(suit);
@@ -203,7 +203,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonBlue_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonBlue_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Blue;
             TriggerEvent(suit);
@@ -214,7 +214,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonYellow_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonYellow_Click(object sender, RoutedEventArgs e)
         {
             Suit suit = Suit.Yellow;
             TriggerEvent(suit);
@@ -224,7 +224,7 @@ namespace Uno
         /// Sends the selected suit of a wild card to the main program via an event
         /// </summary>
         /// <param name="pSuit">enum suit</param>
-        private void TriggerEvent(Suit pSuit)
+        protected virtual void TriggerEvent(Suit pSuit)
         {
             EventPublisher.ColourPick(pSuit);
         }
@@ -232,7 +232,7 @@ namespace Uno
         /// <summary>
         /// Removes all existing player cards from the GUI
         /// </summary>
-        private void ClearCards()
+        protected virtual void ClearCards()
         {   //surely there must be a better way than this! however it works for now. 
             List<UIElement> toRemove = new List<UIElement>();
             foreach (UIElement uIElement in MainGrid.Children)
@@ -295,7 +295,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unusd</param>
         /// <param name="e">unused</param>
-        private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.MainMenu();
         }
@@ -305,7 +305,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonEndTurn_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonEndTurn_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.NextPlayerButtonClick();
         }
@@ -359,7 +359,7 @@ namespace Uno
         /// </summary>
         /// <param name="resouceNane"></param>
         /// <returns></returns>
-        private Uri GetResourceUri(string resouceNane)
+        protected virtual Uri GetResourceUri(string resouceNane)
         {
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
@@ -370,7 +370,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
+        protected virtual void imageDrawPile_MouseUp(object sender, MouseButtonEventArgs e)
         {
             EventPublisher.DrawCard();
         }
@@ -380,7 +380,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="e">unused</param>
-        private void buttonDraw4Challenge_Click(object sender, RoutedEventArgs e)
+        protected virtual void buttonDraw4Challenge_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.Plus4Challenge();
             buttonDraw4Challenge.Visibility = Visibility.Hidden;
@@ -388,24 +388,24 @@ namespace Uno
         }
 
         /// <summary>
-        /// Sends Draw 4 accepted event to the main program.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonAcceptDraw4_Click(object sender, RoutedEventArgs e)
-        {
-            EventPublisher.AcceptDraw4();
-        }
-
-        /// <summary>
         /// hides and closes this window ready for a clean shutdown. 
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="eventArgs">unused</param>
-        private void WpfWindowGame_CloseWindow(object sender, EventArgs eventArgs)
+        protected virtual void WpfWindowGame_CloseWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
             this.Close();
+        }
+
+        /// <summary>
+        /// Accepts a +4, this is over ridden in some house games.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAccept_Click(object sender, RoutedEventArgs e)
+        {
+            EventPublisher.AcceptDraw4();
         }
     }
 }
