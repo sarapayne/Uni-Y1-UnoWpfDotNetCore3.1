@@ -313,8 +313,8 @@ namespace Uno.Game
             }
             if (pPlayer == mCurrentPlayer)
             {
-                mPlayerHasPicked = true;
-                mPlayerHasDiscarded = true;//set these to allow play to continue 
+                mPlayerHasPicked = true;//set these to allow play to continue 
+                //mPlayerHasDiscarded = true;//set these to allow play to continue 
                 if ((mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip != 0)
                 {
                     mPlayers[mCurrentPlayer].SortPlayerCards();
