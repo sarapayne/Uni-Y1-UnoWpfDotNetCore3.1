@@ -343,15 +343,35 @@ namespace Uno
                         case Suit.Yellow:
                             imageName = "card_front_wild_yellow";
                             break;
+                        default:
+                            imageName = "card_back";
+                            break;
                     }
+                    
                     imageUri = GetResourceUri(imageName);
                 }
                 else
                 {
-                    imageUri = GetResourceUri(card.ImageName);
+                    if (card.ImageName == "" || card.ImageName == null)
+                    {
+                        MessageBox.Show("found you", "i hope");
+                    }
+                    else
+                    {
+                        imageUri = GetResourceUri(card.ImageName);
+                    }
+                    
                 }
             }
-            imageDiscardPile.Source = new BitmapImage(imageUri);            
+            if (imageUri == null)
+            {
+                MessageBox.Show("found you", "i hope");
+            }
+            else
+            {
+                imageDiscardPile.Source = new BitmapImage(imageUri);
+            }
+                       
         }
 
         /// <summary>
@@ -361,6 +381,10 @@ namespace Uno
         /// <returns></returns>
         protected virtual Uri GetResourceUri(string resouceNane)
         {
+            if (resouceNane == "" || resouceNane == null)
+            {
+                MessageBox.Show("foun you", "i hope");
+            }
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
         }

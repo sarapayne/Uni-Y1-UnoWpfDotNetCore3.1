@@ -71,6 +71,7 @@ namespace Uno.Game
                 if (stackCheck1 && stackCheck2)
                 {   //only come here if a possibility to stack cards exists. All stackable cards add skips. 
                     //So if skips is set to 0, this means either its a new game, or the end of a stack was reached. 
+                    EventPublisher.HideGuiWindows();
                     SendStackCardsOption();
                 }
                 else
