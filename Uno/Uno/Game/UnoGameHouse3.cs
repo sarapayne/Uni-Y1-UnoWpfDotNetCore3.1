@@ -177,9 +177,9 @@ namespace Uno.Game
         {
             //add code here to process the played card. 
             Card playedCard = eventArgsPlayCard.UnoCard;
-            if (playedCard is CardDraw)
+            if (playedCard is CardWild)
             {   //if this card is played, the top of the discard pile MUST be a wild+4 so no need to test.
-                mNumNextPlayerDrawCards += 2;
+                mNumNextPlayerDrawCards += 4;
                 (playedCard as CardWild).NextSuit = (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild).NextSuit;
             }
             else if (playedCard is CardDraw)
