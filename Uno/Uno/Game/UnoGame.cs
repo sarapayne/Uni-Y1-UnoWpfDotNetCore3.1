@@ -167,11 +167,22 @@ namespace Uno
             if (!mPlayerHasDiscarded) //block playing more cards if player has discard
             {   //only come here if play is allowed for this player. 
                 bool cardPlayable = CheckIfCardCanBePlayed(card, 0);//0 is the offset from the last discared card, 
-                if (mPlayerHasPicked)
+                bool cardInDrawnList = CheckIfDrawnCard(card);
+                bool allowPlay;
+                if (mPlayerHasPicked && cardInDrawnList && cardPlayable)
                 {
-                    cardPlayable = CheckIfDrawnCard(card);
+                        allowPlay = true;
+                 
                 }
-                if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+                else if (!mPlayerHasPicked && cardPlayable)
+                {
+                    allowPlay = true;
+                }
+                else
+                {
+                    allowPlay = false;
+                }
+                if (!allowPlay) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
                 else
                 {
                     EventPublisher.PlayCard(card);
