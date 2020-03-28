@@ -55,37 +55,38 @@ namespace Uno.Game
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
                 Card lastDiscardCard = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1];
-                if (lastDiscardCard is CardDraw || lastDiscardCard is CardSkip || (lastDiscardCard is CardWild && (lastDiscardCard as CardWild).CardsToDraw > 0))
-                {
-                    if (!mStackedCardsAccepted && mNextPlayersToSkipTotal != 0)
-                    {   //only come here if a possibility to stack cards exists. All stackable cards add skips. 
-                        //So if skips is set to 0, this means either its a new game, or the end of a stack was reached. 
-                        SendStackCardsOption();
-                    }
-                }
-                int startPlayer = mCurrentPlayer;
-                int nextPlayer = 0;//just initilise at this point. 
-                for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
-                {
-                    nextPlayer = NextPlayerWithoutSips(startPlayer);
-                }
-                mCurrentPlayer = nextPlayer;
-                ApplyStackedConsequences();
-                ResetTurnVariblesForNextPlayer();
-                mPlayers[mCurrentPlayer].SortPlayerCards();
-                if (    (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip == 0 )
-                {
-                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                bool stackCheck1 = lastDiscardCard is CardDraw || lastDiscardCard is CardSkip || (lastDiscardCard is CardWild && (lastDiscardCard as CardWild).CardsToDraw > 0);
+                bool stackCheck2 = !mStackedCardsAccepted && mNextPlayersToSkipTotal != 0;
+                if (stackCheck1 && stackCheck2)
+                {   //only come here if a possibility to stack cards exists. All stackable cards add skips. 
+                    //So if skips is set to 0, this means either its a new game, or the end of a stack was reached. 
+                    SendStackCardsOption();
                 }
                 else
                 {
-                    MessageBox.Show(mPlayers[mCurrentPlayer].ToString() + "skips their turn");
-                    mPlayerHasDiscarded = true;//set to allow change of player in all circumstances
-                    mPlayerHasPicked = true; //set to allow change of player all circumstances
-                    (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip--;
-                    EventPublisher.NextPlayerButtonClick();
-                }
-                
+                    int startPlayer = mCurrentPlayer;
+                    int nextPlayer = 0;//just initilise at this point. 
+                    for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
+                    {
+                        nextPlayer = NextPlayerWithoutSips(startPlayer);
+                    }
+                    mCurrentPlayer = nextPlayer;
+                    ApplyStackedConsequences();
+                    ResetTurnVariblesForNextPlayer();
+                    mPlayers[mCurrentPlayer].SortPlayerCards();
+                    if ((mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip == 0)
+                    {
+                        EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                    }
+                    else
+                    {
+                        MessageBox.Show(mPlayers[mCurrentPlayer].ToString() + "skips their turn");
+                        mPlayerHasDiscarded = true;//set to allow change of player in all circumstances
+                        mPlayerHasPicked = true; //set to allow change of player all circumstances
+                        (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip--;
+                        EventPublisher.NextPlayerButtonClick();
+                    }
+                } 
             }
             else
             {
@@ -99,7 +100,7 @@ namespace Uno.Game
         /// </summary>
         protected virtual void ApplyStackedConsequences()
         {
-            (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give al the skips to this player if any exist.
+            (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give all the skips to this player if any exist.
             for(int count = 0; count < mNumNextPlayerDrawCards; count++)
             {   //draw a cared how ever many times is needed. 
                 DrawCard(mCurrentPlayer);
@@ -178,7 +179,7 @@ namespace Uno.Game
             Card playedCard = eventArgsPlayCard.UnoCard;
             if (playedCard is CardDraw)
             {   //if this card is played, the top of the discard pile MUST be a wild+4 so no need to test.
-                mNumNextPlayerDrawCards += 4;
+                mNumNextPlayerDrawCards += 2;
                 (playedCard as CardWild).NextSuit = (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild).NextSuit;
             }
             else if (playedCard is CardDraw)
@@ -219,7 +220,7 @@ namespace Uno.Game
             bool hadPlayableCard = false;
             foreach (Card card in mPlayers[mCurrentPlayer].Cards)
             {
-                bool playableCardFound = CheckIfCardCanBePlayed(card, 0);// 0 is the offset from the last discarded card. 
+                bool playableCardFound = CheckIfCardCanBePlayed(card, 1);// 0 is the offset from the last discarded card. 
                 if (playableCardFound)
                 {
                     if (!(card is CardWild))
