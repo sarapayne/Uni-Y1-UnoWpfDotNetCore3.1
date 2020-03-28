@@ -119,9 +119,11 @@ namespace Uno.Game
         /// </summary>
         protected virtual void ApplyStackedConsequences()
         {
-            //needs changing to previous player here
-
-            (mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give all the skips to this player if any exist.
+            if ((mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip > 0)
+            {   //The first skip gets applied automatically, so subtract one from the total for the future. 
+                (mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip += (mNextPlayersToSkipTotal-1);
+            }
+             //give all the skips to this player if any exist.
             for (int count = 0; count < mNumNextPlayerDrawCards; count++)
             {   //draw a cared how ever many times is needed. 
                 DrawCard(mNextPlayerInLine);

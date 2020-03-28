@@ -43,3 +43,9 @@ Player3 - plays in the normal fashion based on the last discard card.
 Skip Go Card
 ------------
 This is as described above but without the addition of drawing cards. 
+
+
+Players with skip turns applied
+-------------------------------
+If a player has a skip turn applied, when it comes to their turn a message will pop up saying they missed their turn. The same will happen during a stack build up. 
+The number of skips applied to the play is then reduced and play continues with the next player. 
