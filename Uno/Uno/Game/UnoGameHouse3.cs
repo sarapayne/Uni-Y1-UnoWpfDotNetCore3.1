@@ -42,8 +42,17 @@ namespace Uno.Game
         protected virtual void SendStackCardsOption()
         {
             mNextPlayerInLine = NextPlayerWithoutSips(mNextPlayerInLine);
-            List<Card> playableCards = GetStackableCards(mNextPlayerInLine);
-            EventPublisher.GuiConsequencesUpdate(mPlayers[mNextPlayerInLine].Name, playableCards, mDeck.DiscardPile[mDeck.DiscardPile.Count-1]);
+            if ((mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip > 0)
+            {   //if a player has skip turns applied, this counts as a skip turn, reduce the count and call this method again. 
+                (mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip--;
+                MessageBox.Show(mPlayers[mNextPlayerInLine].Name + " skips a turn", "skip turn");
+                SendStackCardsOption();//call again since the next player will be incremented next call. 
+            }
+            else 
+            {
+                List<Card> playableCards = GetStackableCards(mNextPlayerInLine);
+                EventPublisher.GuiConsequencesUpdate(mPlayers[mNextPlayerInLine].Name, playableCards, mDeck.DiscardPile[mDeck.DiscardPile.Count - 1]);
+            }
         }
 
         /// <summary>
@@ -105,12 +114,17 @@ namespace Uno.Game
             EventPublisher.NextPlayerButtonClick();
         }
 
+        /// <summary>
+        /// Applies the consequences of the stack to the player who accepted them. 
+        /// </summary>
         protected virtual void ApplyStackedConsequences()
         {
-            (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give all the skips to this player if any exist.
+            //needs changing to previous player here
+
+            (mPlayers[mNextPlayerInLine] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give all the skips to this player if any exist.
             for (int count = 0; count < mNumNextPlayerDrawCards; count++)
             {   //draw a cared how ever many times is needed. 
-                DrawCard(mCurrentPlayer);
+                DrawCard(mNextPlayerInLine);
             }
         }
 
