@@ -351,7 +351,7 @@ namespace Uno
                     imageUri = GetResourceUri(card.ImageName);
                 }
             }
-            imageDiscardPile.Source = new BitmapImage(imageUri);
+            imageDiscardPile.Source = new BitmapImage(imageUri);            
         }
 
         /// <summary>
