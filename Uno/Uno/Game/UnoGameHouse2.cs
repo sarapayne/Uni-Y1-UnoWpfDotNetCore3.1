@@ -24,12 +24,23 @@ namespace Uno.Game
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
-            bool cardPlayable = CheckIfCardCanBePlayed(card, 0);
-            if (mPlayerHasPicked)
+            bool cardPlayable = CheckIfCardCanBePlayed(card, 0);//0 is the offset from the last discared card, 
+            bool cardInDrawnList = CheckIfDrawnCard(card);
+            bool allowPlay;
+            if (mPlayerHasPicked && cardInDrawnList && cardPlayable)
             {
-                cardPlayable = CheckIfDrawnCard(card);
+                allowPlay = true;
+
             }
-            if (!cardPlayable) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
+            else if (!mPlayerHasPicked && cardPlayable)
+            {
+                allowPlay = true;
+            }
+            else
+            {
+                allowPlay = false;
+            }
+            if (!allowPlay) MessageBox.Show("Sorry but this card can not be played", "Card not playable");
             else
             {
                 EventPublisher.PlayCard(card);
