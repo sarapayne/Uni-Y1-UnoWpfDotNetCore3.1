@@ -25,12 +25,14 @@ namespace Uno.Game
         {
             base.SubscribeToEvents();
             EventPublisher.RaiseStackedCardButtonClick += StackedCardButtonClick;
+            EventPublisher.RaiseAcceptStackConsequences += AcceptStackConsequences;
         }
 
         protected override void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
         {
             base.UnoGame_RaiseUnsubscribeEvents(sender, eventArgs);
             EventPublisher.RaiseStackedCardButtonClick -= StackedCardButtonClick;
+            EventPublisher.RaiseAcceptStackConsequences += AcceptStackConsequences;
         }
 
         /// <summary>
@@ -98,10 +100,16 @@ namespace Uno.Game
         /// <summary>
         /// applies the stacked consequences to the player including drawing cards and skips go
         /// </summary>
+        protected virtual void AcceptStackConsequences(object sender, EventArgs eventArgs)
+        {
+            mStackedCardsAccepted = true;
+            EventPublisher.NextPlayerButtonClick();
+        }
+
         protected virtual void ApplyStackedConsequences()
         {
             (mPlayers[mCurrentPlayer] as PlayerStackable).TurnsToSkip += mNextPlayersToSkipTotal; //give all the skips to this player if any exist.
-            for(int count = 0; count < mNumNextPlayerDrawCards; count++)
+            for (int count = 0; count < mNumNextPlayerDrawCards; count++)
             {   //draw a cared how ever many times is needed. 
                 DrawCard(mCurrentPlayer);
             }

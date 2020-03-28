@@ -40,6 +40,15 @@ namespace Uno
         public static event EventHandler RaiseShutDownRoutine;
         public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
+        public static event EventHandler RaiseAcceptStackConsequences;
+
+        public static void AcceptStackConsequences()
+        {
+            if (RaiseAcceptStackConsequences != null)
+            {
+                EventPublisher.RaiseAcceptStackConsequences(null, null);
+            }
+        }
 
         public static void StackedCardButtonClick(Card pCard)
         {

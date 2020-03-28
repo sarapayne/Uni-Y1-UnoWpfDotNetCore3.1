@@ -54,7 +54,8 @@ namespace Uno.View
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Hide();
+            EventPublisher.AcceptStackConsequences();
         }
 
         /// <summary>
@@ -67,6 +68,7 @@ namespace Uno.View
         {
             ImgCardControl playerCard = sender as ImgCardControl;
             Card selectedCard = playerCard.Card;
+            this.Hide();
             EventPublisher.StackedCardButtonClick(selectedCard);
         }
 
