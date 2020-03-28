@@ -66,11 +66,10 @@ namespace Uno.Game
                 }
                 else
                 {
-                    int startPlayer = mCurrentPlayer;
-                    int nextPlayer = 0;//just initilise at this point. 
+                    int nextPlayer = mCurrentPlayer;
                     for (int skips = 0; skips < mNextPlayersToSkipTotal + 1; skips++) //add one because the player always needs to change by at least one person.
                     {
-                        nextPlayer = NextPlayerWithoutSips(startPlayer);
+                        nextPlayer = NextPlayerWithoutSips(nextPlayer);
                     }
                     mCurrentPlayer = nextPlayer;
                     ApplyStackedConsequences();
