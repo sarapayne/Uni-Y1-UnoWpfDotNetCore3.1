@@ -100,12 +100,23 @@ namespace Uno
         /// <param name="pCardList"></param>
         protected virtual void MakeSureTopCardNotWild(List<Card> pCardList)
         {
-            while (pCardList[0] is CardWild)
+            if (pCardList.Count > 1)
             {
-                Card temp = pCardList[0];
-                pCardList.RemoveAt(0);
-                pCardList.Add(temp);
+                while (pCardList[pCardList.Count - 1] is CardWild)
+                {
+                    Card temp = pCardList[0];
+                    pCardList.RemoveAt(0);
+                    pCardList.Add(temp);
+                }
             }
+            else
+            {   //rare edge case where there is only one card left and it is is a wild card being refreshed. 
+                //apply a random colour for the next suit to allow play to continue.
+                Random random = new Random();
+                int index = random.Next(0, 3);
+                (pCardList[0] as CardWild).NextSuit = (Suit)index;
+            }
+            
         }
                 
         /// <summary>

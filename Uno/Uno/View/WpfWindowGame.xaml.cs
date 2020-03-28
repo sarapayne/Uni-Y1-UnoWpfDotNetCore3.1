@@ -383,7 +383,7 @@ namespace Uno
         {
             if (resouceNane == "" || resouceNane == null)
             {
-                MessageBox.Show("foun you", "i hope");
+                MessageBox.Show("found you", "i hope");
             }
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
