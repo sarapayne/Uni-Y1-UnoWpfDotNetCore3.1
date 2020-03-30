@@ -352,25 +352,11 @@ namespace Uno
                 }
                 else
                 {
-                    if (card.ImageName == "" || card.ImageName == null)
-                    {
-                        MessageBox.Show("found you", "i hope");
-                    }
-                    else
-                    {
-                        imageUri = GetResourceUri(card.ImageName);
-                    }
-                    
+                    imageUri = GetResourceUri(card.ImageName);                    
                 }
             }
-            if (imageUri == null)
-            {
-                MessageBox.Show("found you", "i hope");
-            }
-            else
-            {
-                imageDiscardPile.Source = new BitmapImage(imageUri);
-            }
+            imageDiscardPile.Source = new BitmapImage(imageUri);
+            
                        
         }
 

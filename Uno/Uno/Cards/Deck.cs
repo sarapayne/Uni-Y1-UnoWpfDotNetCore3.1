@@ -104,9 +104,11 @@ namespace Uno
             {
                 while (pCardList[pCardList.Count - 1] is CardWild)
                 {
-                    Card temp = pCardList[0];
-                    pCardList.RemoveAt(0);
-                    pCardList.Add(temp);
+                    //this function is called before cards are moved to the deal pile
+                    //so it needs to work on the last card in the list. 
+                    Card temp = pCardList[pCardList.Count - 1];
+                    pCardList.Insert(0, temp);
+                    pCardList.RemoveAt(pCardList.Count - 1);
                 }
             }
             else
