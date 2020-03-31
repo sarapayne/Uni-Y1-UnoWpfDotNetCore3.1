@@ -15,4 +15,3 @@ on the direction of play at the time.
 
 Change Direction Happens Immediately, this could be combined with +2 or +4 cards to make people on either side of the player pickup cards.
 
-If a player uses a special or a wild card the ability to stack cards in that turn ends. 
