@@ -28,9 +28,9 @@ namespace Uno.Game
             EventPublisher.RaiseAcceptStackConsequences += AcceptStackConsequences;
         }
 
-        protected override void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
+        protected override void UnSubscribeEvents(object sender, EventArgs eventArgs)
         {
-            base.UnoGame_RaiseUnsubscribeEvents(sender, eventArgs);
+            base.UnSubscribeEvents(sender, eventArgs);
             EventPublisher.RaiseStackedCardButtonClick -= StackedCardButtonClick;
             EventPublisher.RaiseAcceptStackConsequences += AcceptStackConsequences;
         }

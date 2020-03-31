@@ -69,24 +69,16 @@ namespace Uno
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
             EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
             EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
-            EventPublisher.RaiseUnsubscribeEvents += UnoGame_RaiseUnsubscribeEvents;
+            EventPublisher.RaiseUnsubscribeEvents += UnSubscribeEvents;
             EventPublisher.RaiseSwapHandsPlayerChosen += UnoGame_SwapHandsPlayerChosen;
-        }
-
-        /// <summary>
-        /// calls the main unsubscribe method
-        /// </summary>
-        /// <param name="sender">always null</param>
-        /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaiseUnsubscribeEvents(object sender, EventArgs eventArgs)
-        {
-            UnsubscribeFromEvents();
         }
 
         /// <summary>
         /// Unsubscribes from all event subscriptions
         /// </summary>
-        protected virtual void UnsubscribeFromEvents()
+        /// <param name="sender">always null</param>
+        /// <param name="eventArgs">always null</param>
+        protected virtual void UnSubscribeEvents(object sender, EventArgs eventArgs)
         {
             EventPublisher.RaiseColourPick -= UnoGame_RaiseColourPick;
             EventPublisher.RaisePlus4Challenge -= UnoGame_RaisePlus4Challenge;
@@ -149,7 +141,7 @@ namespace Uno
             }
             mWinner.FinalScore = runningTotal;
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, "GameOver");
-            UnsubscribeFromEvents();
+            UnSubscribeEvents(null, null);
             EventPublisher.FinalScore(mWinner);
         }
 
