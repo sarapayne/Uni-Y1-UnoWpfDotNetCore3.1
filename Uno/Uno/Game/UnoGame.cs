@@ -284,7 +284,7 @@ namespace Uno
                 DrawCard(NextPlayerWithoutSkips());
             }
             mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work. and stops playing of more cards. 
-            mPlayerHasPicked = true;
+            //mPlayerHasPicked = true;
             EventPublisher.SkipGo();
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
@@ -514,6 +514,7 @@ namespace Uno
         /// <param name="eventArgs">always null</param>
         protected virtual void UnoGame_DrawCard(object sender, EventArgs eventArgs)
         {
+            mPlayerHasPicked = true;
             DrawCard(mCurrentPlayer);
         }
 
@@ -531,27 +532,22 @@ namespace Uno
             if (mDeck.DiscardPile.Count == 0 && mDeck.DrawPile.Count == 0)
             {
                 MessageBox.Show("Sorry there are no cards left to draw", "no cards left");
-                mPlayerHasPicked = true;//set this to allow play to continue.
             }
             else if (mDeck.DrawPile.Count == 0 && mDeck.DiscardPile.Count == 1)
             {
                 MoveCardFromDiscardToPlayer(pPlayer);
-                mPlayerHasPicked = true;
             }
             else if (mDeck.DrawPile.Count == 0)
             {
                 mDeck.DeckRefresh();
                 MoveCardFromDrawToPlayer(pPlayer);
-                mPlayerHasPicked = true;
             }
             else
             {
                 MoveCardFromDrawToPlayer(pPlayer);
-                mPlayerHasPicked = true;
             }
             if (pPlayer == mCurrentPlayer)
             {
-                mPlayerHasPicked = true;
                 mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }   

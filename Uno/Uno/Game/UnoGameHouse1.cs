@@ -14,11 +14,6 @@ namespace Uno.Game
 
         }
 
-        protected override void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
-        {
-            base.UnoGame_RaisePlayCard(sender, eventArgs);
-        }
-
         /// <summary>
         /// Compared with the base class this removes the next player allowance after a card has been draw
         /// </summary>
@@ -35,10 +30,7 @@ namespace Uno.Game
                     nextPlayer = NextPlayerWithoutSips(startPlayer);
                 }
                 mCurrentPlayer = nextPlayer;
-                mNextPlayersToSkipTotal = 0;
-                mPlayerHasPicked = false;
-                mPlayerHasDiscarded = false;
-                mCardsDrawnThisTurn.Clear();
+                ResetTurnVariblesForNextPlayer();
                 mPlayers[mCurrentPlayer].SortPlayerCards();
                 EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }

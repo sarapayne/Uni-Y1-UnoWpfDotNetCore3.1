@@ -367,10 +367,6 @@ namespace Uno
         /// <returns></returns>
         protected virtual Uri GetResourceUri(string resouceNane)
         {
-            if (resouceNane == "" || resouceNane == null)
-            {
-                MessageBox.Show("found you", "i hope");
-            }
             Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
             return resoureUri;
         }
