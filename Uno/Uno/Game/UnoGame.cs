@@ -58,7 +58,7 @@ namespace Uno
         /// </summary>
         public virtual void SubscribeToEvents()
         {
-            EventPublisher.RaiseColourPick += UnoGame_RaiseColourPick;
+            EventPublisher.RaiseColourPick += WildCardSetNextSuit;
             EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
             EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
             EventPublisher.RaiseReverseDirection += UnoGame_RaiseReverseDirection;
@@ -80,7 +80,7 @@ namespace Uno
         /// <param name="eventArgs">always null</param>
         protected virtual void UnSubscribeEvents(object sender, EventArgs eventArgs)
         {
-            EventPublisher.RaiseColourPick -= UnoGame_RaiseColourPick;
+            EventPublisher.RaiseColourPick -= WildCardSetNextSuit;
             EventPublisher.RaisePlus4Challenge -= UnoGame_RaisePlus4Challenge;
             EventPublisher.RaiseDrawTwoCards -= UnoGame_RaiseDrawTwoCards;
             EventPublisher.RaiseReverseDirection -= UnoGame_RaiseReverseDirection;
@@ -390,7 +390,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="argsColourPick">enum suit</param>
-        protected virtual void UnoGame_RaiseColourPick(object sender, EventArgsColourPick argsColourPick)
+        protected virtual void WildCardSetNextSuit(object sender, EventArgsColourPick argsColourPick)
         {
             if (mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] is CardWild)
             {
