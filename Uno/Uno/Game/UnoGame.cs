@@ -63,7 +63,7 @@ namespace Uno
             EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
             EventPublisher.RaiseReverseDirection += UnoGame_RaiseReverseDirection;
             EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
-            EventPublisher.RaiseNextPlayerButtonClick += UnoGame_RaiseNextPlayerButtonClick;
+            EventPublisher.RaiseNextPlayerButtonClick += NextPlayerButtonClick;
             EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
             EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
             EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
@@ -85,7 +85,7 @@ namespace Uno
             EventPublisher.RaiseDrawTwoCards -= UnoGame_RaiseDrawTwoCards;
             EventPublisher.RaiseReverseDirection -= UnoGame_RaiseReverseDirection;
             EventPublisher.RaiseSkipGo -= UnoGame_RaiseSkipGo;
-            EventPublisher.RaiseNextPlayerButtonClick -= UnoGame_RaiseNextPlayerButtonClick;
+            EventPublisher.RaiseNextPlayerButtonClick -= NextPlayerButtonClick;
             EventPublisher.RaisePlayCard -= UnoGame_RaisePlayCard;
             EventPublisher.RaiseAcceptDraw4 -= UnoGame_AcceptDraw4;
             EventPublisher.RaiseDrawCard -= UnoGame_DrawCard;
@@ -316,7 +316,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaiseNextPlayerButtonClick(object sender, EventArgs eventArgs)
+        protected virtual void NextPlayerButtonClick(object sender, EventArgs eventArgs)
         {
             if (mPlayerHasDiscarded || mPlayerHasPicked)
             {
