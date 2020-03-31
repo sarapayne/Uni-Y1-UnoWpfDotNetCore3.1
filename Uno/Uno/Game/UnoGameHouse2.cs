@@ -20,7 +20,7 @@ namespace Uno.Game
         /// </summary>
         /// <param name="sender">null</param>
         /// <param name="eventArgs">Card object played</param>
-        protected override void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
+        protected override void DiscardCardButtonClick(object sender, EventArgs eventArgs)
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;

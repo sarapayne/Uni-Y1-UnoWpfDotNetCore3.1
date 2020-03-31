@@ -172,7 +172,7 @@ namespace Uno.Game
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected override void UnoGame_RaiseDrawTwoCards(object sender, EventArgs eventArgs)
+        protected override void DrawTwoCards(object sender, EventArgs eventArgs)
         {
             mNumNextPlayerDrawCards += 2;
             EventPublisher.SkipGo(); 
@@ -222,7 +222,7 @@ namespace Uno.Game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        protected override void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
+        protected override void AcceptDraw4ButtonClick(object sender, EventArgs eventArgs)
         {
             mNumNextPlayerDrawCards += 4;
             mPlayerHasDiscarded = true;//set this so the next player method doesn't refuse to work. and stops playing of more cards. 
@@ -237,7 +237,7 @@ namespace Uno.Game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        protected override void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
+        protected override void ChallengePlus4ButtonClick(object sender, EventArgs eventArgs)
         {
             string message = mPlayers[NextPlayerWithoutSkips()].Name + "has challenged " + mPlayers[mCurrentPlayer].Name + "'s use of a +4 card";
             MessageBox.Show(message, "+4 challenge");

@@ -59,18 +59,18 @@ namespace Uno
         public virtual void SubscribeToEvents()
         {
             EventPublisher.RaiseColourPick += WildCardSetNextSuit;
-            EventPublisher.RaisePlus4Challenge += UnoGame_RaisePlus4Challenge;
-            EventPublisher.RaiseDrawTwoCards += UnoGame_RaiseDrawTwoCards;
-            EventPublisher.RaiseReverseDirection += UnoGame_RaiseReverseDirection;
-            EventPublisher.RaiseSkipGo += UnoGame_RaiseSkipGo;
+            EventPublisher.RaisePlus4Challenge += ChallengePlus4ButtonClick;
+            EventPublisher.RaiseDrawTwoCards += DrawTwoCards;
+            EventPublisher.RaiseReverseDirection += ReverseDirection;
+            EventPublisher.RaiseSkipGo += SkipGo;
             EventPublisher.RaiseNextPlayerButtonClick += NextPlayerButtonClick;
-            EventPublisher.RaisePlayCard += UnoGame_RaisePlayCard;
-            EventPublisher.RaiseAcceptDraw4 += UnoGame_AcceptDraw4;
-            EventPublisher.RaiseDrawCard += UnoGame_DrawCard;
-            EventPublisher.RaiseGameButtonClick += UnoGame_RaiseGameButtonClick;
-            EventPublisher.RaiseReturnToGame += UnoMain_RaiseReturnToGame;
+            EventPublisher.RaisePlayCard += PlayCard;
+            EventPublisher.RaiseAcceptDraw4 += AcceptDraw4ButtonClick;
+            EventPublisher.RaiseDrawCard += DrawCardButtonClick;
+            EventPublisher.RaiseGameButtonClick += DiscardCardButtonClick;
+            EventPublisher.RaiseReturnToGame += ReturnToGame;
             EventPublisher.RaiseUnsubscribeEvents += UnSubscribeEvents;
-            EventPublisher.RaiseSwapHandsPlayerChosen += UnoGame_SwapHandsPlayerChosen;
+            EventPublisher.RaiseSwapHandsPlayerChosen += SwapHandsPlayerChosen;
         }
 
         /// <summary>
@@ -81,17 +81,17 @@ namespace Uno
         protected virtual void UnSubscribeEvents(object sender, EventArgs eventArgs)
         {
             EventPublisher.RaiseColourPick -= WildCardSetNextSuit;
-            EventPublisher.RaisePlus4Challenge -= UnoGame_RaisePlus4Challenge;
-            EventPublisher.RaiseDrawTwoCards -= UnoGame_RaiseDrawTwoCards;
-            EventPublisher.RaiseReverseDirection -= UnoGame_RaiseReverseDirection;
-            EventPublisher.RaiseSkipGo -= UnoGame_RaiseSkipGo;
+            EventPublisher.RaisePlus4Challenge -= ChallengePlus4ButtonClick;
+            EventPublisher.RaiseDrawTwoCards -= DrawTwoCards;
+            EventPublisher.RaiseReverseDirection -= ReverseDirection;
+            EventPublisher.RaiseSkipGo -= SkipGo;
             EventPublisher.RaiseNextPlayerButtonClick -= NextPlayerButtonClick;
-            EventPublisher.RaisePlayCard -= UnoGame_RaisePlayCard;
-            EventPublisher.RaiseAcceptDraw4 -= UnoGame_AcceptDraw4;
-            EventPublisher.RaiseDrawCard -= UnoGame_DrawCard;
-            EventPublisher.RaiseGameButtonClick -= UnoGame_RaiseGameButtonClick;
-            EventPublisher.RaiseReturnToGame -= UnoMain_RaiseReturnToGame;
-            EventPublisher.RaiseSwapHandsPlayerChosen -= UnoGame_SwapHandsPlayerChosen;
+            EventPublisher.RaisePlayCard -= PlayCard;
+            EventPublisher.RaiseAcceptDraw4 -= AcceptDraw4ButtonClick;
+            EventPublisher.RaiseDrawCard -= DrawCardButtonClick;
+            EventPublisher.RaiseGameButtonClick -= DiscardCardButtonClick;
+            EventPublisher.RaiseReturnToGame -= ReturnToGame;
+            EventPublisher.RaiseSwapHandsPlayerChosen -= SwapHandsPlayerChosen;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgsPlayer">Card object of the chosen player.</param>
-        protected virtual void UnoGame_SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
+        protected virtual void SwapHandsPlayerChosen(object sender, EventArgsPlayer eventArgsPlayer)
         {
             List<Card> temp = eventArgsPlayer.ChosenPlayer.Cards;
             eventArgsPlayer.ChosenPlayer.Cards = new List<Card>();
@@ -152,7 +152,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">Card object selected</param>
-        protected virtual void UnoGame_RaiseGameButtonClick(object sender, EventArgs eventArgs)
+        protected virtual void DiscardCardButtonClick(object sender, EventArgs eventArgs)
         {
             EventArgsGameButtonClick ev = eventArgs as EventArgsGameButtonClick;
             Card card = ev.mPlayingCard;
@@ -215,7 +215,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaisePlus4Challenge(object sender, EventArgs eventArgs)
+        protected virtual void ChallengePlus4ButtonClick(object sender, EventArgs eventArgs)
         {
             string message = mPlayers[NextPlayerWithoutSkips()].Name + "has challenged " + mPlayers[mCurrentPlayer].Name + "'s use of a +4 card";
             MessageBox.Show(message, "+4 challenge");
@@ -269,7 +269,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_AcceptDraw4(object sender, EventArgs eventArgs)
+        protected virtual void AcceptDraw4ButtonClick(object sender, EventArgs eventArgs)
         {
             for (int number = 0; number <4; number++)
             {
@@ -289,7 +289,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">selected card object</param>
-        protected virtual void UnoGame_RaisePlayCard(object sender, EventArgsPlayCard eventArgs)
+        protected virtual void PlayCard(object sender, EventArgsPlayCard eventArgs)
         {
             if (eventArgs.UnoCard is IFeatureCard)
             {
@@ -355,7 +355,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaiseSkipGo(object sender, EventArgs eventArgs)
+        protected virtual void SkipGo(object sender, EventArgs eventArgs)
         {
             mNextPlayersToSkipTotal++;
         }
@@ -365,7 +365,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaiseReverseDirection(object sender, EventArgs eventArgs)
+        protected virtual void ReverseDirection(object sender, EventArgs eventArgs)
         {
             mforwards = !mforwards;
         }
@@ -375,7 +375,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_RaiseDrawTwoCards(object sender, EventArgs eventArgs)
+        protected virtual void DrawTwoCards(object sender, EventArgs eventArgs)
         {
             int nextPlayer = NextPlayerWithoutSkips();
             DrawCard(nextPlayer);
@@ -504,7 +504,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        protected virtual void UnoGame_DrawCard(object sender, EventArgs eventArgs)
+        protected virtual void DrawCardButtonClick(object sender, EventArgs eventArgs)
         {
             mPlayerHasPicked = true;
             DrawCard(mCurrentPlayer);
@@ -578,7 +578,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        protected virtual void UnoMain_RaiseReturnToGame(object sender, EventArgs eventArgs)
+        protected virtual void ReturnToGame(object sender, EventArgs eventArgs)
         {
             EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
         }
