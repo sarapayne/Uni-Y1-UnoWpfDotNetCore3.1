@@ -45,8 +45,6 @@ namespace Uno.Game
             {
                 EventPublisher.PlayCard(card);
             }
-        }
-
-        
+        }  
     }
 }

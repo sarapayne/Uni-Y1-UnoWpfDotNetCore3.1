@@ -137,8 +137,7 @@ namespace Uno
                 EventPublisher.RaiseLoadTournament(null, new EventArgsLoadSave(pName, pExtraInfo));
             }
         }
-            
-        
+                    
         public static void CheckForActiveGame()
         {
             if (RaiseCheckForActiveGame != null)
@@ -186,7 +185,6 @@ namespace Uno
                 EventPublisher.RaiseAddToTournament(null, new EventArgsAddToTournament(pPlayer));
             }
         }
-
 
         public static void ReturnToGame()
         {

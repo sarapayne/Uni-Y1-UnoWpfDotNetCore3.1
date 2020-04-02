@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using Uno.EventsComponents;
 using Uno.Players;
+using System.Linq; 
 
 namespace Uno
 {
@@ -62,26 +63,13 @@ namespace Uno
         /// <param name="pPlayer">player object containing all player details</param>
         public void AddGame(Player pPlayer)
         {
-            if (mPlayers.Count == 0)
+            if(mPlayers.Exists(player => player.Name == pPlayer.Name))
             {
-                mPlayers.Add(pPlayer);
+                pPlayer.FinalScore += pPlayer.FinalScore;
             }
             else
             {
-                bool playerFound = false;
-                foreach (Player player in mPlayers)
-                {
-                    if (pPlayer.Name == player.Name)
-                    {
-                        player.FinalScore += player.FinalScore;
-                        playerFound = true;
-                        break;
-                    }
-                }
-                if (!playerFound)
-                {
-                    mPlayers.Add(pPlayer);
-                }
+                mPlayers.Add(pPlayer);
             }
             CheckForWinner(pPlayer);
         }

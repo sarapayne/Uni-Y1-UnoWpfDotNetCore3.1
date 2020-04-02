@@ -25,8 +25,6 @@ namespace Uno
             this.mImageName = pImageName;
         }
 
-
-
         public string ImageName
         {
             get { return mImageName; }

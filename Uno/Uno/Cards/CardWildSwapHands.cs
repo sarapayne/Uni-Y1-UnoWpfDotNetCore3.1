@@ -6,8 +6,7 @@ namespace Uno.Cards
 {
     [Serializable]
     class CardWildSwapHands: CardWild
-    {
-        
+    {   
 
         public CardWildSwapHands(string pImageName, int pCardsToDraw) : base(pImageName, pCardsToDraw)
         {
