@@ -218,7 +218,8 @@ namespace Uno
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
         private void UnoMain_NewTournament(object sender, EventArgs eventArgs)
-        {
+        {   //this is here instead of in the main method to avoid annoyances when the game begins. 
+            MessageBox.Show("A new tournament has been started", "new tournament");
             NewTournament();
         }
 

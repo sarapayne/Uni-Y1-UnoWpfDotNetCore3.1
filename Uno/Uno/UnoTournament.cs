@@ -30,7 +30,7 @@ namespace Uno
         /// </summary>
         public void SubscribeEvents()
         {
-            EventPublisher.RaiseAddToTournament += UnoTournament_RaiseAddToTournament;
+            EventPublisher.RaiseAddToTournament += AddGameToTournament;
             EventPublisher.RaiseUnsubscribeTournamentEvents += UnoTournament_UnsubscribeTournamentEvents;
         }
 
@@ -41,19 +41,10 @@ namespace Uno
         /// <param name="eventArgs">always null</param>
         private void UnoTournament_UnsubscribeTournamentEvents(object sender, EventArgs eventArgs)
         {
-            EventPublisher.RaiseAddToTournament -= UnoTournament_RaiseAddToTournament;
+            EventPublisher.RaiseAddToTournament -= AddGameToTournament;
             EventPublisher.RaiseUnsubscribeTournamentEvents -= UnoTournament_UnsubscribeTournamentEvents;
         }
 
-        /// <summary>
-        /// processes the event then sends it to the Add Game method.
-        /// </summary>
-        /// <param name="sender">always null</param>
-        /// <param name="eventArgsAddTo">name and score</param>
-        private void UnoTournament_RaiseAddToTournament(object sender, EventArgsAddToTournament eventArgsAddTo)
-        {
-            AddGame(eventArgsAddTo.WinningPlayer);
-        }
 
         /// <summary>
         /// Checks for matching player entries, if found adds the new score to the last
@@ -61,17 +52,33 @@ namespace Uno
         /// Reports score or winner
         /// </summary>
         /// <param name="pPlayer">player object containing all player details</param>
-        public void AddGame(Player pPlayer)
+        public void AddGameToTournament(object sender, EventArgsAddToTournament eventArgsAddTo)
         {
-            if(mPlayers.Exists(player => player.Name == pPlayer.Name))
+            if (mPlayers.Count == 0)
             {
-                pPlayer.FinalScore += pPlayer.FinalScore;
+                mPlayers.Add(eventArgsAddTo.WinningPlayer);
+                CheckForWinner(eventArgsAddTo.WinningPlayer);
             }
             else
             {
-                mPlayers.Add(pPlayer);
+                bool playerFound = false;
+                foreach (Player player in mPlayers)
+                {
+                    if (player.Name == eventArgsAddTo.WinningPlayer.Name)
+                    {
+                        player.FinalScore += eventArgsAddTo.WinningPlayer.FinalScore;
+                        playerFound = true;
+                        CheckForWinner(player);
+                        break;
+                    }
+                }
+                if (!playerFound)
+                {
+                    mPlayers.Add(eventArgsAddTo.WinningPlayer);
+                    CheckForWinner(eventArgsAddTo.WinningPlayer);
+                }
             }
-            CheckForWinner(pPlayer);
+            
         }
 
         /// <summary>
