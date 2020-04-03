@@ -41,6 +41,15 @@ namespace Uno
         public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
         public static event EventHandler RaiseAcceptStackConsequences;
+        public static event EventHandler RaiseGameOver;
+
+        public static void GameOver()
+        {
+            if (RaiseGameOver != null)
+            {
+                EventPublisher.RaiseGameOver(null, null);
+            }
+        }
 
         public static void AcceptStackConsequences()
         {

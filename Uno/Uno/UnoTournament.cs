@@ -97,6 +97,7 @@ namespace Uno
             {
                 MessageBox.Show(pPlayer.Name + "'s points have been added to the tournament", "points added");
             }
+            EventPublisher.GameOver();
             EventPublisher.MainMenu();
         }
             

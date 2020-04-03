@@ -61,6 +61,7 @@ namespace Uno.View
         /// <param name="e">unused</param>
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
+            EventPublisher.GameOver();
             EventPublisher.MainMenu();
         }
 

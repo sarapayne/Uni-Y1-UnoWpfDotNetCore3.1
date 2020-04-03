@@ -50,6 +50,12 @@ namespace Uno
             EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
             EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
             EventPublisher.RaiseReturnToGame += ReturnToGame;
+            EventPublisher.RaiseGameOver += GameOver;
+        }
+
+        private void GameOver(object sender, EventArgs eventArgs)
+        {
+            mUnoGame = null;
         }
 
         private void ReturnToGame(object sender, EventArgs eventArgs)
