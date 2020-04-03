@@ -40,7 +40,7 @@ namespace Uno
         /// <param name="eventArgs">always null</param>
         private void MainWindow_ShutDown(object sender, EventArgs eventArgs)
         {
-            EventPublisher.CloseWindow();
+            //EventPublisher.CloseWindow();
             Application.Current.Shutdown();
         }
     }

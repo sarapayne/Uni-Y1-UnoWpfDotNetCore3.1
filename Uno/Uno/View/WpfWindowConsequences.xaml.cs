@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,6 +51,13 @@ namespace Uno.View
             UnsubscribeEvents();
             this.Hide();
             this.Close();
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)

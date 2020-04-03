@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Text;
 using System.Windows;
@@ -23,8 +24,35 @@ namespace Uno
         public WpfWindowMainMenu()
         {
             InitializeComponent();
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             EventPublisher.RaiseMainMenu += WpfWindowMainMenu_RaiseMainMenu;
             EventPublisher.RaiseReturnToGame += WpfWindowMainMenu_RaiseReturnToGame;
+            EventPublisher.RaiseCloseWindow += CloseWindow;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            EventPublisher.RaiseMainMenu -= WpfWindowMainMenu_RaiseMainMenu;
+            EventPublisher.RaiseReturnToGame -= WpfWindowMainMenu_RaiseReturnToGame;
+            EventPublisher.RaiseCloseWindow -= CloseWindow;
+        }
+
+        private void CloseWindow(object sender, EventArgs eventArgs)
+        {
+            UnSubscribeEvents();
+            this.Hide();
+            this.Close();
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         /// <summary>

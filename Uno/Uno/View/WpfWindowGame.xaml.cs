@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Printing;
 using System.Reflection;
@@ -29,10 +30,30 @@ namespace Uno
         {
             InitializeComponent();
             mColourPickButtons = new List<Button> { buttonRed, buttonGren, buttonBlue, buttonYellow };
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
             EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseHideGuiWindow;
-            EventPublisher.RaiseCloseWindow += WpfWindowGame_CloseWindow;
+            EventPublisher.RaiseCloseWindow += CloseWindow;
             EventPublisher.RaiseHideGuiWindows += WpfWindowGame_RaiseHideGuiWindow;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            EventPublisher.RaiseGuiUpdate -= WpfWindowGame_RaiseGuiUpdate;
+            EventPublisher.RaiseMainMenu -= WpfWindowGame_RaiseHideGuiWindow;
+            EventPublisher.RaiseCloseWindow -= CloseWindow;
+            EventPublisher.RaiseHideGuiWindows -= WpfWindowGame_RaiseHideGuiWindow;
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         protected virtual void WpfWindowGame_RaiseHideGuiWindow(object sender, EventArgs eventArgs)
@@ -398,8 +419,9 @@ namespace Uno
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="eventArgs">unused</param>
-        protected virtual void WpfWindowGame_CloseWindow(object sender, EventArgs eventArgs)
+        protected virtual void CloseWindow(object sender, EventArgs eventArgs)
         {
+            UnSubscribeEvents();
             this.Hide();
             this.Close();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +27,35 @@ namespace Uno.View
         {
             InitializeComponent();
             mPlayers = new List<Player>();
+            SubscribeToEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
             EventPublisher.RaiseSwapHandsPlayerChoose += WpfChooseSwapPlayer_SwapHandsPlayerChoose;
             EventPublisher.RaiseMainMenu += WpfChooseSwapHands_MainMenu;
-            EventPublisher.RaiseShutDownRoutine += WpfChooseSwapPlayer_ShutDownRoutine;
+            EventPublisher.RaiseCloseWindow += CloseWindow;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            EventPublisher.RaiseSwapHandsPlayerChoose -= WpfChooseSwapPlayer_SwapHandsPlayerChoose;
+            EventPublisher.RaiseMainMenu -= WpfChooseSwapHands_MainMenu;
+            EventPublisher.RaiseCloseWindow -= CloseWindow;
+        }
+
+        private void CloseWindow(object sender, EventArgs eventArgs)
+        {
+            UnsubscribeEvents();
+            this.Hide();
+            this.Close();
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         private void WpfChooseSwapPlayer_SwapHandsPlayerChoose(object sender, EventArgsPlayers eventArgsPlayers)
@@ -49,12 +76,6 @@ namespace Uno.View
         private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
         {
             this.Hide();
-        }
-
-        private void WpfChooseSwapPlayer_ShutDownRoutine(object sender, EventArgs eventArgs)
-        {
-            this.Hide();
-            this.Close();
         }
 
         private void comboboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)

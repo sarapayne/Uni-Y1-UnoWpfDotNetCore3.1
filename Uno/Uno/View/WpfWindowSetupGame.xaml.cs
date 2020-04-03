@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,13 @@ namespace Uno.View
             textboxEnterName.IsEnabled = true;
             listboxNames.ItemsSource = mPlayers;
             mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         /// <summary>

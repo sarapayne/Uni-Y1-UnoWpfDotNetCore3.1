@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,9 +25,28 @@ namespace Uno.View
         {
             InitializeComponent();
             mPlayer = null;
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             EventPublisher.RaiseFinalScore += WpfWindowFinalScore_RaiseFinalScore;
             EventPublisher.RaiseMainMenu += WpfWindowFinalScore_RaiseMainMenu;
-            EventPublisher.RaiseCloseWindow += WpfWindowFinalScore_CloseWindow;
+            EventPublisher.RaiseCloseWindow += CloseWindow;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            EventPublisher.RaiseFinalScore -= WpfWindowFinalScore_RaiseFinalScore;
+            EventPublisher.RaiseMainMenu -= WpfWindowFinalScore_RaiseMainMenu;
+            EventPublisher.RaiseCloseWindow -= CloseWindow;
+        }
+
+        private void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            EventPublisher.ShutDownRoutine();
         }
 
         /// <summary>
@@ -80,8 +100,9 @@ namespace Uno.View
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="eventArgs">unused</param>
-        private void WpfWindowFinalScore_CloseWindow(object sender, EventArgs eventArgs)
+        private void CloseWindow(object sender, EventArgs eventArgs)
         {
+            UnsubscribeEvents();
             this.Hide();
             this.Close();
         }

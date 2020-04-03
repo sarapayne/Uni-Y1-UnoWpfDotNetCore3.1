@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uno"
         xmlns:GUI_Custom_Elements="clr-namespace:Uno.GUI_Custom_Elements" x:Class="Uno.WpfWindowGame"
+        Closing="DataWindow_Closing"
         mc:Ignorable="d"
         Title="WpfWindowGame" Height="960" Width="1280">
     <Grid x:Name="MainGrid">
