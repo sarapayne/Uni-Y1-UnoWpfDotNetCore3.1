@@ -541,7 +541,6 @@ namespace Uno
             if (pPlayer == mCurrentPlayer)
             {
                 mPlayers[mCurrentPlayer].SortPlayerCards();
-                EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
             }   
         }
 
