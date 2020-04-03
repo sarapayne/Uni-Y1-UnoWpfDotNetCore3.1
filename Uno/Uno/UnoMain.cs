@@ -26,7 +26,7 @@ namespace Uno
         public UnoMain()
         {
             SubscribeToEvents();
-            mUnoGame = new UnoGame();
+            //mUnoGame = new UnoGame();
             mUnoTournament = new UnoTournament();        
             StartNewGuiInteface();
             EventPublisher.MainMenu();
@@ -49,6 +49,16 @@ namespace Uno
             EventPublisher.RaiseNewTournament += UnoMain_NewTournament;
             EventPublisher.RaiseLoadTournament += UnoMain_LoadTournament;
             EventPublisher.RaiseSaveTournament += UnoMain_SaveTournament;
+            EventPublisher.RaiseReturnToGame += ReturnToGame;
+        }
+
+        private void ReturnToGame(object sender, EventArgs eventArgs)
+        {
+            if (mUnoGame == null)
+            {
+                MessageBox.Show("Sorry there is no active game to return to", "no active game error");
+                EventPublisher.MainMenu();
+            }
         }
 
         /// <summary>
