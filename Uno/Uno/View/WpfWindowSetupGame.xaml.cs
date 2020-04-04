@@ -31,6 +31,11 @@ namespace Uno.View
             mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
         }
 
+        /// <summary>
+        /// Overrides the close button and redirects it to the shut down routiene event. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
@@ -87,7 +92,6 @@ namespace Uno.View
         {
             EventPublisher.MainMenu();
             this.Hide();
-            this.Close();
         }
 
         /// <summary>
