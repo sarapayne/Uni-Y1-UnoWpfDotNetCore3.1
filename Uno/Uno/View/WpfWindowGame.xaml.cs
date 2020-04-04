@@ -288,9 +288,7 @@ namespace Uno
             {   //places upto 18 cards in 3 rows onto the GUI
                 Card card = pPlayerCards[playerCardIndex];
                 ImgCardControl playerCard = new ImgCardControl(card);
-                string imageName = card.ImageName;
-                Uri imageUri = GetResourceUri(imageName);
-                playerCard.Source = new BitmapImage(imageUri);
+                playerCard.Source = card.Image;
                 if (playerCardIndex < 18)
                 {
                     Grid.SetColumn(playerCard, playerCardIndex + 1);
@@ -341,7 +339,7 @@ namespace Uno
             if (pDiscardPile.Count == 0)
             {
                 string emptyCardName = "card_empty";
-                imageUri = GetResourceUri(emptyCardName);
+                imageUri = Utilities.GetResourceUri(emptyCardName);
             }
             else
             {
@@ -369,11 +367,11 @@ namespace Uno
                             break;
                     }
                     
-                    imageUri = GetResourceUri(imageName);
+                    imageUri = Utilities.GetResourceUri(imageName);
                 }
                 else
                 {
-                    imageUri = GetResourceUri(card.ImageName);                    
+                    imageUri = Utilities.GetResourceUri(card.ImageName);                    
                 }
             }
             imageDiscardPile.Source = new BitmapImage(imageUri);
@@ -381,16 +379,16 @@ namespace Uno
                        
         }
 
-        /// <summary>
-        /// takes a passed name and turns it into a URI in the resources. 
-        /// </summary>
-        /// <param name="resouceNane"></param>
-        /// <returns></returns>
-        protected virtual Uri GetResourceUri(string resouceNane)
-        {
-            Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
-            return resoureUri;
-        }
+        ///// <summary>
+        ///// takes a passed name and turns it into a URI in the resources. 
+        ///// </summary>
+        ///// <param name="resouceNane"></param>
+        ///// <returns></returns>
+        //protected virtual Uri GetResourceUri(string resouceNane)
+        //{
+        //    Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
+        //    return resoureUri;
+        //}
 
         /// <summary>
         /// sends a draw card instruction to the main program

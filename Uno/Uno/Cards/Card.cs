@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using Image = System.Windows.Controls.Image;
 
 namespace Uno
 {
@@ -14,6 +13,7 @@ namespace Uno
     {
         private string  mImageName;
         private int mUniqueItentifier;
+        private BitmapImage mImage;
 
         public Card()
         {
@@ -23,6 +23,7 @@ namespace Uno
         public Card (string pImageName)
         {
             this.mImageName = pImageName;
+            this.mImage = Utilities.GetPlayerCardImage(mImageName);
         }
 
         public string ImageName
@@ -34,6 +35,11 @@ namespace Uno
         {
             get { return this.mUniqueItentifier; }
             set { this.mUniqueItentifier = value; }
+        }
+
+        public BitmapImage Image
+        {
+            get { return this.mImage; }
         }
     }
 }
