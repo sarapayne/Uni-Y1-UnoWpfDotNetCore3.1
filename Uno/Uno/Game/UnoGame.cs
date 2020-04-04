@@ -94,6 +94,27 @@ namespace Uno
             EventPublisher.RaiseSwapHandsPlayerChosen -= SwapHandsPlayerChosen;
         }
 
+        public virtual void RestoreCardImages()
+        {
+            foreach(Player player in mPlayers)
+            {
+                foreach(Card card in player.Cards)
+                {
+                    card.RestoreCardImage();
+                }
+            }
+
+            foreach (Card card1 in mDeck.DiscardPile)
+            {
+                card1.RestoreCardImage();
+            }
+
+            foreach(Card card2 in mDeck.DrawPile)
+            {
+                card2.RestoreCardImage();
+            }
+        }
+
         /// <summary>
         /// Swaps the hands of the current player, with the chosen player then updates the gui with the current players hand
         /// </summary>

@@ -13,6 +13,8 @@ namespace Uno
     {
         private string  mImageName;
         private int mUniqueItentifier;
+        
+        [NonSerialized]
         private BitmapImage mImage;
 
         public Card()
@@ -23,7 +25,7 @@ namespace Uno
         public Card (string pImageName)
         {
             this.mImageName = pImageName;
-            this.mImage = Utilities.GetPlayerCardImage(mImageName);
+            RestoreCardImage();
         }
 
         public string ImageName
@@ -40,6 +42,11 @@ namespace Uno
         public BitmapImage Image
         {
             get { return this.mImage; }
+        }
+
+        public void RestoreCardImage()
+        {
+            this.mImage = Utilities.GetPlayerCardImage(mImageName);
         }
     }
 }

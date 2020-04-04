@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Uno
 {
+    [Serializable]
     public static class Utilities
     {
         /// <summary>

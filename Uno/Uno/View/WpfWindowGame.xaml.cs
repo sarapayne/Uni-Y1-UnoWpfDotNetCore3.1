@@ -335,11 +335,12 @@ namespace Uno
         /// <param name="pDiscardPile"></param>
         private void UpdateDrawCard(List<Card> pDiscardPile)
         {
-            Uri imageUri = null;
+            //Uri imageUri = null;
+            BitmapImage cardImage = new BitmapImage();
             if (pDiscardPile.Count == 0)
             {
                 string emptyCardName = "card_empty";
-                imageUri = Utilities.GetResourceUri(emptyCardName);
+                cardImage = Utilities.GetPlayerCardImage(emptyCardName);
             }
             else
             {
@@ -366,17 +367,14 @@ namespace Uno
                             imageName = "card_back";
                             break;
                     }
-                    
-                    imageUri = Utilities.GetResourceUri(imageName);
+                    cardImage = Utilities.GetPlayerCardImage(imageName);
                 }
                 else
                 {
-                    imageUri = Utilities.GetResourceUri(card.ImageName);                    
+                    cardImage = card.Image;                    
                 }
             }
-            imageDiscardPile.Source = new BitmapImage(imageUri);
-            
-                       
+            imageDiscardPile.Source = cardImage;
         }
 
         ///// <summary>

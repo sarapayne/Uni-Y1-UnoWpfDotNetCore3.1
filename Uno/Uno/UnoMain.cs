@@ -178,6 +178,7 @@ namespace Uno
                     mUnoGame = (UnoGame)bin.Deserialize(stream);
                     EventPublisher.UnsubscribeEvents();
                     mUnoGame.SubscribeToEvents();
+                    mUnoGame.RestoreCardImages();
                     MessageBox.Show("Your game has been restored", "game restored");
                 }
             }

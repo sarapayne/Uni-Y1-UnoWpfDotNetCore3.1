@@ -12,6 +12,7 @@ namespace Uno.GUI_Custom_Elements
     /// An easy way of having full card details in every GUI element which looks like a playing card. It just adds a CARD member parameter
     /// to an Image WPF gui element. If being built from scratch to work this needs the project building before the main program is compiled. 
     /// </summary>
+    [Serializable]
     class ImgCardControl:Image
     {
         private Card mCard;
