@@ -431,7 +431,7 @@ namespace Uno
                 {
                     player.Cards.Add(mDeck.DiscardPile[0]);
                     mDeck.DiscardPile.RemoveAt(0);
-                    EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
+                    //EventPublisher.GuiUpdate(mPlayers[mCurrentPlayer], mDeck, null);
                 }
             }
         }

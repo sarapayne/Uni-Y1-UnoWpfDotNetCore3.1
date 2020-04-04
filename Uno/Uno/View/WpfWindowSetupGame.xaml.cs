@@ -173,7 +173,6 @@ namespace Uno.View
             }
             EventPublisher.NewGame(mPlayers, dealer, rulesType, numOfSwapHandCards);
             this.Hide();
-            this.Close();
         }
 
         /// <summary>
