@@ -64,13 +64,18 @@ namespace Uno.View
             comboboxPlayers.ItemsSource = mPlayers;
             labelPlayerName.Content = eventArgsPlayers.CurrentPlayer.Name;
             comboboxPlayers.Items.Refresh();
+            buttonSubmit.IsEnabled = false;
             this.Show();
         }
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
-            EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
-            this.Hide();
+            if (mPlayers[mSelectedIndex] != null)
+            {
+                EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
+                this.Hide();
+            }
+            MessageBox.Show("Sorry but you need to pick a player before", "no chosen player to swap hands with");
         }
 
         private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
@@ -81,6 +86,7 @@ namespace Uno.View
         private void comboboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             mSelectedIndex = comboboxPlayers.SelectedIndex;
+            buttonSubmit.IsEnabled = true;
         }
     }
 }
