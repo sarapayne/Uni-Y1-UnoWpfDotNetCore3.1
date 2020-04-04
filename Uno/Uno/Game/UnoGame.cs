@@ -94,6 +94,9 @@ namespace Uno
             EventPublisher.RaiseSwapHandsPlayerChosen -= SwapHandsPlayerChosen;
         }
 
+        /// <summary>
+        /// When a game is loaded this loops through all cards in the game and restores the card images. 
+        /// </summary>
         public virtual void RestoreCardImages()
         {
             foreach(Player player in mPlayers)
@@ -417,6 +420,7 @@ namespace Uno
             {
                 CardWild cardWild = mDeck.DiscardPile[mDeck.DiscardPile.Count - 1] as CardWild;
                 cardWild.NextSuit = argsColourPick.NextSuit;
+                cardWild.SetNextSuitImage();
                 FinishPlaceCard();
                 if (cardWild.CardsToDraw > 0)
                 {

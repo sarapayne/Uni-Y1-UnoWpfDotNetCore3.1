@@ -44,7 +44,7 @@ namespace Uno
             get { return this.mImage; }
         }
 
-        public void RestoreCardImage()
+        public virtual void RestoreCardImage()
         {
             this.mImage = Utilities.GetPlayerCardImage(mImageName);
         }

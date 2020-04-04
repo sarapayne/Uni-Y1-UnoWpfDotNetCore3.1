@@ -348,26 +348,7 @@ namespace Uno
                 if (card is CardWild)
                 {
                     CardWild wildCard = card as CardWild;
-                    string imageName = "";
-                    switch (wildCard.NextSuit)
-                    {
-                        case Suit.Red:
-                            imageName = "card_front_wild_red";
-                            break;
-                        case Suit.Green:
-                            imageName = "card_front_wild_green";
-                            break;
-                        case Suit.Blue:
-                            imageName = "card_front_wild_blue";
-                            break;
-                        case Suit.Yellow:
-                            imageName = "card_front_wild_yellow";
-                            break;
-                        default:
-                            imageName = "card_back";
-                            break;
-                    }
-                    cardImage = Utilities.GetPlayerCardImage(imageName);
+                    cardImage = wildCard.NextSuitImage;
                 }
                 else
                 {
