@@ -358,17 +358,6 @@ namespace Uno
             imageDiscardPile.Source = cardImage;
         }
 
-        ///// <summary>
-        ///// takes a passed name and turns it into a URI in the resources. 
-        ///// </summary>
-        ///// <param name="resouceNane"></param>
-        ///// <returns></returns>
-        //protected virtual Uri GetResourceUri(string resouceNane)
-        //{
-        //    Uri resoureUri = new Uri("pack://application:,,,/Resources/" + resouceNane + ".png", UriKind.RelativeOrAbsolute);
-        //    return resoureUri;
-        //}
-
         /// <summary>
         /// sends a draw card instruction to the main program
         /// </summary>
