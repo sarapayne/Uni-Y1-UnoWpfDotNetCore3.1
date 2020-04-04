@@ -70,12 +70,8 @@ namespace Uno.View
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (mPlayers[mSelectedIndex] != null)
-            {
-                EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
-                this.Hide();
-            }
-            MessageBox.Show("Sorry but you need to pick a player before", "no chosen player to swap hands with");
+            EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
+            this.Hide();
         }
 
         private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
