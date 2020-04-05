@@ -69,7 +69,7 @@ namespace Uno
             EventPublisher.RaiseDrawCard += DrawCardButtonClick;
             EventPublisher.RaiseGameButtonClick += DiscardCardButtonClick;
             EventPublisher.RaiseReturnToGame += ReturnToGame;
-            EventPublisher.RaiseUnsubscribeEvents += UnSubscribeEvents;
+            EventPublisher.RaiseUnsubscribeGameEvents += UnSubscribeEvents;
             EventPublisher.RaiseSwapHandsPlayerChosen += SwapHandsPlayerChosen;
         }
 

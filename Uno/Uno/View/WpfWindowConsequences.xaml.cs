@@ -28,36 +28,25 @@ namespace Uno.View
 
         private void SubscribeToEvents()
         {
-            EventPublisher.RaiseHideGuiWindows += HideGuiWindow;
-            EventPublisher.RaiseMainMenu += HideGuiWindow;
-            EventPublisher.RaiseCloseWindow += CloseWindow;
+            EventPublisher.RaiseHideGuiWindows += HideWindow;
             EventPublisher.RaiseGuiConsequencesUpdate += UpdateDisplay;
         }
 
         private void UnsubscribeEvents()
         {
-            EventPublisher.RaiseHideGuiWindows -= HideGuiWindow;
-            EventPublisher.RaiseMainMenu -= HideGuiWindow;
+            EventPublisher.RaiseHideGuiWindows -= HideWindow;
             EventPublisher.RaiseGuiConsequencesUpdate -= UpdateDisplay;
         }
 
-        private void HideGuiWindow(object sender, EventArgs eventArgs)
+        private void HideWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
-        }
-
-        private void CloseWindow(object sender, EventArgs eventArgs)
-        {
-            UnsubscribeEvents();
-            this.Hide();
-            this.Close();
         }
 
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
-            EventPublisher.ShutDownRoutine();
+            EventPublisher.MainMenu();
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)

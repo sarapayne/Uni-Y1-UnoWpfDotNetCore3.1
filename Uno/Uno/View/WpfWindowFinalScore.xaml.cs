@@ -30,23 +30,25 @@ namespace Uno.View
 
         private void SubscribeEvents()
         {
-            EventPublisher.RaiseFinalScore += WpfWindowFinalScore_RaiseFinalScore;
-            EventPublisher.RaiseMainMenu += WpfWindowFinalScore_RaiseMainMenu;
-            EventPublisher.RaiseCloseWindow += CloseWindow;
+            EventPublisher.RaiseFinalScore += RaiseFinalScore;
+            EventPublisher.RaiseHideGuiWindows += HideWindow;
         }
 
         private void UnsubscribeEvents()
         {
-            EventPublisher.RaiseFinalScore -= WpfWindowFinalScore_RaiseFinalScore;
-            EventPublisher.RaiseMainMenu -= WpfWindowFinalScore_RaiseMainMenu;
-            EventPublisher.RaiseCloseWindow -= CloseWindow;
+            EventPublisher.RaiseFinalScore -= RaiseFinalScore;
+            EventPublisher.RaiseHideGuiWindows += HideWindow;
+        }
+
+        private void HideWindow(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
         }
 
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
-            EventPublisher.ShutDownRoutine();
+            EventPublisher.MainMenu();
         }
 
         /// <summary>
@@ -54,17 +56,14 @@ namespace Uno.View
         /// </summary>
         /// <param name="sender">unused</param>
         /// <param name="eventArgs">unused</param>
-        private void WpfWindowFinalScore_RaiseMainMenu(object sender, EventArgs eventArgs)
-        {
-            this.Hide();
-        }
+
 
         /// <summary>
         /// Updates the player name and score display based on the passed EventArgs
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgsFinalScore">Player Object, full details</param>
-        private void WpfWindowFinalScore_RaiseFinalScore(object sender, EventArgsFinalScore eventArgsFinalScore)
+        private void RaiseFinalScore(object sender, EventArgsFinalScore eventArgsFinalScore)
         {
             string playerName = eventArgsFinalScore.Winner.Name;
             int finalScore = eventArgsFinalScore.Winner.FinalScore;

@@ -32,16 +32,19 @@ namespace Uno.View
 
         private void SubscribeToEvents()
         {
-            EventPublisher.RaiseSwapHandsPlayerChoose += WpfChooseSwapPlayer_SwapHandsPlayerChoose;
-            EventPublisher.RaiseMainMenu += WpfChooseSwapHands_MainMenu;
-            EventPublisher.RaiseCloseWindow += CloseWindow;
+            EventPublisher.RaiseSwapHandsPlayerChoose += ChooseSwapPlayer;
+            EventPublisher.RaiseMainMenu += HideWindow;
         }
 
         private void UnsubscribeEvents()
         {
-            EventPublisher.RaiseSwapHandsPlayerChoose -= WpfChooseSwapPlayer_SwapHandsPlayerChoose;
-            EventPublisher.RaiseMainMenu -= WpfChooseSwapHands_MainMenu;
-            EventPublisher.RaiseCloseWindow -= CloseWindow;
+            EventPublisher.RaiseSwapHandsPlayerChoose -= ChooseSwapPlayer;
+            EventPublisher.RaiseMainMenu += HideWindow;
+        }
+
+        private void HideWindow(object sender, EventArgs eventArgs)
+        {
+            this.Hide();
         }
 
         private void CloseWindow(object sender, EventArgs eventArgs)
@@ -54,11 +57,10 @@ namespace Uno.View
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
-            EventPublisher.ShutDownRoutine();
+            EventPublisher.MainMenu();
         }
 
-        private void WpfChooseSwapPlayer_SwapHandsPlayerChoose(object sender, EventArgsPlayers eventArgsPlayers)
+        private void ChooseSwapPlayer(object sender, EventArgsPlayers eventArgsPlayers)
         {
             mPlayers = eventArgsPlayers.Players;
             comboboxPlayers.ItemsSource = mPlayers;
@@ -71,11 +73,6 @@ namespace Uno.View
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.SwapHandsPlayerChosen(mPlayers[mSelectedIndex]);
-            this.Hide();
-        }
-
-        private void WpfChooseSwapHands_MainMenu(object sender, EventArgs eventArgs)
-        {
             this.Hide();
         }
 

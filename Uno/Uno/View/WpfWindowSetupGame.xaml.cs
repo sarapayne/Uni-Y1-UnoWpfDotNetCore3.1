@@ -29,6 +29,28 @@ namespace Uno.View
             textboxEnterName.IsEnabled = true;
             listboxNames.ItemsSource = mPlayers;
             mNumberOfCardsCheck = new List<RadioButton> { radio1Card, radio2Card, radio3Card, radio4Card };
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            EventPublisher.RaiseUnsubscribeEvents += UnSubscribeEvents;
+            EventPublisher.RaiseSetupNewGame += RaiseSetupNewGame;
+        }
+
+        private void UnSubscribeEvents(object sender, EventArgs eventArgs)
+        {
+            EventPublisher.RaiseUnsubscribeEvents -= UnSubscribeEvents;
+            EventPublisher.RaiseSetupNewGame -= RaiseSetupNewGame;
+        }
+
+        private void RaiseSetupNewGame(object sender, EventArgs eventArgs)
+        {
+            mPlayers.Clear();
+            textboxEnterName.IsEnabled = true;
+            checkBoxSwapHands.IsChecked = false;
+            buttonStart.IsEnabled = false;
+            this.Show();
         }
 
         /// <summary>
@@ -39,8 +61,7 @@ namespace Uno.View
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
-            EventPublisher.ShutDownRoutine();
+            EventPublisher.MainMenu();
         }
 
         /// <summary>
@@ -91,7 +112,6 @@ namespace Uno.View
         private void buttonMainMenu_Click(object sender, RoutedEventArgs e)
         {
             EventPublisher.MainMenu();
-            this.Hide();
         }
 
         /// <summary>

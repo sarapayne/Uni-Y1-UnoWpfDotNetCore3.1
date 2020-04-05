@@ -32,16 +32,33 @@ namespace Uno
         public static event EventHandler RaiseDrawCard;
         public static event EventHandler RaiseMainMenu;
         public static event EventHandler RaiseReturnToGame;
-        public static event EventHandler RaiseUnsubscribeEvents;
         public static event EventHandler <EventArgsGame> RaiseNewGame;
         public static event EventHandler RaiseCheckForActiveGame;
         public static event EventHandler RaiseNewTournament;
         public static event EventHandler RaiseUnsubscribeTournamentEvents;
+        public static event EventHandler RaiseUnsubscribeGameEvents;
+        public static event EventHandler RaiseUnsubscribeEvents;
         public static event EventHandler RaiseShutDownRoutine;
-        public static event EventHandler RaiseCloseWindow;
         public static event EventHandler RaiseHideGuiWindows;
         public static event EventHandler RaiseAcceptStackConsequences;
         public static event EventHandler RaiseGameOver;
+        public static event EventHandler RaiseSetupNewGame;
+
+        public static void SetupNewGame()
+        {
+            if (RaiseSetupNewGame != null)
+            {
+                EventPublisher.RaiseSetupNewGame(null, null);
+            }
+        }
+
+        public static void UnsubscribeGameEvents()
+        {
+            if (RaiseUnsubscribeGameEvents != null)
+            {
+                EventPublisher.RaiseUnsubscribeGameEvents(null, null);
+            }
+        }
 
         public static void GameOver()
         {
@@ -96,14 +113,6 @@ namespace Uno
             if (RaiseSwapHandsPlayerChosen != null)
             {
                 EventPublisher.RaiseSwapHandsPlayerChosen(null, new EventArgsPlayer(pPlayer));
-            }
-        }
-
-        public static void CloseWindow()
-        {
-            if (RaiseCloseWindow != null)
-            {
-                EventPublisher.RaiseCloseWindow(null, null);
             }
         }
 

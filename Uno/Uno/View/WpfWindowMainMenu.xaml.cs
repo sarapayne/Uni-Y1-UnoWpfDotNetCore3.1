@@ -29,29 +29,19 @@ namespace Uno
 
         private void SubscribeEvents()
         {
-            EventPublisher.RaiseMainMenu += WpfWindowMainMenu_RaiseMainMenu;
-            EventPublisher.RaiseReturnToGame += WpfWindowMainMenu_RaiseReturnToGame;
-            EventPublisher.RaiseCloseWindow += CloseWindow;
+            EventPublisher.RaiseMainMenu += RaiseMainMenu;
+            EventPublisher.RaiseReturnToGame += ReturnToGame;
         }
 
         private void UnSubscribeEvents()
         {
-            EventPublisher.RaiseMainMenu -= WpfWindowMainMenu_RaiseMainMenu;
-            EventPublisher.RaiseReturnToGame -= WpfWindowMainMenu_RaiseReturnToGame;
-            EventPublisher.RaiseCloseWindow -= CloseWindow;
-        }
-
-        private void CloseWindow(object sender, EventArgs eventArgs)
-        {
-            UnSubscribeEvents();
-            this.Hide();
-            this.Close();
+            EventPublisher.RaiseMainMenu -= RaiseMainMenu;
+            EventPublisher.RaiseReturnToGame -= ReturnToGame;
         }
 
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
             EventPublisher.ShutDownRoutine();
         }
 
@@ -60,7 +50,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender">always null</param>
         /// <param name="eventArgs">always null</param>
-        private void WpfWindowMainMenu_RaiseReturnToGame(object sender, EventArgs eventArgs)
+        private void ReturnToGame(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }
@@ -70,7 +60,7 @@ namespace Uno
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private void WpfWindowMainMenu_RaiseMainMenu(object sender, EventArgs eventArgs)
+        private void RaiseMainMenu(object sender, EventArgs eventArgs)
         {
             this.Show();
         }
@@ -82,8 +72,7 @@ namespace Uno
         /// <param name="e">always null</param>
         private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
         {
-            WpfWindowSetupGame wpfWindowSetupGame = new WpfWindowSetupGame();
-            wpfWindowSetupGame.Show();
+            EventPublisher.SetupNewGame();
             this.Hide();
         }
 

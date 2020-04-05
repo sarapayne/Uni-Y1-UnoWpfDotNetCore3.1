@@ -53,6 +53,11 @@ namespace Uno
             EventPublisher.RaiseGameOver += GameOver;
         }
 
+        /// <summary>
+        /// sets to null so the ended game can't be returned to. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
         private void GameOver(object sender, EventArgs eventArgs)
         {
             mUnoGame = null;
@@ -74,7 +79,7 @@ namespace Uno
         /// <param name="eventArgs">Players Names, Dealer and Rules type information</param>
         private void UnoMain_RaiseNewGame (object sender, EventArgsGame eventArgs)
         {
-            EventPublisher.UnsubscribeEvents();
+            EventPublisher.UnsubscribeGameEvents();
             NewGame(eventArgs.Players, eventArgs.Dealer, eventArgs.GameRulesType, eventArgs.NumOfSwapHands);
         }
 
@@ -141,12 +146,13 @@ namespace Uno
         /// Loads the three main GUI windows.
         /// </summary>
         private void StartNewGuiInteface()
-        {
+        {   //WpfWindowMainMenu must always be the last created to avoid shut down errors.
             WpfWindowGame wpfWindowGame = new WpfWindowGame();
             WpfWindowFinalScore wpfWindowFinalScore = new WpfWindowFinalScore();
-            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
             WpfChooseSwapPlayer wpfChooseSwapPlayer = new WpfChooseSwapPlayer();
             WpfWindowConsequences wpfWindowConsequences = new WpfWindowConsequences();
+            WpfWindowSetupGame wpfWindowSetupGame = new WpfWindowSetupGame();
+            WpfWindowMainMenu wpfWindowMainMenu = new WpfWindowMainMenu();
         }
 
         /// <summary>
@@ -176,7 +182,7 @@ namespace Uno
                         mUnoGame = new UnoGame();
                     }
                     mUnoGame = (UnoGame)bin.Deserialize(stream);
-                    EventPublisher.UnsubscribeEvents();
+                    EventPublisher.UnsubscribeGameEvents();
                     mUnoGame.SubscribeToEvents();
                     mUnoGame.RestoreCardImages();
                     MessageBox.Show("Your game has been restored", "game restored");

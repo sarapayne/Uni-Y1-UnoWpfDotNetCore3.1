@@ -35,28 +35,23 @@ namespace Uno
 
         private void SubscribeEvents()
         {
-            EventPublisher.RaiseGuiUpdate += WpfWindowGame_RaiseGuiUpdate;
-            EventPublisher.RaiseMainMenu += WpfWindowGame_RaiseHideGuiWindow;
-            EventPublisher.RaiseCloseWindow += CloseWindow;
-            EventPublisher.RaiseHideGuiWindows += WpfWindowGame_RaiseHideGuiWindow;
+            EventPublisher.RaiseGuiUpdate += GuiUpdate;
+            EventPublisher.RaiseHideGuiWindows += HideGuiWindow;
         }
 
         private void UnSubscribeEvents()
         {
-            EventPublisher.RaiseGuiUpdate -= WpfWindowGame_RaiseGuiUpdate;
-            EventPublisher.RaiseMainMenu -= WpfWindowGame_RaiseHideGuiWindow;
-            EventPublisher.RaiseCloseWindow -= CloseWindow;
-            EventPublisher.RaiseHideGuiWindows -= WpfWindowGame_RaiseHideGuiWindow;
+            EventPublisher.RaiseGuiUpdate -= GuiUpdate;
+            EventPublisher.RaiseHideGuiWindows -= HideGuiWindow;
         }
 
         private void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
-            EventPublisher.ShutDownRoutine();
+            EventPublisher.MainMenu();
         }
 
-        protected virtual void WpfWindowGame_RaiseHideGuiWindow(object sender, EventArgs eventArgs)
+        protected virtual void HideGuiWindow(object sender, EventArgs eventArgs)
         {
             this.Hide();
         }
@@ -70,7 +65,7 @@ namespace Uno
         /// Full Deck (draw and discard)
         /// Extra Instructions
         /// </param>
-        private void WpfWindowGame_RaiseGuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
+        private void GuiUpdate(object sender, EventArgsGuiUpdate eventArgsGuiUpdate)
         {
             if (eventArgsGuiUpdate.ExtraInstructions == "ChooseColour")
             {   //sets up the window for wild card colour selection
