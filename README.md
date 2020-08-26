@@ -1,4 +1,4 @@
-# UnoWpfDotNetCore3.1
+# Uno using Wpf and Dot Net Core
 University UNO project using wpf under .netCore3.1
 
 This was my final project at the end of my first year studying towards an Meng in Computer Science
