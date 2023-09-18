@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\
+C:\Users\sarap\source\repos\sarapayne\Uni-Y1-UnoWpfDotNetCore3.1\Uno\Uno\obj\Debug\netcoreapp3.1\
 Uno
 none
 false
-TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
-F:\source\Personal\UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
-71527252212
+TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
+C:\Users\sarap\source\repos\sarapayne\Uni-Y1-UnoWpfDotNetCore3.1\Uno\Uno\App.xaml
+71374290612
 
-431707531567
-193-1523820446
+43-72374094
+1931913267165
 MainWindow.xaml;View\WpfChooseSwapPlayer.xaml;View\WpfWindowConsequences.xaml;View\WpfWindowFinalScore.xaml;View\WpfWindowGame.xaml;View\WpfWindowMainMenu.xaml;View\WpfWindowSetupGame.xaml;
 
-False
+True
 
